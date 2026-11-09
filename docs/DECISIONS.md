@@ -10,7 +10,8 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
 | 1 Indexer | ✅ Done |
 | 2 Retrieval | ✅ Done |
 | 3 Retrieval evaluation | 🟡 60 LLM-drafted queries and labels saved (D25, D26); metrics + eval done (D27); error analysis and README pending |
-| 4–7 | Not started |
+| 4 Duplication review | 🟡 Implemented and unit-tested; thresholds provisional, not yet evaluated (D28) |
+| 5–7 | Not started |
 
 ---
 
@@ -247,6 +248,21 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
   - `git_commit` in the results file says "none" because no commit existed when this ran. Re-run after the first commit, and don't commit stale numbers.
 - **Re-run with a real commit hash (a26c21d, clean tree) on 2026-11-09:** the numbers are unchanged from the first run; `results/retrieval.json` is that run.
 - **Not tuned:** nothing was tuned on these queries; all settings were fixed beforehand, so there is no dev/test split to leak.
+
+## Phase 4: Duplication review (2026-11-09)
+
+### D28. Phase 4 design: retrieve with the code embedder, verify with AST structure, thresholds provisional
+- **What it does:** `devtrust/duplication/` finds the functions a git change adds or modifies, searches the repo state BEFORE the change for similar functions, scores each candidate structurally, and prints a side-by-side report. Entry point: `review(repo, base, head)`.
+- **Design choices:**
+  - **Retrieval:** CodeRankEmbed, the best RQ1 setting (D27). The query is the new function's full source, with the model's query prefix. Not validated for code-to-code search; Phase 5 measures it.
+  - **Own previous version excluded** (same file and qualified name) for modified functions.
+  - **Moved/renamed filter:** an added function whose body is identical to one removed in the same change is reported separately and not flagged. Exact-body match only, so a move combined with edits still gets flagged as new. Phase 5 must measure how well this filter works (CLAUDE.md).
+  - **Structural score:** `difflib` similarity of the AST node-type sequence with names and constant values ignored (constants keep their type). This makes Type-1/2 copies score 1.0 by construction; it cannot see a changed constant value or a changed called-function name.
+  - **Categories:** best structural score >= 0.9 -> `likely_duplicate`; >= 0.6 -> `similar_but_different`; else `insufficient_evidence`. Confidence: high if >= 0.95, medium for the rest of `likely_duplicate`, low otherwise. Functions with fewer than 10 AST nodes are skipped and counted.
+- **Provisional, NOT validated:** the 0.9 / 0.6 / 0.95 thresholds and the 10-node minimum are placeholders I chose before any data. CLAUDE.md requires thresholds to be chosen on a dev split in Phase 5 and the README must say so until then.
+- **Known risks to check in Phase 5/6:** many short getters or boilerplate methods look structurally identical (false positives); the node-type sequence ignores semantics, so two functions that differ only in a called function or constant will score 1.0; dense retrieval may rank a true duplicate below the top 5.
+- **Evidence so far:** unit tests on a throwaway git repo (renamed copy flagged, unrelated function not, moved function filtered, modified function does not match itself) and one smoke test on instructor with a planted renamed copy (flagged, structural 1.0). The smoke test is an easy case, not a result.
+- **Not built yet:** CLI (Phase 7), evaluation (Phase 5), commit-range convenience beyond two revisions.
 
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".
