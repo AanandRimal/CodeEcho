@@ -1,7 +1,7 @@
 {
  "meta": {
   "date": "2026-11-09",
-  "git_commit": "a26c21d85834f67de79d274cfb754f7470a02119",
+  "git_commit": "860e70aca20a842c711fcd51cf619d0e4538e3fd",
   "git_dirty": false,
   "seed": 0,
   "dataset": "data/queries.json (LLM-drafted labels, claude-opus-5-5; see D25/D26)",
@@ -29,17 +29,17 @@
    "rrf_rerank": 22713601
   },
   "index_build_seconds_warm_cache": {
-   "567-labs/instructor": 15.0,
+   "567-labs/instructor": 15.7,
    "PrefectHQ/fastmcp": 9.9,
-   "crewAIInc/crewAI": 10.9
+   "crewAIInc/crewAI": 29.9
   },
   "mean_query_latency_ms": {
-   "bm25": 9.4,
-   "bm25_nosplit": 8.1,
-   "bge_small": 26.8,
-   "coderankembed": 148.0,
-   "rrf": 176.0,
-   "rrf_rerank": 3104.8
+   "bm25": 9.3,
+   "bm25_nosplit": 7.9,
+   "bge_small": 23.0,
+   "coderankembed": 130.5,
+   "rrf": 159.2,
+   "rrf_rerank": 2842.3
   },
   "hardware": "CPU only"
  },
