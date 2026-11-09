@@ -305,6 +305,25 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
 - **Consequence for the tool:** the provisional thresholds in D28 are kept, now with the evidence above. Report categories honestly: `likely_duplicate` means "very similar structure, check it", and the report must not imply it catches reimplementations (type4).
 - **Not done:** no precision-recall curves or equal-operating-point comparison (future work); no real-PR data yet (Phase 6).
 
+## Phase 6: AI-agent duplication study (2026-11-09)
+
+### D32. Phase 6 design, written down before any result was seen
+- **Question (RQ3):** in real Python repos, do merged agent PRs add functions that duplicate existing code more often than merged human PRs, and does that differ by agent?
+- **Repos:** the three benchmark repos (instructor, fastmcp, crewAI; D19). Not 5-10, to finish. More repos are future work if the numbers prove too thin.
+- **PRs:**
+  - **Agent PRs:** all merged PRs for these repos in AIDev (`pull_request.parquet`; `agent` column). Counts: Claude_Code 203, OpenAI_Codex 48, Devin 52, Cursor 18, Copilot 2, Google_Jules 0. Groups under 10 PRs (Copilot, Jules) are listed but not analysed.
+  - **Human PRs:** AIDev has only agent PRs (D22), so they come from the GitHub API: merged PRs in the same repo, merged within the window between the first and last merge date of that repo's merged agent PRs, authored by a GitHub account of type User (not a Bot), and not listed in AIDev at all. A seeded random sample of up to 150 per repo. Method and counts are recorded in `data/agent_prs.json`.
+  - **Why merged only, in both groups:** comparable populations, and "added code that was accepted".
+- **Detector:** exactly the tool as in Phase 4, with CodeRankEmbed retrieval (top 5) and the untuned structural threshold 0.9 (`likely_duplicate`), the setting with the lowest false-positive rate in Phase 5 (D31). The state "before" a PR is `merge-base(base, head)`, so the diff holds only the PR's own changes; PR commits come from full-history bare clones plus `refs/pull/N/head`.
+- **What is counted:** only functions ADDED by the PR with at least 10 AST nodes, in non-test, non-vendored Python files (indexer rules). Modified functions are excluded: a modified function can already resemble another before the PR. Pure moves/renames are filtered by exact body match (D28), so a move combined with edits would be counted as new.
+- **Outcomes:**
+  1. share of PRs with at least one `likely_duplicate` among PRs with at least one reviewed added function;
+  2. `likely_duplicate` findings per reviewed added function.
+  Both per agent and for humans, with bootstrap 95% CIs (resampling PRs), and a permutation test stratified by repo for each agent against humans. Because PR size changes the chance of a hit, the PR-level share is also tabulated by size bucket (number of reviewed added functions).
+- **Audit:** a random sample of flagged findings is read and judged to give the precision of `likely_duplicate` on real code. The judging is done by an AI (Claude), disclosed as such, like D25. No human validation (D26).
+- **Known limits to state:** humans may use AI assistants without labelling it, and AIDev's agent labelling has its own errors; agent and human PRs differ in size and type; thresholds were set on synthetic data (D31) and the detector misses reimplementations written differently (Type-4); exact-body move filter; only 3 repos; the human sample is capped; a null result is still a result. Compare with "More Code, Less Reuse" (MSR 2026) only qualitatively and say it used a different, unvalidated metric.
+- **Cost note:** reviewing ~800 PRs on CPU takes hours. The embedding cache makes later PRs cheaper.
+
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".
 - Git identity for commits (blocks the first commit).

@@ -44,7 +44,7 @@ def changed_functions(repo: str | Path, base: str, head: str) -> ChangeSet:
     with tempfile.TemporaryDirectory() as tmp:
         base_dir, head_dir = Path(tmp, "base"), Path(tmp, "head")
         base_dir.mkdir(), head_dir.mkdir()
-        with tarfile.open(fileobj=io.BytesIO(_git(repo, "archive", base, text=False))) as tar:
+        with tarfile.open(fileobj=io.BytesIO(_git(repo, "archive", base, "--", ":(glob)**/*.py", text=False))) as tar:
             tar.extractall(base_dir, filter="data")
         for p in paths:
             r = subprocess.run(["git", "-C", str(repo), "show", f"{head}:{p}"], capture_output=True, text=True)

@@ -25,6 +25,9 @@ REVISION = {
 }
 
 
+_MODELS: dict[str, object] = {}   # loaded models are reused: a review over many PRs builds many retrievers
+
+
 class DenseRetriever:
     """Cosine-similarity search over sentence-transformers embeddings of function text."""
 
@@ -35,8 +38,10 @@ class DenseRetriever:
 
         self.units = units
         self.model_name = model_name
-        self.model = SentenceTransformer(model_name, device="cpu", revision=REVISION.get(model_name),
-                                         trust_remote_code=model_name in TRUST_REMOTE_CODE)
+        if model_name not in _MODELS:
+            _MODELS[model_name] = SentenceTransformer(model_name, device="cpu", revision=REVISION.get(model_name),
+                                                      trust_remote_code=model_name in TRUST_REMOTE_CODE)
+        self.model = _MODELS[model_name]
         # ponytail: truncates long functions to 512 tokens to keep CPU cost sane; CodeRankEmbed allows 8192.
         self.model.max_seq_length = max_seq_length
         texts = [doc_text(u, include_docstring) for u in units]

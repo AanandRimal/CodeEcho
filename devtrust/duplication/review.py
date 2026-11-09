@@ -76,12 +76,13 @@ def review(repo: str | Path, base: str, head: str,
     scored structurally. The category comes from the best structural score.
     """
     cs = changed_functions(repo, base, head)
-    retriever = make_retriever(cs.base_units)
+    retriever = None                       # built on first use: many changes have nothing to review
     report = Report(moved_or_renamed=len(cs.moved_or_renamed), n_changed=len(cs.changed))
     for cf in cs.changed:
         if len(structure(cf.unit)) < MIN_NODES:
             report.skipped_small += 1
             continue
+        retriever = retriever or make_retriever(cs.base_units)
         own = (cf.previous.file_path, cf.previous.qualname) if cf.previous else None
         matches = review_function(cf.unit, retriever, top_k, exclude=own)
         best = matches[0].structural_score if matches else 0.0
