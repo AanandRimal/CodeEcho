@@ -1,0 +1,9 @@
+[project]
+name = "devtrust"
+version = "0.1.0"
+description = "Reuse search and duplication review for Python repositories"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
