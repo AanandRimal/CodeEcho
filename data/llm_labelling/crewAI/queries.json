@@ -1,0 +1,22 @@
+[
+  "convert text into a URL-safe slug",
+  "compute the SHA-256 hash of a string",
+  "split long text into overlapping chunks",
+  "extract the video id from a YouTube URL",
+  "parse JSON that contains comments and trailing commas",
+  "keep outgoing calls under a fixed number per minute",
+  "tell whether a network address points to an internal host",
+  "guess what kind of file some raw bytes are",
+  "shrink a picture so it fits within a maximum size",
+  "convert a 1-based index into Excel-style letters like AA",
+  "fill in named placeholders in a template without breaking JSON braces",
+  "recognise an error caused by the prompt being too long for the model",
+  "pull a JSON object out of chatty model output",
+  "make arbitrary Python objects safe to dump as JSON",
+  "how long to wait before the next attempt after being throttled",
+  "check a signed login token against the identity provider's public keys",
+  "turn strings like 7d or 24h into a time span",
+  "convert a markdown document to HTML",
+  "send an email through an SMTP server",
+  "parse a cron expression and compute the next run time"
+]

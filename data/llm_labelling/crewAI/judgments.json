@@ -1,0 +1,169 @@
+[
+  {
+    "query": "convert text into a URL-safe slug",
+    "relevant": [
+      "lib/crewai/src/crewai/utilities/string_utils.py:57"
+    ],
+    "note": "sanitize_tool_name (string_utils.py:26, not pooled) does a similar normalisation but is tool-name specific (fixed '_', 64-char truncation with hash suffix); judged not relevant."
+  },
+  {
+    "query": "compute the SHA-256 hash of a string",
+    "relevant": [
+      "lib/crewai-tools/src/crewai_tools/rag/misc.py:5",
+      "lib/crewai-tools/src/crewai_tools/rag/base_loader.py:26"
+    ],
+    "note": "generate_doc_id(content=s) returns sha256(s) hex, so calling it satisfies the need (wrapper rule) - borderline. _AuthStore.compute_key hashes 'type:data' (not a plain string hash); file-hash helpers take files/chunks, not strings: not relevant."
+  },
+  {
+    "query": "split long text into overlapping chunks",
+    "relevant": [
+      "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py:38",
+      "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py:179",
+      "lib/crewai-files/src/crewai_files/processing/transformers.py:227",
+      "lib/crewai/src/crewai/knowledge/source/base_knowledge_source.py:43",
+      "lib/crewai/src/crewai/knowledge/source/json_knowledge_source.py:58",
+      "lib/crewai/src/crewai/knowledge/source/pdf_knowledge_source.py:58",
+      "lib/crewai/src/crewai/knowledge/source/csv_knowledge_source.py:46",
+      "lib/crewai/src/crewai/knowledge/source/text_file_knowledge_source.py:38",
+      "lib/crewai/src/crewai/knowledge/source/string_knowledge_source.py:36",
+      "lib/crewai/src/crewai/knowledge/source/excel_knowledge_source.py:176"
+    ],
+    "note": "Borderline: the seven identical *KnowledgeSource._chunk_text methods are private but do exactly overlapping fixed-size chunking (step = size - overlap), labelled relevant. chunk_text takes a TextFile (trivial wrap). RecursiveCharacterTextSplitter internals (_split_text, _merge_splits, _split_by_characters, no overlap) not relevant; the public split_text covers them."
+  },
+  {
+    "query": "extract the video id from a YouTube URL",
+    "relevant": [
+      "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_channel_loader.py:150",
+      "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_video_loader.py:105"
+    ],
+    "note": ""
+  },
+  {
+    "query": "parse JSON that contains comments and trailing commas",
+    "relevant": [
+      "lib/crewai/src/crewai/project/json_loader.py:199",
+      "lib/crewai/src/crewai/project/json_loader.py:193",
+      "lib/cli/src/crewai_cli/api_keys.py:567",
+      "lib/crewai/src/crewai/project/json_loader.py:211"
+    ],
+    "note": "strip_jsonc_comments + json.loads is trivial adaptation. _load_jsonc (cli) parses a JSONC file (path input). load_jsonc_file added from outside the pool. _strip_jsonc_comments / _strip_trailing_commas each handle only half the need: not relevant. _safe_repair_json uses json_repair for agent tool input: not relevant."
+  },
+  {
+    "query": "keep outgoing calls under a fixed number per minute",
+    "relevant": [
+      "lib/crewai/src/crewai/utilities/rpm_controller.py:38",
+      "lib/crewai-tools/src/crewai_tools/tools/brave_search_tool/base.py:165"
+    ],
+    "note": "Borderline: BraveSearchToolBase._rate_limit is a generic thread-safe min-interval throttle (requests per second; set rps=N/60), but a private method of a search tool - labelled relevant. enforce_rpm_limit only calls the callable it is given (wrapper that does not satisfy the need alone): not relevant. Nested _check_and_increment not relevant."
+  },
+  {
+    "query": "tell whether a network address points to an internal host",
+    "relevant": [
+      "lib/crewai-tools/src/crewai_tools/security/safe_path.py:196"
+    ],
+    "note": "_is_local_collector / _encrypted check loopback/localhost only, not private ranges: not relevant. validate_url (safe_path.py:225, not pooled) resolves a URL and rejects private IPs, but is URL-fetch validation with scheme checks; judged not relevant (borderline)."
+  },
+  {
+    "query": "guess what kind of file some raw bytes are",
+    "relevant": [
+      "lib/crewai-files/src/crewai_files/core/sources.py:125",
+      "lib/crewai-files/src/crewai_files/core/sources.py:63",
+      "lib/crewai-tools/src/crewai_tools/tools/url_read_tool/url_read_tool.py:245",
+      "lib/crewai-files/src/crewai_files/core/sources.py:90"
+    ],
+    "note": "URLReadTool._sniff is a staticmethod identifying pdf/docx/xlsx/html/text from bytes: relevant. _fallback_content_type(None, data) sniffs bytes: relevant (borderline, private). FileBytes._detect_content_type is a model validator, _resolve_kind is tool dispatch: not relevant."
+  },
+  {
+    "query": "shrink a picture so it fits within a maximum size",
+    "relevant": [
+      "lib/crewai-files/src/crewai_files/processing/transformers.py:15",
+      "lib/crewai-files/src/crewai_files/processing/transformers.py:83"
+    ],
+    "note": "Query is ambiguous between max dimensions and max file size: resize_image (dimensions, intended) and optimize_image (reduce quality to fit a byte budget) both labelled relevant. FileProcessor._auto_process_image is private orchestration needing processor constraints: not relevant."
+  },
+  {
+    "query": "convert a 1-based index into Excel-style letters like AA",
+    "relevant": [
+      "lib/crewai-files/src/crewai_files/spreadsheets/answers.py:101"
+    ],
+    "note": "_cell_index does the inverse (letters to index): not relevant."
+  },
+  {
+    "query": "fill in named placeholders in a template without breaking JSON braces",
+    "relevant": [
+      "lib/crewai/src/crewai/utilities/string_utils.py:79",
+      "lib/cli/src/crewai_cli/utils.py:189"
+    ],
+    "note": "Borderline: render_template fills {{name}} placeholders in a template file (used for .jsonc templates) and leaves other braces alone; takes a Path, labelled relevant. Expression.render_template is CEL ${...} evaluation and Task/Crew interpolation methods are object-specific: not relevant."
+  },
+  {
+    "query": "recognise an error caused by the prompt being too long for the model",
+    "relevant": [
+      "lib/crewai/src/crewai/utilities/exceptions/context_window_exceeding_exception.py:34",
+      "lib/crewai/src/crewai/utilities/agent_utils.py:997"
+    ],
+    "note": "Intended public helper is_context_length_exceeded (agent_utils.py:997) was NOT in the pool; added outside the pool. is_context_window_overflowing_threshold is a proactive size check, not error recognition: not relevant."
+  },
+  {
+    "query": "pull a JSON object out of chatty model output",
+    "relevant": [
+      "lib/crewai/src/crewai/experimental/evaluation/json_parser.py:8",
+      "lib/crewai/src/crewai/agents/agent_adapters/base_converter_adapter.py:102"
+    ],
+    "note": "handle_partial_json, _fit_response_model, _validate_structured_output all extract JSON but require a pydantic model (and may call an LLM): not relevant. extract_a2ui_json_objects only keeps A2UI objects: not relevant. post_process_result only extracts when an output format is configured: not relevant."
+  },
+  {
+    "query": "make arbitrary Python objects safe to dump as JSON",
+    "relevant": [
+      "lib/crewai/src/crewai/utilities/serialization.py:18",
+      "lib/crewai/src/crewai/flow/persistence/sqlite.py:30",
+      "lib/crewai/src/crewai/flow/async_feedback/types.py:74",
+      "lib/crewai/src/crewai/utilities/serialization.py:130",
+      "lib/crewai/src/crewai/events/listeners/tracing/utils.py:459",
+      "lib/crewai/src/crewai/telemetry/tracing/handlers.py:583"
+    ],
+    "note": "to_string and handlers._serialize are json.dumps(to_serializable(x)) wrappers that satisfy the need. CrewJSONEncoder.default (not pooled) raises for unknown types, so not 'arbitrary': not relevant. _is_json_serializable only checks; _serialize_static_value is flow-definition specific: not relevant."
+  },
+  {
+    "query": "how long to wait before the next attempt after being throttled",
+    "relevant": [
+      "lib/crewai/src/crewai/llms/retry.py:100",
+      "lib/crewai-tools/src/crewai_tools/tools/brave_search_tool/base.py:67",
+      "lib/cli/src/crewai_cli/experimental/eval_crew.py:1648",
+      "lib/crewai/src/crewai/llms/retry.py:208",
+      "lib/crewai-files/src/crewai_files/uploaders/gemini.py:34"
+    ],
+    "note": "Several functions compute a wait: Retry-After readers (_retry_delay, _retry_after, _retry_after_seconds) and backoff calculators (get_retry_delay_seconds, gemini _compute_backoff_delay; the latter is plain backoff, borderline). Retry loops (run_with_rate_limit_retry, MCP retry helpers) perform retries rather than return the delay: not relevant."
+  },
+  {
+    "query": "check a signed login token against the identity provider's public keys",
+    "relevant": [
+      "lib/crewai-core/src/crewai_core/auth/utils.py:13",
+      "lib/crewai/src/crewai/a2a/auth/server_schemes.py:262",
+      "lib/crewai/src/crewai/a2a/auth/server_schemes.py:469"
+    ],
+    "note": "OIDCAuth.authenticate verifies a JWT against the issuer's JWKS: relevant. OAuth2ServerAuth.authenticate does so when jwks_url is configured (else introspection): borderline relevant; its private _authenticate_jwt is covered by it. _validate_and_save_token is CLI login with side effects; verify_agent_card_signature verifies agent cards, not login tokens: not relevant."
+  },
+  {
+    "query": "turn strings like 7d or 24h into a time span",
+    "relevant": [
+      "lib/cli/src/crewai_cli/checkpoint_cli.py:634"
+    ],
+    "note": "WaitTool._resolve_duration clamps numeric seconds, does not parse '7d': not relevant."
+  },
+  {
+    "query": "convert a markdown document to HTML",
+    "relevant": [],
+    "note": "Verified unanswerable: no indexed function converts Markdown to HTML (MDX loader strips JSX to text; SerplyWebpageToMarkdownTool is the reverse direction)."
+  },
+  {
+    "query": "send an email through an SMTP server",
+    "relevant": [],
+    "note": "Verified unanswerable: no SMTP/email-sending function in indexed code (only 'gmail/send_email' as an example string for platform apps)."
+  },
+  {
+    "query": "parse a cron expression and compute the next run time",
+    "relevant": [],
+    "note": "Verified unanswerable: no cron parsing or scheduling code (no croniter/crontab usage)."
+  }
+]

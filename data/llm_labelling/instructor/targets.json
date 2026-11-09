@@ -1,0 +1,139 @@
+[
+  {
+    "query": "get the JSON out of an LLM reply wrapped in markdown fences",
+    "intended": [
+      "instructor/v2/core/json.py:13"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "work out the dollar cost of a request from token counts",
+    "intended": [
+      "instructor/cli/usage.py:104"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "list the links referenced in a markdown document",
+    "intended": [
+      "scripts/check_links.py:21",
+      "scripts/make_sitemap.py:43"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "check if a callable is async, even through decorators or partials",
+    "intended": [
+      "instructor/v2/core/utils.py:20"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "convert a TypedDict class into a pydantic model",
+    "intended": [
+      "instructor/v2/core/response_model.py:63"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "tell whether a partially streamed payload is finished and parseable",
+    "intended": [
+      "instructor/v2/dsl/json_tracker.py:16"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "strip invisible characters that break parsing of streamed text",
+    "intended": [
+      "instructor/v2/dsl/partial.py:100"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "join back-to-back chat turns from the same speaker",
+    "intended": [
+      "instructor/v2/core/messages.py:85"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "deterministic fingerprint for deduplicating identical LLM requests",
+    "intended": [
+      "instructor/cache/__init__.py:201",
+      "instructor/cache/__init__.py:361"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "download a remote file without allowing requests to internal hosts",
+    "intended": [
+      "instructor/v2/core/remote.py:300"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "guess whether a path or link is a picture, audio, or document",
+    "intended": [
+      "instructor/v2/core/multimodal.py:807"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "disallow undeclared keys everywhere in a JSON schema",
+    "intended": [
+      "instructor/v2/providers/openai/schema.py:48"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "read the YAML header block at the top of a markdown page",
+    "intended": [
+      "scripts/validate_meta_tags.py:24"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "locate roughly where a quoted sentence appears in a passage",
+    "intended": [
+      "instructor/v2/dsl/citation.py:89"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "fill in placeholder variables inside prompt messages",
+    "intended": [
+      "instructor/v2/core/templating.py:18",
+      "instructor/v2/core/templating.py:122"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "write output to a temporary file then swap it into place",
+    "intended": [
+      "instructor/batch/providers/base.py:21"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "running total of tokens consumed over repeated model calls",
+    "intended": [
+      "instructor/v2/core/usage.py:159"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "estimate how many tokens a prompt will consume before sending",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "split a long document into overlapping chunks",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "compute cosine similarity between two embedding vectors",
+    "intended": [],
+    "kind": "unanswerable"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  "get the JSON out of an LLM reply wrapped in markdown fences",
+  "work out the dollar cost of a request from token counts",
+  "list the links referenced in a markdown document",
+  "check if a callable is async, even through decorators or partials",
+  "convert a TypedDict class into a pydantic model",
+  "tell whether a partially streamed payload is finished and parseable",
+  "strip invisible characters that break parsing of streamed text",
+  "join back-to-back chat turns from the same speaker",
+  "deterministic fingerprint for deduplicating identical LLM requests",
+  "download a remote file without allowing requests to internal hosts",
+  "guess whether a path or link is a picture, audio, or document",
+  "disallow undeclared keys everywhere in a JSON schema",
+  "read the YAML header block at the top of a markdown page",
+  "locate roughly where a quoted sentence appears in a passage",
+  "fill in placeholder variables inside prompt messages",
+  "write output to a temporary file then swap it into place",
+  "running total of tokens consumed over repeated model calls",
+  "estimate how many tokens a prompt will consume before sending",
+  "split a long document into overlapping chunks",
+  "compute cosine similarity between two embedding vectors"
+]

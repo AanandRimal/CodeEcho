@@ -1,0 +1,22 @@
+[
+  "find an unused network port on the local machine",
+  "compare two version strings",
+  "decode a JWT payload without verifying the signature",
+  "paginate a list of items using a cursor",
+  "extract parameter descriptions from a function's docstring",
+  "build a validating Python type from a schema dictionary",
+  "inline all references so a schema has no pointers left",
+  "block outgoing requests to private or internal network addresses",
+  "run startup and shutdown hooks from several apps together",
+  "call blocking code from async code without stalling the loop",
+  "escape a command argument so the Windows shell treats it literally",
+  "read the YAML header block at the top of a markdown file",
+  "fill placeholders in a resource address pattern with values",
+  "append extra key-value pairs to a link's query string",
+  "flatten nested exception groups into individual errors",
+  "throttle how many calls a client can make per second",
+  "save JSON to disk atomically with owner-only permissions",
+  "gzip compress an HTTP response body",
+  "compute the next run time from a cron expression",
+  "validate that a string is a well-formed email address"
+]

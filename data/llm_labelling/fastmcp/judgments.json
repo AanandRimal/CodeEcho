@@ -1,0 +1,144 @@
+[
+  {
+    "query": "find an unused network port on the local machine",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/http.py:4"
+    ],
+    "note": ""
+  },
+  {
+    "query": "compare two version strings",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/versions.py:237",
+      "fastmcp_slim/fastmcp/utilities/versions.py:259"
+    ],
+    "note": "is_version_greater is a thin boolean wrapper over compare_versions; counted relevant since calling it answers 'compare'. max_version/min_version, VersionKey dunder methods and rank_issues._version_key (private, 3-int tuple) judged not relevant."
+  },
+  {
+    "query": "decode a JWT payload without verifying the signature",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/auth.py:53"
+    ],
+    "note": "Private duplicates of the same logic exist (utilities/auth.py _decode_jwt_part, identity_assertion._decode_unverified_claims at 522) but are private helpers; judged not relevant. decode_jwt_header decodes the header, not payload."
+  },
+  {
+    "query": "paginate a list of items using a cursor",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/pagination.py:60"
+    ],
+    "note": "Judged as server-side slicing with an opaque cursor. Client-side 'fetch all pages' helpers (Context._paginate_list, Client.list_tools) and private mcp_operations._apply_pagination (wrapper raising MCPError) judged not relevant."
+  },
+  {
+    "query": "extract parameter descriptions from a function's docstring",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/docstring_parsing.py:33"
+    ],
+    "note": ""
+  },
+  {
+    "query": "build a validating Python type from a schema dictionary",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/json_schema_type.py:283",
+      "fastmcp_slim/fastmcp/utilities/json_schema_type.py:381"
+    ],
+    "note": "json_schema_to_type_adapter returns a cached validating TypeAdapter built from json_schema_to_type; counted relevant. cli/apps_dev._model_from_schema builds a pydantic model but is private to the dev UI; not relevant. Underscore helpers in json_schema_type.py are internals."
+  },
+  {
+    "query": "inline all references so a schema has no pointers left",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/json_schema.py:317"
+    ],
+    "note": "resolve_root_ref only resolves a root-level $ref (not relevant). compress_schema(dereference=True) delegates to dereference_refs but is a compressor; not counted. server/middleware/dereference helpers are private per-component wrappers."
+  },
+  {
+    "query": "block outgoing requests to private or internal network addresses",
+    "relevant": [
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:141",
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:278",
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:374",
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:417"
+    ],
+    "note": "ssrf_safe_fetch (374) was outside the pool and added. is_ip_allowed only judges an IP string, borderline but counted as a reusable building block; validate_url checks URL+resolved IPs. HostOriginGuardMiddleware is inbound protection, not relevant."
+  },
+  {
+    "query": "run startup and shutdown hooks from several apps together",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/lifespan.py:12"
+    ],
+    "note": "Inner closure combine_lifespans.combined (line 46) holds the logic but is not callable on its own; not relevant."
+  },
+  {
+    "query": "call blocking code from async code without stalling the loop",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/async_utils.py:26"
+    ],
+    "note": "without_injected_parameters has run_in_thread but is a different, DI-specific wrapper; not relevant."
+  },
+  {
+    "query": "escape a command argument so the Windows shell treats it literally",
+    "relevant": [
+      "fastmcp_slim/fastmcp/cli/install/shared.py:80",
+      "fastmcp_slim/fastmcp/cli/install/shared.py:113"
+    ],
+    "note": "windows_batch_command_line builds a whole command line with each argument quoted literally; counted relevant. run_cli_command runs a command (not an escaper) and _quote_batch_text is private; not relevant."
+  },
+  {
+    "query": "read the YAML header block at the top of a markdown file",
+    "relevant": [
+      "fastmcp_slim/fastmcp/server/providers/skills/_common.py:71"
+    ],
+    "note": "Intended target skills/_snapshot.py:58 judged NOT relevant: it validates against Agent Skills schema (requires name/description) and would reject generic markdown frontmatter. _common.parse_frontmatter is the generic helper (returns dict + body)."
+  },
+  {
+    "query": "fill placeholders in a resource address pattern with values",
+    "relevant": [
+      "fastmcp_slim/fastmcp/resources/template.py:294"
+    ],
+    "note": "openapi/director._build_url is OpenAPI path templating (private, different syntax); not relevant."
+  },
+  {
+    "query": "append extra key-value pairs to a link's query string",
+    "relevant": [
+      "fastmcp_slim/fastmcp/server/auth/redirect_validation.py:23"
+    ],
+    "note": "replace_query_param replaces an existing key rather than appending; build_client_redirect is specific to OAuth iss handling; not relevant."
+  },
+  {
+    "query": "flatten nested exception groups into individual errors",
+    "relevant": [
+      "fastmcp_slim/fastmcp/utilities/exceptions.py:48"
+    ],
+    "note": ""
+  },
+  {
+    "query": "throttle how many calls a client can make per second",
+    "relevant": [
+      "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py:109",
+      "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py:147",
+      "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py:265"
+    ],
+    "note": "TokenBucketRateLimiter.consume (109) was outside the pool and added. Judged on whether calling it enforces a per-second limit: consume, SlidingWindowRateLimiter.is_allowed (window_seconds=1) and RateLimitingMiddleware.on_request. Constructors and the minutes-granularity SlidingWindowRateLimitingMiddleware judged not relevant."
+  },
+  {
+    "query": "save JSON to disk atomically with owner-only permissions",
+    "relevant": [
+      "fastmcp_slim/fastmcp/cli/deploy/state.py:170"
+    ],
+    "note": "CredentialStore.save / ConfigurationStore.save call write_state but are specific to Horizon models; not relevant. MCPConfig.write_to_file is not atomic and not permission-restricted."
+  },
+  {
+    "query": "gzip compress an HTTP response body",
+    "relevant": [],
+    "note": "Unanswerable confirmed: no gzip/zlib use in indexed code; compress_schema compresses JSON schemas, not HTTP bodies."
+  },
+  {
+    "query": "compute the next run time from a cron expression",
+    "relevant": [],
+    "note": "Unanswerable confirmed: croniter is only referenced in a benchmark script import; no cron/next-run helper in indexed code (_next_poll_delay is poll backoff)."
+  },
+  {
+    "query": "validate that a string is a well-formed email address",
+    "relevant": [],
+    "note": "Unanswerable confirmed: no email validator; json_schema_type maps format=email to pydantic EmailStr inside schema conversion, not a standalone check."
+  }
+]

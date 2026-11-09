@@ -1,0 +1,1393 @@
+[
+  {
+    "id": "fastmcp-001",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "find an unused network port on the local machine",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.http.find_available_port",
+        "file_path": "fastmcp_slim/fastmcp/utilities/http.py",
+        "start_line": 4
+      }
+    ],
+    "answerable": true,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-002",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "compare two version strings",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.versions.compare_versions",
+        "file_path": "fastmcp_slim/fastmcp/utilities/versions.py",
+        "start_line": 237
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.versions.is_version_greater",
+        "file_path": "fastmcp_slim/fastmcp/utilities/versions.py",
+        "start_line": 259
+      }
+    ],
+    "answerable": true,
+    "pool_size": 23,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "is_version_greater is a thin boolean wrapper over compare_versions; counted relevant since calling it answers 'compare'. max_version/min_version, VersionKey dunder methods and rank_issues._version_key (private, 3-int tuple) judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-003",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "decode a JWT payload without verifying the signature",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.auth.decode_jwt_payload",
+        "file_path": "fastmcp_slim/fastmcp/utilities/auth.py",
+        "start_line": 53
+      }
+    ],
+    "answerable": true,
+    "pool_size": 25,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Private duplicates of the same logic exist (utilities/auth.py _decode_jwt_part, identity_assertion._decode_unverified_claims at 522) but are private helpers; judged not relevant. decode_jwt_header decodes the header, not payload.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-004",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "paginate a list of items using a cursor",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.pagination.paginate_sequence",
+        "file_path": "fastmcp_slim/fastmcp/utilities/pagination.py",
+        "start_line": 60
+      }
+    ],
+    "answerable": true,
+    "pool_size": 24,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Judged as server-side slicing with an opaque cursor. Client-side 'fetch all pages' helpers (Context._paginate_list, Client.list_tools) and private mcp_operations._apply_pagination (wrapper raising MCPError) judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-005",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "extract parameter descriptions from a function's docstring",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.docstring_parsing.parse_docstring",
+        "file_path": "fastmcp_slim/fastmcp/utilities/docstring_parsing.py",
+        "start_line": 33
+      }
+    ],
+    "answerable": true,
+    "pool_size": 23,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-006",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "build a validating Python type from a schema dictionary",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.json_schema_type.json_schema_to_type",
+        "file_path": "fastmcp_slim/fastmcp/utilities/json_schema_type.py",
+        "start_line": 283
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.json_schema_type.json_schema_to_type_adapter",
+        "file_path": "fastmcp_slim/fastmcp/utilities/json_schema_type.py",
+        "start_line": 381
+      }
+    ],
+    "answerable": true,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "json_schema_to_type_adapter returns a cached validating TypeAdapter built from json_schema_to_type; counted relevant. cli/apps_dev._model_from_schema builds a pydantic model but is private to the dev UI; not relevant. Underscore helpers in json_schema_type.py are internals.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-007",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "inline all references so a schema has no pointers left",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.json_schema.dereference_refs",
+        "file_path": "fastmcp_slim/fastmcp/utilities/json_schema.py",
+        "start_line": 317
+      }
+    ],
+    "answerable": true,
+    "pool_size": 26,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "resolve_root_ref only resolves a root-level $ref (not relevant). compress_schema(dereference=True) delegates to dereference_refs but is a compressor; not counted. server/middleware/dereference helpers are private per-component wrappers.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-008",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "block outgoing requests to private or internal network addresses",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.auth.ssrf.is_ip_allowed",
+        "file_path": "fastmcp_slim/fastmcp/server/auth/ssrf.py",
+        "start_line": 141
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.auth.ssrf.validate_url",
+        "file_path": "fastmcp_slim/fastmcp/server/auth/ssrf.py",
+        "start_line": 278
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.auth.ssrf.ssrf_safe_fetch",
+        "file_path": "fastmcp_slim/fastmcp/server/auth/ssrf.py",
+        "start_line": 374
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.auth.ssrf.ssrf_safe_fetch_response",
+        "file_path": "fastmcp_slim/fastmcp/server/auth/ssrf.py",
+        "start_line": 417
+      }
+    ],
+    "answerable": true,
+    "pool_size": 38,
+    "pool_depth": 10,
+    "added_outside_pool": 1,
+    "annotator": "claude-opus-5-5",
+    "notes": "ssrf_safe_fetch (374) was outside the pool and added. is_ip_allowed only judges an IP string, borderline but counted as a reusable building block; validate_url checks URL+resolved IPs. HostOriginGuardMiddleware is inbound protection, not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-009",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "run startup and shutdown hooks from several apps together",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.lifespan.combine_lifespans",
+        "file_path": "fastmcp_slim/fastmcp/utilities/lifespan.py",
+        "start_line": 12
+      }
+    ],
+    "answerable": true,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Inner closure combine_lifespans.combined (line 46) holds the logic but is not callable on its own; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-010",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "call blocking code from async code without stalling the loop",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.async_utils.call_sync_fn_in_threadpool",
+        "file_path": "fastmcp_slim/fastmcp/utilities/async_utils.py",
+        "start_line": 26
+      }
+    ],
+    "answerable": true,
+    "pool_size": 36,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "without_injected_parameters has run_in_thread but is a different, DI-specific wrapper; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-011",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "escape a command argument so the Windows shell treats it literally",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.cli.install.shared.quote_windows_batch_argument",
+        "file_path": "fastmcp_slim/fastmcp/cli/install/shared.py",
+        "start_line": 80
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.cli.install.shared.windows_batch_command_line",
+        "file_path": "fastmcp_slim/fastmcp/cli/install/shared.py",
+        "start_line": 113
+      }
+    ],
+    "answerable": true,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "windows_batch_command_line builds a whole command line with each argument quoted literally; counted relevant. run_cli_command runs a command (not an escaper) and _quote_batch_text is private; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-012",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "read the YAML header block at the top of a markdown file",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.providers.skills._common.parse_frontmatter",
+        "file_path": "fastmcp_slim/fastmcp/server/providers/skills/_common.py",
+        "start_line": 71
+      }
+    ],
+    "answerable": true,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Intended target skills/_snapshot.py:58 judged NOT relevant: it validates against Agent Skills schema (requires name/description) and would reject generic markdown frontmatter. _common.parse_frontmatter is the generic helper (returns dict + body).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-013",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "fill placeholders in a resource address pattern with values",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.resources.template.expand_uri_template",
+        "file_path": "fastmcp_slim/fastmcp/resources/template.py",
+        "start_line": 294
+      }
+    ],
+    "answerable": true,
+    "pool_size": 34,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "openapi/director._build_url is OpenAPI path templating (private, different syntax); not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-014",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "append extra key-value pairs to a link's query string",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.auth.redirect_validation.add_query_params",
+        "file_path": "fastmcp_slim/fastmcp/server/auth/redirect_validation.py",
+        "start_line": 23
+      }
+    ],
+    "answerable": true,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "replace_query_param replaces an existing key rather than appending; build_client_redirect is specific to OAuth iss handling; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-015",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "flatten nested exception groups into individual errors",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.utilities.exceptions.iter_exc",
+        "file_path": "fastmcp_slim/fastmcp/utilities/exceptions.py",
+        "start_line": 48
+      }
+    ],
+    "answerable": true,
+    "pool_size": 30,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-016",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "throttle how many calls a client can make per second",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.middleware.rate_limiting.TokenBucketRateLimiter.consume",
+        "file_path": "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py",
+        "start_line": 109
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.middleware.rate_limiting.SlidingWindowRateLimiter.is_allowed",
+        "file_path": "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py",
+        "start_line": 147
+      },
+      {
+        "qualname": "fastmcp_slim.fastmcp.server.middleware.rate_limiting.RateLimitingMiddleware.on_request",
+        "file_path": "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py",
+        "start_line": 265
+      }
+    ],
+    "answerable": true,
+    "pool_size": 35,
+    "pool_depth": 10,
+    "added_outside_pool": 1,
+    "annotator": "claude-opus-5-5",
+    "notes": "TokenBucketRateLimiter.consume (109) was outside the pool and added. Judged on whether calling it enforces a per-second limit: consume, SlidingWindowRateLimiter.is_allowed (window_seconds=1) and RateLimitingMiddleware.on_request. Constructors and the minutes-granularity SlidingWindowRateLimitingMiddleware judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-017",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "save JSON to disk atomically with owner-only permissions",
+    "relevant": [
+      {
+        "qualname": "fastmcp_slim.fastmcp.cli.deploy.state.write_state",
+        "file_path": "fastmcp_slim/fastmcp/cli/deploy/state.py",
+        "start_line": 170
+      }
+    ],
+    "answerable": true,
+    "pool_size": 30,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "CredentialStore.save / ConfigurationStore.save call write_state but are specific to Horizon models; not relevant. MCPConfig.write_to_file is not atomic and not permission-restricted.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-018",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "gzip compress an HTTP response body",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 31,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Unanswerable confirmed: no gzip/zlib use in indexed code; compress_schema compresses JSON schemas, not HTTP bodies.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-019",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "compute the next run time from a cron expression",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 38,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Unanswerable confirmed: croniter is only referenced in a benchmark script import; no cron/next-run helper in indexed code (_next_poll_delay is poll backoff).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "fastmcp-020",
+    "repo": "PrefectHQ/fastmcp",
+    "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+    "query": "validate that a string is a well-formed email address",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Unanswerable confirmed: no email validator; json_schema_type maps format=email to pydantic EmailStr inside schema conversion, not a standalone check.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-001",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "get the JSON out of an LLM reply wrapped in markdown fences",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.json.extract_json_from_codeblock",
+        "file_path": "instructor/v2/core/json.py",
+        "start_line": 13
+      },
+      {
+        "qualname": "instructor.v2.core.json.extract_json_from_stream",
+        "file_path": "instructor/v2/core/json.py",
+        "start_line": 174
+      }
+    ],
+    "answerable": true,
+    "pool_size": 35,
+    "pool_depth": 10,
+    "added_outside_pool": 1,
+    "annotator": "claude-opus-5-5",
+    "notes": "extract_json_from_stream (added, outside pool) takes an iterable of text chunks and prefers fenced markdown output; passing [reply_text] satisfies the need, so labelled relevant but borderline. Private _last_json_span and _MultiModelStream.feed judged not relevant (private internals behind the public functions).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-002",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "work out the dollar cost of a request from token counts",
+    "relevant": [
+      {
+        "qualname": "instructor.cli.usage.calculate_cost",
+        "file_path": "instructor/cli/usage.py",
+        "start_line": 104
+      }
+    ],
+    "answerable": true,
+    "pool_size": 26,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "get_model_cost only returns per-token price, does not compute a dollar cost, so not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-003",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "list the links referenced in a markdown document",
+    "relevant": [
+      {
+        "qualname": "scripts.check_links.extract_links",
+        "file_path": "scripts/check_links.py",
+        "start_line": 21
+      },
+      {
+        "qualname": "scripts.make_sitemap.extract_markdown_links",
+        "file_path": "scripts/make_sitemap.py",
+        "start_line": 43
+      }
+    ],
+    "answerable": true,
+    "pool_size": 20,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Both extract markdown links but only internal ones (external, mailto and anchors skipped); labelled relevant with that caveat. make_sitemap version also rewrites paths to .md/index.md, so it is the more adapted of the two.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-004",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "check if a callable is async, even through decorators or partials",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.utils.is_async",
+        "file_path": "instructor/v2/core/utils.py",
+        "start_line": 20
+      }
+    ],
+    "answerable": true,
+    "pool_size": 30,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-005",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "convert a TypedDict class into a pydantic model",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.response_model._typed_dict_to_model",
+        "file_path": "instructor/v2/core/response_model.py",
+        "start_line": 63
+      }
+    ],
+    "answerable": true,
+    "pool_size": 26,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "_typed_dict_to_model is private but is exactly the converter. prepare_response_model also converts TypedDicts but as one step of a much broader normalisation that returns a wrapped runtime model; judged not relevant. is_typed_dict only detects.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-006",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "tell whether a partially streamed payload is finished and parseable",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.dsl.json_tracker.is_json_complete",
+        "file_path": "instructor/v2/dsl/json_tracker.py",
+        "start_line": 16
+      }
+    ],
+    "answerable": true,
+    "pool_size": 33,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "JsonCompleteness.analyze/is_root_complete can answer it too but need a two-step stateful call and report per-path completeness; judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-007",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "strip invisible characters that break parsing of streamed text",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.dsl.partial.remove_control_chars",
+        "file_path": "instructor/v2/dsl/partial.py",
+        "start_line": 100
+      },
+      {
+        "qualname": "instructor.v2.dsl.partial._JsonControlCharSanitizer.__call__",
+        "file_path": "instructor/v2/dsl/partial.py",
+        "start_line": 120
+      }
+    ],
+    "answerable": true,
+    "pool_size": 36,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "remove_control_chars is the direct answer. _JsonControlCharSanitizer.__call__ is a private stateful per-chunk sanitiser (also drops DEL/C1 outside strings), labelled relevant but borderline as a private class. scripts/make_clean.clean_markdown_content strips zero-width chars but is a markdown doc cleaner, not for streamed JSON; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-008",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "join back-to-back chat turns from the same speaker",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.messages.merge_consecutive_messages",
+        "file_path": "instructor/v2/core/messages.py",
+        "start_line": 85
+      }
+    ],
+    "answerable": true,
+    "pool_size": 38,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-009",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "deterministic fingerprint for deduplicating identical LLM requests",
+    "relevant": [
+      {
+        "qualname": "instructor.cache.make_cache_key",
+        "file_path": "instructor/cache/__init__.py",
+        "start_line": 201
+      },
+      {
+        "qualname": "instructor.cache.make_request_cache_key",
+        "file_path": "instructor/cache/__init__.py",
+        "start_line": 361
+      }
+    ],
+    "answerable": true,
+    "pool_size": 33,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Both hash a request into a deterministic SHA-256 key; make_request_cache_key hashes the full prepared request, make_cache_key the main components. client_cache_identity only builds an identity dict; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-010",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "download a remote file without allowing requests to internal hosts",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.remote.fetch_remote_content",
+        "file_path": "instructor/v2/core/remote.py",
+        "start_line": 300
+      }
+    ],
+    "answerable": true,
+    "pool_size": 23,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Image.url_to_base64 is a thin image-only wrapper returning base64; judged not relevant for a generic file download (borderline). _validate_public_url/_request_with_redirects are private building blocks.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-011",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "guess whether a path or link is a picture, audio, or document",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.multimodal.autodetect_media",
+        "file_path": "instructor/v2/core/multimodal.py",
+        "start_line": 807
+      }
+    ],
+    "answerable": true,
+    "pool_size": 27,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Per-type autodetect_safely methods (Image/Audio/PDF) only test one type; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-012",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "disallow undeclared keys everywhere in a JSON schema",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.providers.openai.schema.make_strict_schema",
+        "file_path": "instructor/v2/providers/openai/schema.py",
+        "start_line": 48
+      },
+      {
+        "qualname": "instructor.v2.core.schema.make_strict_schema",
+        "file_path": "instructor/v2/core/schema.py",
+        "start_line": 33
+      }
+    ],
+    "answerable": true,
+    "pool_size": 29,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "core.schema.make_strict_schema is a thin wrapper around the openai one; calling it does the job so labelled relevant (both were in the pool). Bedrock _prepare_bedrock_strict_schema also sets additionalProperties=false recursively but is private, takes a model, and rejects many constraints; not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-013",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "read the YAML header block at the top of a markdown page",
+    "relevant": [
+      {
+        "qualname": "scripts.validate_meta_tags.extract_frontmatter",
+        "file_path": "scripts/validate_meta_tags.py",
+        "start_line": 24
+      }
+    ],
+    "answerable": true,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Hand-rolled regex extractor that returns only title/description/keywords, not the whole header; labelled relevant but borderline.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-014",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "locate roughly where a quoted sentence appears in a passage",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.dsl.citation.CitationMixin._get_span",
+        "file_path": "instructor/v2/dsl/citation.py",
+        "start_line": 89
+      }
+    ],
+    "answerable": true,
+    "pool_size": 27,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "CitationMixin._get_span is a private method but is the fuzzy quote locator. get_spans needs an instance carrying substring_quotes; judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-015",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "fill in placeholder variables inside prompt messages",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.templating.apply_template",
+        "file_path": "instructor/v2/core/templating.py",
+        "start_line": 18
+      },
+      {
+        "qualname": "instructor.v2.core.templating.process_message",
+        "file_path": "instructor/v2/core/templating.py",
+        "start_line": 44
+      },
+      {
+        "qualname": "instructor.v2.core.templating.handle_templating",
+        "file_path": "instructor/v2/core/templating.py",
+        "start_line": 122
+      }
+    ],
+    "answerable": true,
+    "pool_size": 30,
+    "pool_depth": 10,
+    "added_outside_pool": 3,
+    "annotator": "claude-opus-5-5",
+    "notes": "None of the three relevant functions were in the pool (found by reading core/templating.py; pool only had per-provider helpers). apply_template (Jinja render of a string), process_message (one message, any provider format) and handle_templating (all messages in request kwargs) all satisfy it. Per-provider process_message helpers (openai/anthropic/gemini/cohere/genai/vertexai templating.py) and render_text_blocks handle one format and need the renderer passed in; judged not relevant (borderline).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-016",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "write output to a temporary file then swap it into place",
+    "relevant": [
+      {
+        "qualname": "instructor.batch.providers.base._atomic_result_file",
+        "file_path": "instructor/batch/providers/base.py",
+        "start_line": 21
+      }
+    ],
+    "answerable": true,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "_atomic_result_file is private but is a generic context manager for exactly this; labelled relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-017",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "running total of tokens consumed over repeated model calls",
+    "relevant": [
+      {
+        "qualname": "instructor.v2.core.usage.update_total_usage",
+        "file_path": "instructor/v2/core/usage.py",
+        "start_line": 159
+      },
+      {
+        "qualname": "instructor.v2.providers.anthropic.usage.update_total_usage",
+        "file_path": "instructor/v2/providers/anthropic/usage.py",
+        "start_line": 22
+      }
+    ],
+    "answerable": true,
+    "pool_size": 26,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Anthropic-only update_total_usage accumulates and is labelled relevant (borderline, one provider); _accumulate_models is the private generic accumulator, not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-018",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "estimate how many tokens a prompt will consume before sending",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Checked by grep and by reading the pool: no token estimation/tokenizer in indexed code. _usage_total_tokens only reads a total already on a usage object; calculate_cost needs token counts as input.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-019",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "split a long document into overlapping chunks",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 36,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Checked by grep: no text splitting/chunking helper for documents; all 'chunk' hits are about streaming response chunks.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "instructor-020",
+    "repo": "567-labs/instructor",
+    "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+    "query": "compute cosine similarity between two embedding vectors",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 28,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Checked by grep: no cosine similarity, dot product or embedding code in indexed code.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-001",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "convert text into a URL-safe slug",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.string_utils.slugify",
+        "file_path": "lib/crewai/src/crewai/utilities/string_utils.py",
+        "start_line": 57
+      }
+    ],
+    "answerable": true,
+    "pool_size": 41,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "sanitize_tool_name (string_utils.py:26, not pooled) does a similar normalisation but is tool-name specific (fixed '_', 64-char truncation with hash suffix); judged not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-002",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "compute the SHA-256 hash of a string",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.misc.compute_sha256",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/misc.py",
+        "start_line": 5
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.base_loader.BaseLoader.generate_doc_id",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/base_loader.py",
+        "start_line": 26
+      }
+    ],
+    "answerable": true,
+    "pool_size": 26,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "generate_doc_id(content=s) returns sha256(s) hex, so calling it satisfies the need (wrapper rule) - borderline. _AuthStore.compute_key hashes 'type:data' (not a plain string hash); file-hash helpers take files/chunks, not strings: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-003",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "split long text into overlapping chunks",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.chunkers.base_chunker.RecursiveCharacterTextSplitter.split_text",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py",
+        "start_line": 38
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.chunkers.base_chunker.BaseChunker.chunk",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py",
+        "start_line": 179
+      },
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.processing.transformers.chunk_text",
+        "file_path": "lib/crewai-files/src/crewai_files/processing/transformers.py",
+        "start_line": 227
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.base_knowledge_source.BaseKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/base_knowledge_source.py",
+        "start_line": 43
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.json_knowledge_source.JSONKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/json_knowledge_source.py",
+        "start_line": 58
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.pdf_knowledge_source.PDFKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/pdf_knowledge_source.py",
+        "start_line": 58
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.csv_knowledge_source.CSVKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/csv_knowledge_source.py",
+        "start_line": 46
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.text_file_knowledge_source.TextFileKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/text_file_knowledge_source.py",
+        "start_line": 38
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.string_knowledge_source.StringKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/string_knowledge_source.py",
+        "start_line": 36
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.knowledge.source.excel_knowledge_source.ExcelKnowledgeSource._chunk_text",
+        "file_path": "lib/crewai/src/crewai/knowledge/source/excel_knowledge_source.py",
+        "start_line": 176
+      }
+    ],
+    "answerable": true,
+    "pool_size": 27,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Borderline: the seven identical *KnowledgeSource._chunk_text methods are private but do exactly overlapping fixed-size chunking (step = size - overlap), labelled relevant. chunk_text takes a TextFile (trivial wrap). RecursiveCharacterTextSplitter internals (_split_text, _merge_splits, _split_by_characters, no overlap) not relevant; the public split_text covers them.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-004",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "extract the video id from a YouTube URL",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.loaders.youtube_channel_loader.YoutubeChannelLoader._extract_video_id",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_channel_loader.py",
+        "start_line": 150
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.rag.loaders.youtube_video_loader.YoutubeVideoLoader._extract_video_id",
+        "file_path": "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_video_loader.py",
+        "start_line": 105
+      }
+    ],
+    "answerable": true,
+    "pool_size": 21,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-005",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "parse JSON that contains comments and trailing commas",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.project.json_loader.parse_jsonc",
+        "file_path": "lib/crewai/src/crewai/project/json_loader.py",
+        "start_line": 199
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.project.json_loader.strip_jsonc_comments",
+        "file_path": "lib/crewai/src/crewai/project/json_loader.py",
+        "start_line": 193
+      },
+      {
+        "qualname": "lib.cli.src.crewai_cli.api_keys._load_jsonc",
+        "file_path": "lib/cli/src/crewai_cli/api_keys.py",
+        "start_line": 567
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.project.json_loader.load_jsonc_file",
+        "file_path": "lib/crewai/src/crewai/project/json_loader.py",
+        "start_line": 211
+      }
+    ],
+    "answerable": true,
+    "pool_size": 27,
+    "pool_depth": 10,
+    "added_outside_pool": 1,
+    "annotator": "claude-opus-5-5",
+    "notes": "strip_jsonc_comments + json.loads is trivial adaptation. _load_jsonc (cli) parses a JSONC file (path input). load_jsonc_file added from outside the pool. _strip_jsonc_comments / _strip_trailing_commas each handle only half the need: not relevant. _safe_repair_json uses json_repair for agent tool input: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-006",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "keep outgoing calls under a fixed number per minute",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.rpm_controller.RPMController.check_or_wait",
+        "file_path": "lib/crewai/src/crewai/utilities/rpm_controller.py",
+        "start_line": 38
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.tools.brave_search_tool.base.BraveSearchToolBase._rate_limit",
+        "file_path": "lib/crewai-tools/src/crewai_tools/tools/brave_search_tool/base.py",
+        "start_line": 165
+      }
+    ],
+    "answerable": true,
+    "pool_size": 43,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Borderline: BraveSearchToolBase._rate_limit is a generic thread-safe min-interval throttle (requests per second; set rps=N/60), but a private method of a search tool - labelled relevant. enforce_rpm_limit only calls the callable it is given (wrapper that does not satisfy the need alone): not relevant. Nested _check_and_increment not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-007",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "tell whether a network address points to an internal host",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.security.safe_path.is_blocked_ip",
+        "file_path": "lib/crewai-tools/src/crewai_tools/security/safe_path.py",
+        "start_line": 196
+      }
+    ],
+    "answerable": true,
+    "pool_size": 27,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "_is_local_collector / _encrypted check loopback/localhost only, not private ranges: not relevant. validate_url (safe_path.py:225, not pooled) resolves a URL and rejects private IPs, but is URL-fetch validation with scheme checks; judged not relevant (borderline).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-008",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "guess what kind of file some raw bytes are",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.core.sources.detect_content_type",
+        "file_path": "lib/crewai-files/src/crewai_files/core/sources.py",
+        "start_line": 125
+      },
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.core.sources._detect_content_type_from_bytes",
+        "file_path": "lib/crewai-files/src/crewai_files/core/sources.py",
+        "start_line": 63
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.tools.url_read_tool.url_read_tool.URLReadTool._sniff",
+        "file_path": "lib/crewai-tools/src/crewai_tools/tools/url_read_tool/url_read_tool.py",
+        "start_line": 245
+      },
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.core.sources._fallback_content_type",
+        "file_path": "lib/crewai-files/src/crewai_files/core/sources.py",
+        "start_line": 90
+      }
+    ],
+    "answerable": true,
+    "pool_size": 37,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "URLReadTool._sniff is a staticmethod identifying pdf/docx/xlsx/html/text from bytes: relevant. _fallback_content_type(None, data) sniffs bytes: relevant (borderline, private). FileBytes._detect_content_type is a model validator, _resolve_kind is tool dispatch: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-009",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "shrink a picture so it fits within a maximum size",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.processing.transformers.resize_image",
+        "file_path": "lib/crewai-files/src/crewai_files/processing/transformers.py",
+        "start_line": 15
+      },
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.processing.transformers.optimize_image",
+        "file_path": "lib/crewai-files/src/crewai_files/processing/transformers.py",
+        "start_line": 83
+      }
+    ],
+    "answerable": true,
+    "pool_size": 32,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Query is ambiguous between max dimensions and max file size: resize_image (dimensions, intended) and optimize_image (reduce quality to fit a byte budget) both labelled relevant. FileProcessor._auto_process_image is private orchestration needing processor constraints: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-010",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "convert a 1-based index into Excel-style letters like AA",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.spreadsheets.answers._column_letters",
+        "file_path": "lib/crewai-files/src/crewai_files/spreadsheets/answers.py",
+        "start_line": 101
+      }
+    ],
+    "answerable": true,
+    "pool_size": 34,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "_cell_index does the inverse (letters to index): not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-011",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "fill in named placeholders in a template without breaking JSON braces",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.string_utils.interpolate_only",
+        "file_path": "lib/crewai/src/crewai/utilities/string_utils.py",
+        "start_line": 79
+      },
+      {
+        "qualname": "lib.cli.src.crewai_cli.utils.render_template",
+        "file_path": "lib/cli/src/crewai_cli/utils.py",
+        "start_line": 189
+      }
+    ],
+    "answerable": true,
+    "pool_size": 34,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Borderline: render_template fills {{name}} placeholders in a template file (used for .jsonc templates) and leaves other braces alone; takes a Path, labelled relevant. Expression.render_template is CEL ${...} evaluation and Task/Crew interpolation methods are object-specific: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-012",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "recognise an error caused by the prompt being too long for the model",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.exceptions.context_window_exceeding_exception.LLMContextLengthExceededError._is_context_length_exceeded_error",
+        "file_path": "lib/crewai/src/crewai/utilities/exceptions/context_window_exceeding_exception.py",
+        "start_line": 34
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.agent_utils.is_context_length_exceeded",
+        "file_path": "lib/crewai/src/crewai/utilities/agent_utils.py",
+        "start_line": 997
+      }
+    ],
+    "answerable": true,
+    "pool_size": 37,
+    "pool_depth": 10,
+    "added_outside_pool": 1,
+    "annotator": "claude-opus-5-5",
+    "notes": "Intended public helper is_context_length_exceeded (agent_utils.py:997) was NOT in the pool; added outside the pool. is_context_window_overflowing_threshold is a proactive size check, not error recognition: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-013",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "pull a JSON object out of chatty model output",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.experimental.evaluation.json_parser.extract_json_from_llm_response",
+        "file_path": "lib/crewai/src/crewai/experimental/evaluation/json_parser.py",
+        "start_line": 8
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.agents.agent_adapters.base_converter_adapter.BaseConverterAdapter._extract_json_from_text",
+        "file_path": "lib/crewai/src/crewai/agents/agent_adapters/base_converter_adapter.py",
+        "start_line": 102
+      }
+    ],
+    "answerable": true,
+    "pool_size": 40,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "handle_partial_json, _fit_response_model, _validate_structured_output all extract JSON but require a pydantic model (and may call an LLM): not relevant. extract_a2ui_json_objects only keeps A2UI objects: not relevant. post_process_result only extracts when an output format is configured: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-014",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "make arbitrary Python objects safe to dump as JSON",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.serialization.to_serializable",
+        "file_path": "lib/crewai/src/crewai/utilities/serialization.py",
+        "start_line": 18
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.flow.persistence.sqlite._json_default",
+        "file_path": "lib/crewai/src/crewai/flow/persistence/sqlite.py",
+        "start_line": 30
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.flow.async_feedback.types.PendingFeedbackContext._make_json_safe",
+        "file_path": "lib/crewai/src/crewai/flow/async_feedback/types.py",
+        "start_line": 74
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.utilities.serialization.to_string",
+        "file_path": "lib/crewai/src/crewai/utilities/serialization.py",
+        "start_line": 130
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.events.listeners.tracing.utils.safe_serialize_to_dict",
+        "file_path": "lib/crewai/src/crewai/events/listeners/tracing/utils.py",
+        "start_line": 459
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.telemetry.tracing.handlers._serialize",
+        "file_path": "lib/crewai/src/crewai/telemetry/tracing/handlers.py",
+        "start_line": 583
+      }
+    ],
+    "answerable": true,
+    "pool_size": 31,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "to_string and handlers._serialize are json.dumps(to_serializable(x)) wrappers that satisfy the need. CrewJSONEncoder.default (not pooled) raises for unknown types, so not 'arbitrary': not relevant. _is_json_serializable only checks; _serialize_static_value is flow-definition specific: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-015",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "how long to wait before the next attempt after being throttled",
+    "relevant": [
+      {
+        "qualname": "lib.crewai.src.crewai.llms.retry.get_retry_delay_seconds",
+        "file_path": "lib/crewai/src/crewai/llms/retry.py",
+        "start_line": 100
+      },
+      {
+        "qualname": "lib.crewai-tools.src.crewai_tools.tools.brave_search_tool.base._retry_delay",
+        "file_path": "lib/crewai-tools/src/crewai_tools/tools/brave_search_tool/base.py",
+        "start_line": 67
+      },
+      {
+        "qualname": "lib.cli.src.crewai_cli.experimental.eval_crew._retry_after",
+        "file_path": "lib/cli/src/crewai_cli/experimental/eval_crew.py",
+        "start_line": 1648
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.llms.retry._retry_after_seconds",
+        "file_path": "lib/crewai/src/crewai/llms/retry.py",
+        "start_line": 208
+      },
+      {
+        "qualname": "lib.crewai-files.src.crewai_files.uploaders.gemini._compute_backoff_delay",
+        "file_path": "lib/crewai-files/src/crewai_files/uploaders/gemini.py",
+        "start_line": 34
+      }
+    ],
+    "answerable": true,
+    "pool_size": 35,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Several functions compute a wait: Retry-After readers (_retry_delay, _retry_after, _retry_after_seconds) and backoff calculators (get_retry_delay_seconds, gemini _compute_backoff_delay; the latter is plain backoff, borderline). Retry loops (run_with_rate_limit_retry, MCP retry helpers) perform retries rather than return the delay: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-016",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "check a signed login token against the identity provider's public keys",
+    "relevant": [
+      {
+        "qualname": "lib.crewai-core.src.crewai_core.auth.utils.validate_jwt_token",
+        "file_path": "lib/crewai-core/src/crewai_core/auth/utils.py",
+        "start_line": 13
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.a2a.auth.server_schemes.OIDCAuth.authenticate",
+        "file_path": "lib/crewai/src/crewai/a2a/auth/server_schemes.py",
+        "start_line": 262
+      },
+      {
+        "qualname": "lib.crewai.src.crewai.a2a.auth.server_schemes.OAuth2ServerAuth.authenticate",
+        "file_path": "lib/crewai/src/crewai/a2a/auth/server_schemes.py",
+        "start_line": 469
+      }
+    ],
+    "answerable": true,
+    "pool_size": 38,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "OIDCAuth.authenticate verifies a JWT against the issuer's JWKS: relevant. OAuth2ServerAuth.authenticate does so when jwks_url is configured (else introspection): borderline relevant; its private _authenticate_jwt is covered by it. _validate_and_save_token is CLI login with side effects; verify_agent_card_signature verifies agent cards, not login tokens: not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-017",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "turn strings like 7d or 24h into a time span",
+    "relevant": [
+      {
+        "qualname": "lib.cli.src.crewai_cli.checkpoint_cli._parse_duration",
+        "file_path": "lib/cli/src/crewai_cli/checkpoint_cli.py",
+        "start_line": 634
+      }
+    ],
+    "answerable": true,
+    "pool_size": 31,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "WaitTool._resolve_duration clamps numeric seconds, does not parse '7d': not relevant.",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-018",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "convert a markdown document to HTML",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 30,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Verified unanswerable: no indexed function converts Markdown to HTML (MDX loader strips JSX to text; SerplyWebpageToMarkdownTool is the reverse direction).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-019",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "send an email through an SMTP server",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 38,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Verified unanswerable: no SMTP/email-sending function in indexed code (only 'gmail/send_email' as an example string for platform apps).",
+    "created": "2026-11-09"
+  },
+  {
+    "id": "crewAI-020",
+    "repo": "crewAIInc/crewAI",
+    "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+    "query": "parse a cron expression and compute the next run time",
+    "relevant": [],
+    "answerable": false,
+    "pool_size": 34,
+    "pool_depth": 10,
+    "added_outside_pool": 0,
+    "annotator": "claude-opus-5-5",
+    "notes": "Verified unanswerable: no cron parsing or scheduling code (no croniter/crontab usage).",
+    "created": "2026-11-09"
+  }
+]

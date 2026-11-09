@@ -1,0 +1,142 @@
+[
+  {
+    "query": "convert text into a URL-safe slug",
+    "intended": [
+      "lib/crewai/src/crewai/utilities/string_utils.py:57"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "compute the SHA-256 hash of a string",
+    "intended": [
+      "lib/crewai-tools/src/crewai_tools/rag/misc.py:5"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "split long text into overlapping chunks",
+    "intended": [
+      "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py:38",
+      "lib/crewai-tools/src/crewai_tools/rag/chunkers/base_chunker.py:179",
+      "lib/crewai-files/src/crewai_files/processing/transformers.py:227"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "extract the video id from a YouTube URL",
+    "intended": [
+      "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_channel_loader.py:150",
+      "lib/crewai-tools/src/crewai_tools/rag/loaders/youtube_video_loader.py:105"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "parse JSON that contains comments and trailing commas",
+    "intended": [
+      "lib/crewai/src/crewai/project/json_loader.py:199"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "keep outgoing calls under a fixed number per minute",
+    "intended": [
+      "lib/crewai/src/crewai/utilities/rpm_controller.py:38"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "tell whether a network address points to an internal host",
+    "intended": [
+      "lib/crewai-tools/src/crewai_tools/security/safe_path.py:196"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "guess what kind of file some raw bytes are",
+    "intended": [
+      "lib/crewai-files/src/crewai_files/core/sources.py:125",
+      "lib/crewai-files/src/crewai_files/core/sources.py:63"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "shrink a picture so it fits within a maximum size",
+    "intended": [
+      "lib/crewai-files/src/crewai_files/processing/transformers.py:15"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "convert a 1-based index into Excel-style letters like AA",
+    "intended": [
+      "lib/crewai-files/src/crewai_files/spreadsheets/answers.py:101"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "fill in named placeholders in a template without breaking JSON braces",
+    "intended": [
+      "lib/crewai/src/crewai/utilities/string_utils.py:79"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "recognise an error caused by the prompt being too long for the model",
+    "intended": [
+      "lib/crewai/src/crewai/utilities/agent_utils.py:997",
+      "lib/crewai/src/crewai/utilities/exceptions/context_window_exceeding_exception.py:34"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "pull a JSON object out of chatty model output",
+    "intended": [
+      "lib/crewai/src/crewai/experimental/evaluation/json_parser.py:8",
+      "lib/crewai/src/crewai/agents/agent_adapters/base_converter_adapter.py:102"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "make arbitrary Python objects safe to dump as JSON",
+    "intended": [
+      "lib/crewai/src/crewai/utilities/serialization.py:18"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "how long to wait before the next attempt after being throttled",
+    "intended": [
+      "lib/crewai/src/crewai/llms/retry.py:100"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "check a signed login token against the identity provider's public keys",
+    "intended": [
+      "lib/crewai-core/src/crewai_core/auth/utils.py:13"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "turn strings like 7d or 24h into a time span",
+    "intended": [
+      "lib/cli/src/crewai_cli/checkpoint_cli.py:634"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "convert a markdown document to HTML",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "send an email through an SMTP server",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "parse a cron expression and compute the next run time",
+    "intended": [],
+    "kind": "unanswerable"
+  }
+]

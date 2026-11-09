@@ -1,0 +1,144 @@
+[
+  {
+    "query": "get the JSON out of an LLM reply wrapped in markdown fences",
+    "relevant": [
+      "instructor/v2/core/json.py:13",
+      "instructor/v2/core/json.py:174"
+    ],
+    "note": "extract_json_from_stream (added, outside pool) takes an iterable of text chunks and prefers fenced markdown output; passing [reply_text] satisfies the need, so labelled relevant but borderline. Private _last_json_span and _MultiModelStream.feed judged not relevant (private internals behind the public functions)."
+  },
+  {
+    "query": "work out the dollar cost of a request from token counts",
+    "relevant": [
+      "instructor/cli/usage.py:104"
+    ],
+    "note": "get_model_cost only returns per-token price, does not compute a dollar cost, so not relevant."
+  },
+  {
+    "query": "list the links referenced in a markdown document",
+    "relevant": [
+      "scripts/check_links.py:21",
+      "scripts/make_sitemap.py:43"
+    ],
+    "note": "Both extract markdown links but only internal ones (external, mailto and anchors skipped); labelled relevant with that caveat. make_sitemap version also rewrites paths to .md/index.md, so it is the more adapted of the two."
+  },
+  {
+    "query": "check if a callable is async, even through decorators or partials",
+    "relevant": [
+      "instructor/v2/core/utils.py:20"
+    ],
+    "note": ""
+  },
+  {
+    "query": "convert a TypedDict class into a pydantic model",
+    "relevant": [
+      "instructor/v2/core/response_model.py:63"
+    ],
+    "note": "_typed_dict_to_model is private but is exactly the converter. prepare_response_model also converts TypedDicts but as one step of a much broader normalisation that returns a wrapped runtime model; judged not relevant. is_typed_dict only detects."
+  },
+  {
+    "query": "tell whether a partially streamed payload is finished and parseable",
+    "relevant": [
+      "instructor/v2/dsl/json_tracker.py:16"
+    ],
+    "note": "JsonCompleteness.analyze/is_root_complete can answer it too but need a two-step stateful call and report per-path completeness; judged not relevant."
+  },
+  {
+    "query": "strip invisible characters that break parsing of streamed text",
+    "relevant": [
+      "instructor/v2/dsl/partial.py:100",
+      "instructor/v2/dsl/partial.py:120"
+    ],
+    "note": "remove_control_chars is the direct answer. _JsonControlCharSanitizer.__call__ is a private stateful per-chunk sanitiser (also drops DEL/C1 outside strings), labelled relevant but borderline as a private class. scripts/make_clean.clean_markdown_content strips zero-width chars but is a markdown doc cleaner, not for streamed JSON; not relevant."
+  },
+  {
+    "query": "join back-to-back chat turns from the same speaker",
+    "relevant": [
+      "instructor/v2/core/messages.py:85"
+    ],
+    "note": ""
+  },
+  {
+    "query": "deterministic fingerprint for deduplicating identical LLM requests",
+    "relevant": [
+      "instructor/cache/__init__.py:201",
+      "instructor/cache/__init__.py:361"
+    ],
+    "note": "Both hash a request into a deterministic SHA-256 key; make_request_cache_key hashes the full prepared request, make_cache_key the main components. client_cache_identity only builds an identity dict; not relevant."
+  },
+  {
+    "query": "download a remote file without allowing requests to internal hosts",
+    "relevant": [
+      "instructor/v2/core/remote.py:300"
+    ],
+    "note": "Image.url_to_base64 is a thin image-only wrapper returning base64; judged not relevant for a generic file download (borderline). _validate_public_url/_request_with_redirects are private building blocks."
+  },
+  {
+    "query": "guess whether a path or link is a picture, audio, or document",
+    "relevant": [
+      "instructor/v2/core/multimodal.py:807"
+    ],
+    "note": "Per-type autodetect_safely methods (Image/Audio/PDF) only test one type; not relevant."
+  },
+  {
+    "query": "disallow undeclared keys everywhere in a JSON schema",
+    "relevant": [
+      "instructor/v2/providers/openai/schema.py:48",
+      "instructor/v2/core/schema.py:33"
+    ],
+    "note": "core.schema.make_strict_schema is a thin wrapper around the openai one; calling it does the job so labelled relevant (both were in the pool). Bedrock _prepare_bedrock_strict_schema also sets additionalProperties=false recursively but is private, takes a model, and rejects many constraints; not relevant."
+  },
+  {
+    "query": "read the YAML header block at the top of a markdown page",
+    "relevant": [
+      "scripts/validate_meta_tags.py:24"
+    ],
+    "note": "Hand-rolled regex extractor that returns only title/description/keywords, not the whole header; labelled relevant but borderline."
+  },
+  {
+    "query": "locate roughly where a quoted sentence appears in a passage",
+    "relevant": [
+      "instructor/v2/dsl/citation.py:89"
+    ],
+    "note": "CitationMixin._get_span is a private method but is the fuzzy quote locator. get_spans needs an instance carrying substring_quotes; judged not relevant."
+  },
+  {
+    "query": "fill in placeholder variables inside prompt messages",
+    "relevant": [
+      "instructor/v2/core/templating.py:18",
+      "instructor/v2/core/templating.py:44",
+      "instructor/v2/core/templating.py:122"
+    ],
+    "note": "None of the three relevant functions were in the pool (found by reading core/templating.py; pool only had per-provider helpers). apply_template (Jinja render of a string), process_message (one message, any provider format) and handle_templating (all messages in request kwargs) all satisfy it. Per-provider process_message helpers (openai/anthropic/gemini/cohere/genai/vertexai templating.py) and render_text_blocks handle one format and need the renderer passed in; judged not relevant (borderline)."
+  },
+  {
+    "query": "write output to a temporary file then swap it into place",
+    "relevant": [
+      "instructor/batch/providers/base.py:21"
+    ],
+    "note": "_atomic_result_file is private but is a generic context manager for exactly this; labelled relevant."
+  },
+  {
+    "query": "running total of tokens consumed over repeated model calls",
+    "relevant": [
+      "instructor/v2/core/usage.py:159",
+      "instructor/v2/providers/anthropic/usage.py:22"
+    ],
+    "note": "Anthropic-only update_total_usage accumulates and is labelled relevant (borderline, one provider); _accumulate_models is the private generic accumulator, not relevant."
+  },
+  {
+    "query": "estimate how many tokens a prompt will consume before sending",
+    "relevant": [],
+    "note": "Checked by grep and by reading the pool: no token estimation/tokenizer in indexed code. _usage_total_tokens only reads a total already on a usage object; calculate_cost needs token counts as input."
+  },
+  {
+    "query": "split a long document into overlapping chunks",
+    "relevant": [],
+    "note": "Checked by grep: no text splitting/chunking helper for documents; all 'chunk' hits are about streaming response chunks."
+  },
+  {
+    "query": "compute cosine similarity between two embedding vectors",
+    "relevant": [],
+    "note": "Checked by grep: no cosine similarity, dot product or embedding code in indexed code."
+  }
+]

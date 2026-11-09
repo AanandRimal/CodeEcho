@@ -1,0 +1,32 @@
+{
+  "selection_rule": "From AIDev (hao-li/AIDev, repository.parquet + pull_request.parquet, downloaded 2026-11-09): language == Python, not a fork, stars >= 500, merged agent PRs >= 30, distinct agents >= 3 (43 repos qualify). From these, picked repos with a permissive licence, mostly pure Python, and 1k-10k functions after indexing (CPU embedding cost and labelling effort). litellm excluded as too large (43,290 functions). crewAI included because 'More Code, Less Reuse' (MSR 2026) studied it, allowing direct comparison.",
+  "repos": [
+    {
+      "full_name": "567-labs/instructor",
+      "commit": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+      "commit_date": "2026-11-07",
+      "license": "MIT",
+      "stars_in_aidev": 12736,
+      "functions_indexed": 1158,
+      "aidev_merged_agent_prs": {"Claude_Code": 47, "OpenAI_Codex": 17, "Cursor": 17, "Devin": 10}
+    },
+    {
+      "full_name": "PrefectHQ/fastmcp",
+      "commit": "936a9659d871318fc314e7210a191884eeeb8d80",
+      "commit_date": "2026-11-06",
+      "license": "Apache-2.0",
+      "stars_in_aidev": 24434,
+      "functions_indexed": 2932,
+      "aidev_merged_agent_prs": {"Claude_Code": 153, "OpenAI_Codex": 28, "Copilot": 2}
+    },
+    {
+      "full_name": "crewAIInc/crewAI",
+      "commit": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee",
+      "commit_date": "2026-11-09",
+      "license": "MIT",
+      "stars_in_aidev": 48536,
+      "functions_indexed": 6494,
+      "aidev_merged_agent_prs": {"Devin": 42, "OpenAI_Codex": 3, "Claude_Code": 3, "Cursor": 1}
+    }
+  ]
+}

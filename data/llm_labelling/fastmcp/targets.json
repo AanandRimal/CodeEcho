@@ -1,0 +1,139 @@
+[
+  {
+    "query": "find an unused network port on the local machine",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/http.py:4"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "compare two version strings",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/versions.py:237"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "decode a JWT payload without verifying the signature",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/auth.py:53"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "paginate a list of items using a cursor",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/pagination.py:60"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "extract parameter descriptions from a function's docstring",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/docstring_parsing.py:33"
+    ],
+    "kind": "easy"
+  },
+  {
+    "query": "build a validating Python type from a schema dictionary",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/json_schema_type.py:283"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "inline all references so a schema has no pointers left",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/json_schema.py:317"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "block outgoing requests to private or internal network addresses",
+    "intended": [
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:141",
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:278",
+      "fastmcp_slim/fastmcp/server/auth/ssrf.py:374"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "run startup and shutdown hooks from several apps together",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/lifespan.py:12"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "call blocking code from async code without stalling the loop",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/async_utils.py:26"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "escape a command argument so the Windows shell treats it literally",
+    "intended": [
+      "fastmcp_slim/fastmcp/cli/install/shared.py:80"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "read the YAML header block at the top of a markdown file",
+    "intended": [
+      "fastmcp_slim/fastmcp/skills/_snapshot.py:58"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "fill placeholders in a resource address pattern with values",
+    "intended": [
+      "fastmcp_slim/fastmcp/resources/template.py:294"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "append extra key-value pairs to a link's query string",
+    "intended": [
+      "fastmcp_slim/fastmcp/server/auth/redirect_validation.py:23"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "flatten nested exception groups into individual errors",
+    "intended": [
+      "fastmcp_slim/fastmcp/utilities/exceptions.py:48"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "throttle how many calls a client can make per second",
+    "intended": [
+      "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py:109",
+      "fastmcp_slim/fastmcp/server/middleware/rate_limiting.py:147"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "save JSON to disk atomically with owner-only permissions",
+    "intended": [
+      "fastmcp_slim/fastmcp/cli/deploy/state.py:170"
+    ],
+    "kind": "hard"
+  },
+  {
+    "query": "gzip compress an HTTP response body",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "compute the next run time from a cron expression",
+    "intended": [],
+    "kind": "unanswerable"
+  },
+  {
+    "query": "validate that a string is a well-formed email address",
+    "intended": [],
+    "kind": "unanswerable"
+  }
+]
