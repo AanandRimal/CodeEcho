@@ -9,9 +9,10 @@ import tokenize
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# Directory names that are never indexed: tests, vendored code, environments, build output.
+# Directory names that are never indexed: tests, examples/docs (demo code, not reusable library
+# code; see docs/DECISIONS.md D23), vendored code, environments, build output.
 SKIP_DIRS = frozenset({
-    "test", "tests",
+    "test", "tests", "example", "examples", "doc", "docs",
     "vendor", "vendored", "_vendor", "third_party", "thirdparty", "site-packages", "node_modules",
     "venv", "env", "build", "dist", "__pycache__",
 })

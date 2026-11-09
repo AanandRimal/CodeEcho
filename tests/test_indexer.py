@@ -42,6 +42,7 @@ FILES = {
     "tests/test_utils.py": "def test_x():\n    pass\n",       # tests dir: skipped
     "vendor/lib.py": "def vendored():\n    pass\n",          # vendored dir: skipped
     ".venv/site.py": "def hidden():\n    pass\n",            # hidden dir: skipped
+    "examples/demo.py": "def demo():\n    pass\n",          # examples dir: skipped
 }
 
 
