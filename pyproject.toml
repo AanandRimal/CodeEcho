@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Reuse search and duplication review for Python repositories"
 requires-python = ">=3.11"
 
+[project.scripts]
+devtrust = "devtrust.cli:app"
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
