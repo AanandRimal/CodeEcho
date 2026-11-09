@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import ast
 import os
-import textwrap
 import tokenize
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -90,6 +89,15 @@ def _functions(node: ast.AST, prefix: str):
             yield from _functions(child, prefix)
 
 
+def _dedent(chunk: list[str], col: int) -> str:
+    """Remove `col` leading whitespace characters from each line that has them.
+
+    Unlike textwrap.dedent this cannot be defeated by a multi-line string whose text starts at a
+    smaller indent (such a line is left as it is), so the result of a method still parses.
+    """
+    return "\n".join(l[col:] if not l[:col].strip() else l for l in chunk)
+
+
 def _first_line(stmt: ast.stmt) -> int:
     decorators = getattr(stmt, "decorator_list", [])
     return min([d.lineno for d in decorators] + [stmt.lineno])
@@ -106,7 +114,7 @@ def _unit(node: ast.FunctionDef | ast.AsyncFunctionDef, qualname: str, lines: li
         # Body shares a line with the header or docstring (e.g. `def f(): return 1`): no clean slice.
         body = "\n".join(ast.unparse(s) for s in rest)
     else:
-        body = textwrap.dedent("\n".join(lines[_first_line(rest[0]) - 1:end])).strip("\n")
+        body = _dedent(lines[_first_line(rest[0]) - 1:end], rest[0].col_offset).strip("\n")
 
     signature = f"{'async ' if isinstance(node, ast.AsyncFunctionDef) else ''}def {node.name}({ast.unparse(node.args)})"
     if node.returns is not None:
@@ -118,7 +126,7 @@ def _unit(node: ast.FunctionDef | ast.AsyncFunctionDef, qualname: str, lines: li
         qualname=qualname,
         signature=signature,
         docstring=docstring,
-        source=textwrap.dedent("\n".join(lines[start - 1:end])).strip("\n"),
+        source=_dedent(lines[start - 1:end], node.col_offset).strip("\n"),
         body=body,
         file_path=rel_path,
         start_line=start,

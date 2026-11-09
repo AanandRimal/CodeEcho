@@ -37,6 +37,7 @@ FILES = {
             a, b,
         ): return a + b
     ''',
+    "pkg/msg.py": 'class Msg:\n    def text(self):\n        return """first\nsecond at column zero\n"""\n',
     "pkg/broken.py": "def oops(:\n",
     "pkg/test_helpers.py": "def helper():\n    pass\n",       # test file by name: skipped
     "tests/test_utils.py": "def test_x():\n    pass\n",       # tests dir: skipped
@@ -69,12 +70,13 @@ def test_finds_functions_methods_and_nested(units):
         "pkg.utils.one_liner",
         "pkg.utils.doc_only",
         "pkg.utils.split_header",
+        "pkg.msg.Msg.text",
     }
 
 
 def test_skips_tests_vendor_hidden_and_reports_failures(repo):
     result = index_repo(repo)
-    assert result.files_parsed == 2                     # pkg/__init__.py, pkg/utils.py
+    assert result.files_parsed == 3                     # pkg/__init__.py, pkg/utils.py, pkg/msg.py
     assert result.files_skipped == 1                    # pkg/test_helpers.py (tests/ dir pruned entirely)
     assert [path for path, _ in result.failures] == ["pkg/broken.py"]
     assert result.failures[0][1].startswith("SyntaxError")
@@ -110,3 +112,11 @@ def test_body_edge_cases(units):
 
 def test_deterministic(repo):
     assert index_repo(repo) == index_repo(repo)
+
+
+def test_method_with_unindented_multiline_string_still_parses(units):
+    import ast
+    u = units["pkg.msg.Msg.text"]
+    assert u.source.startswith("def text(self):") and "second at column zero" in u.source
+    ast.parse(u.source)
+    ast.parse(u.body)
