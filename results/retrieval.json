@@ -1,0 +1,3748 @@
+{
+ "meta": {
+  "date": "2026-11-09",
+  "git_commit": "a26c21d85834f67de79d274cfb754f7470a02119",
+  "git_dirty": false,
+  "seed": 0,
+  "dataset": "data/queries.json (LLM-drafted labels, claude-opus-5-5; see D25/D26)",
+  "repos": {
+   "567-labs/instructor": "aeb7e2558166caeec497e541bcfc6b4eaa2cf53b",
+   "PrefectHQ/fastmcp": "936a9659d871318fc314e7210a191884eeeb8d80",
+   "crewAIInc/crewAI": "83d7407aa50b94d5b9f110c10ca295d3e0f360ee"
+  },
+  "n_queries_total": 60,
+  "n_queries_scored": 51,
+  "n_unanswerable_not_scored": 9,
+  "pool_depth": 10,
+  "k_for_metrics": 10,
+  "dense_revisions": {
+   "BAAI/bge-small-en-v1.5": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+   "nomic-ai/CodeRankEmbed": "3c4b60807d71f79b43f3c4363786d9493691f8b1"
+  },
+  "reranker_revision": {
+   "cross-encoder/ms-marco-MiniLM-L6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "bootstrap": "95% percentile CI, 10000 resamples over queries",
+  "model_params": {
+   "bge_small": 33360000,
+   "coderankembed": 136731648,
+   "rrf_rerank": 22713601
+  },
+  "index_build_seconds_warm_cache": {
+   "567-labs/instructor": 15.0,
+   "PrefectHQ/fastmcp": 9.9,
+   "crewAIInc/crewAI": 10.9
+  },
+  "mean_query_latency_ms": {
+   "bm25": 9.4,
+   "bm25_nosplit": 8.1,
+   "bge_small": 26.8,
+   "coderankembed": 148.0,
+   "rrf": 176.0,
+   "rrf_rerank": 3104.8
+  },
+  "hardware": "CPU only"
+ },
+ "overall": {
+  "bm25": {
+   "mrr": {
+    "mean": 0.2753501400560224,
+    "ci_low": 0.17777427637721752,
+    "ci_high": 0.3813725490196078
+   },
+   "ndcg@10": {
+    "mean": 0.2940048266586744,
+    "ci_low": 0.1957577295627098,
+    "ci_high": 0.3979971734888771
+   },
+   "recall@1": {
+    "mean": 0.12581699346405228,
+    "ci_low": 0.049019607843137254,
+    "ci_high": 0.21568627450980393
+   },
+   "recall@5": {
+    "mean": 0.3790849673202615,
+    "ci_low": 0.25326797385620914,
+    "ci_high": 0.5065359477124184
+   },
+   "recall@10": {
+    "mean": 0.4075163398692811,
+    "ci_low": 0.2777777777777778,
+    "ci_high": 0.5392156862745098
+   }
+  },
+  "bm25_nosplit": {
+   "mrr": {
+    "mean": 0.20016339869281044,
+    "ci_low": 0.10863970588235294,
+    "ci_high": 0.30392156862745096
+   },
+   "ndcg@10": {
+    "mean": 0.21834881182142718,
+    "ci_low": 0.1237547372855707,
+    "ci_high": 0.3243600227563808
+   },
+   "recall@1": {
+    "mean": 0.13725490196078433,
+    "ci_low": 0.058823529411764705,
+    "ci_high": 0.23529411764705882
+   },
+   "recall@5": {
+    "mean": 0.2588235294117647,
+    "ci_low": 0.1411764705882353,
+    "ci_high": 0.3803921568627451
+   },
+   "recall@10": {
+    "mean": 0.28823529411764703,
+    "ci_low": 0.17053921568627453,
+    "ci_high": 0.4156862745098039
+   }
+  },
+  "bge_small": {
+   "mrr": {
+    "mean": 0.6046218487394958,
+    "ci_low": 0.48808356676003734,
+    "ci_high": 0.7170401493930907
+   },
+   "ndcg@10": {
+    "mean": 0.591101498265336,
+    "ci_low": 0.4880472813473365,
+    "ci_high": 0.6892812481947965
+   },
+   "recall@1": {
+    "mean": 0.34738562091503267,
+    "ci_low": 0.23790849673202613,
+    "ci_high": 0.4660130718954248
+   },
+   "recall@5": {
+    "mean": 0.6065359477124184,
+    "ci_low": 0.48920751633986925,
+    "ci_high": 0.7189542483660131
+   },
+   "recall@10": {
+    "mean": 0.7071895424836602,
+    "ci_low": 0.5957516339869281,
+    "ci_high": 0.8104656862745097
+   }
+  },
+  "coderankembed": {
+   "mrr": {
+    "mean": 0.7214285714285714,
+    "ci_low": 0.6224737394957983,
+    "ci_high": 0.8145430672268907
+   },
+   "ndcg@10": {
+    "mean": 0.7421794565285063,
+    "ci_low": 0.6611684914045878,
+    "ci_high": 0.818114945136842
+   },
+   "recall@1": {
+    "mean": 0.41764705882352937,
+    "ci_low": 0.301625816993464,
+    "ci_high": 0.5353022875816993
+   },
+   "recall@5": {
+    "mean": 0.7934640522875815,
+    "ci_low": 0.69640522875817,
+    "ci_high": 0.8826797385620915
+   },
+   "recall@10": {
+    "mean": 0.9081699346405228,
+    "ci_low": 0.8447712418300652,
+    "ci_high": 0.9601307189542484
+   }
+  },
+  "rrf": {
+   "mrr": {
+    "mean": 0.5281279178338002,
+    "ci_low": 0.40440826330532215,
+    "ci_high": 0.651657329598506
+   },
+   "ndcg@10": {
+    "mean": 0.5145207878349762,
+    "ci_low": 0.4016719045380928,
+    "ci_high": 0.627211211248182
+   },
+   "recall@1": {
+    "mean": 0.3160130718954248,
+    "ci_low": 0.20751633986928106,
+    "ci_high": 0.4330065359477124
+   },
+   "recall@5": {
+    "mean": 0.5326797385620915,
+    "ci_low": 0.40750816993464045,
+    "ci_high": 0.6571895424836601
+   },
+   "recall@10": {
+    "mean": 0.6251633986928105,
+    "ci_low": 0.5016339869281046,
+    "ci_high": 0.7421568627450981
+   }
+  },
+  "rrf_rerank": {
+   "mrr": {
+    "mean": 0.3931839402427638,
+    "ci_low": 0.2805538048552754,
+    "ci_high": 0.5139618347338935
+   },
+   "ndcg@10": {
+    "mean": 0.3984974971896568,
+    "ci_low": 0.2958263780370875,
+    "ci_high": 0.5069686165970122
+   },
+   "recall@1": {
+    "mean": 0.17189542483660128,
+    "ci_low": 0.09150326797385622,
+    "ci_high": 0.26633986928104575
+   },
+   "recall@5": {
+    "mean": 0.41862745098039217,
+    "ci_low": 0.29084967320261434,
+    "ci_high": 0.5480392156862745
+   },
+   "recall@10": {
+    "mean": 0.55,
+    "ci_low": 0.42026143790849674,
+    "ci_high": 0.6748447712418298
+   }
+  }
+ },
+ "by_kind": {
+  "easy": {
+   "bm25": {
+    "mrr": {
+     "mean": 0.29333333333333333,
+     "ci_low": 0.16,
+     "ci_high": 0.44
+    },
+    "ndcg@10": {
+     "mean": 0.3809049486065035,
+     "ci_low": 0.23226828269942607,
+     "ci_high": 0.5212648381510848
+    },
+    "recall@1": {
+     "mean": 0.016666666666666666,
+     "ci_low": 0.0,
+     "ci_high": 0.05
+    },
+    "recall@5": {
+     "mean": 0.5666666666666667,
+     "ci_low": 0.3333333333333333,
+     "ci_high": 0.8
+    },
+    "recall@10": {
+     "mean": 0.65,
+     "ci_low": 0.4,
+     "ci_high": 0.8666666666666667
+    }
+   },
+   "bm25_nosplit": {
+    "mrr": {
+     "mean": 0.25,
+     "ci_low": 0.06666666666666667,
+     "ci_high": 0.4666666666666667
+    },
+    "ndcg@10": {
+     "mean": 0.2672940602834262,
+     "ci_low": 0.0754797059275563,
+     "ci_high": 0.47610709954431596
+    },
+    "recall@1": {
+     "mean": 0.16666666666666666,
+     "ci_low": 0.0,
+     "ci_high": 0.36666666666666664
+    },
+    "recall@5": {
+     "mean": 0.3333333333333333,
+     "ci_low": 0.13333333333333333,
+     "ci_high": 0.6
+    },
+    "recall@10": {
+     "mean": 0.3333333333333333,
+     "ci_low": 0.13333333333333333,
+     "ci_high": 0.6
+    }
+   },
+   "bge_small": {
+    "mrr": {
+     "mean": 0.9666666666666667,
+     "ci_low": 0.9,
+     "ci_high": 1.0
+    },
+    "ndcg@10": {
+     "mean": 0.8763033822602254,
+     "ci_low": 0.7970951564535722,
+     "ci_high": 0.9489683875537218
+    },
+    "recall@1": {
+     "mean": 0.6566666666666666,
+     "ci_low": 0.47333333333333333,
+     "ci_high": 0.8333333333333334
+    },
+    "recall@5": {
+     "mean": 0.85,
+     "ci_low": 0.7333333333333333,
+     "ci_high": 0.95
+    },
+    "recall@10": {
+     "mean": 0.9033333333333334,
+     "ci_low": 0.8066666666666666,
+     "ci_high": 0.9833333333333333
+    }
+   },
+   "coderankembed": {
+    "mrr": {
+     "mean": 0.9555555555555555,
+     "ci_low": 0.8666666666666667,
+     "ci_high": 1.0
+    },
+    "ndcg@10": {
+     "mean": 0.9263649502311362,
+     "ci_low": 0.8239310901178172,
+     "ci_high": 0.9911661035394147
+    },
+    "recall@1": {
+     "mean": 0.69,
+     "ci_low": 0.5,
+     "ci_high": 0.8666666666666667
+    },
+    "recall@5": {
+     "mean": 0.9166666666666666,
+     "ci_low": 0.8166666666666667,
+     "ci_high": 1.0
+    },
+    "recall@10": {
+     "mean": 0.9433333333333334,
+     "ci_low": 0.8666666666666667,
+     "ci_high": 1.0
+    }
+   },
+   "rrf": {
+    "mrr": {
+     "mean": 0.7105555555555554,
+     "ci_low": 0.5105555555555555,
+     "ci_high": 0.8888888888888888
+    },
+    "ndcg@10": {
+     "mean": 0.7248130685504798,
+     "ci_low": 0.5466085081749872,
+     "ci_high": 0.8780724482457906
+    },
+    "recall@1": {
+     "mean": 0.4166666666666667,
+     "ci_low": 0.21666666666666667,
+     "ci_high": 0.6333333333333333
+    },
+    "recall@5": {
+     "mean": 0.7566666666666666,
+     "ci_low": 0.5466666666666666,
+     "ci_high": 0.9333333333333333
+    },
+    "recall@10": {
+     "mean": 0.8633333333333333,
+     "ci_low": 0.6866666666666666,
+     "ci_high": 1.0
+    }
+   },
+   "rrf_rerank": {
+    "mrr": {
+     "mean": 0.6911111111111111,
+     "ci_low": 0.48000000000000004,
+     "ci_high": 0.8778333333333326
+    },
+    "ndcg@10": {
+     "mean": 0.6717217768046198,
+     "ci_low": 0.49085787273043435,
+     "ci_high": 0.8305463591150811
+    },
+    "recall@1": {
+     "mean": 0.35666666666666663,
+     "ci_low": 0.17333333333333334,
+     "ci_high": 0.55
+    },
+    "recall@5": {
+     "mean": 0.69,
+     "ci_low": 0.4666666666666667,
+     "ci_high": 0.8833333333333333
+    },
+    "recall@10": {
+     "mean": 0.8233333333333334,
+     "ci_low": 0.63,
+     "ci_high": 0.9733333333333333
+    }
+   }
+  },
+  "hard": {
+   "bm25": {
+    "mrr": {
+     "mean": 0.26785714285714285,
+     "ci_low": 0.14054232804232802,
+     "ci_high": 0.40509259259259256
+    },
+    "ndcg@10": {
+     "mean": 0.25779644251374556,
+     "ci_low": 0.13527121146491933,
+     "ci_high": 0.38973461624396094
+    },
+    "recall@1": {
+     "mean": 0.1712962962962963,
+     "ci_low": 0.06481481481481483,
+     "ci_high": 0.2916666666666667
+    },
+    "recall@5": {
+     "mean": 0.30092592592592593,
+     "ci_low": 0.16203703703703703,
+     "ci_high": 0.4513888888888889
+    },
+    "recall@10": {
+     "mean": 0.30648148148148147,
+     "ci_low": 0.16756944444444447,
+     "ci_high": 0.45465277777777746
+    }
+   },
+   "bm25_nosplit": {
+    "mrr": {
+     "mean": 0.17939814814814814,
+     "ci_low": 0.0763888888888889,
+     "ci_high": 0.2986111111111111
+    },
+    "ndcg@10": {
+     "mean": 0.19795495829559426,
+     "ci_low": 0.09022594898830909,
+     "ci_high": 0.3198256542265544
+    },
+    "recall@1": {
+     "mean": 0.125,
+     "ci_low": 0.027777777777777776,
+     "ci_high": 0.2361111111111111
+    },
+    "recall@5": {
+     "mean": 0.22777777777777775,
+     "ci_low": 0.09444444444444446,
+     "ci_high": 0.36666666666666664
+    },
+    "recall@10": {
+     "mean": 0.26944444444444443,
+     "ci_low": 0.13333333333333336,
+     "ci_high": 0.4166666666666667
+    }
+   },
+   "bge_small": {
+    "mrr": {
+     "mean": 0.45376984126984127,
+     "ci_low": 0.3230803571428571,
+     "ci_high": 0.5852529761904761
+    },
+    "ndcg@10": {
+     "mean": 0.4722673799341321,
+     "ci_low": 0.34841306759567475,
+     "ci_high": 0.5940971754046298
+    },
+    "recall@1": {
+     "mean": 0.21851851851851853,
+     "ci_low": 0.10277777777777779,
+     "ci_high": 0.3472222222222222
+    },
+    "recall@5": {
+     "mean": 0.5050925925925926,
+     "ci_low": 0.3592592592592593,
+     "ci_high": 0.6481481481481481
+    },
+    "recall@10": {
+     "mean": 0.6254629629629629,
+     "ci_low": 0.47962962962962963,
+     "ci_high": 0.7643518518518518
+    }
+   },
+   "coderankembed": {
+    "mrr": {
+     "mean": 0.6238756613756613,
+     "ci_low": 0.5062772817460317,
+     "ci_high": 0.7403480489417988
+    },
+    "ndcg@10": {
+     "mean": 0.6654355008190769,
+     "ci_low": 0.5719293573459582,
+     "ci_high": 0.7585823733502054
+    },
+    "recall@1": {
+     "mean": 0.30416666666666664,
+     "ci_low": 0.17685185185185184,
+     "ci_high": 0.43842592592592594
+    },
+    "recall@5": {
+     "mean": 0.7421296296296297,
+     "ci_low": 0.6138888888888889,
+     "ci_high": 0.8583333333333333
+    },
+    "recall@10": {
+     "mean": 0.8935185185185185,
+     "ci_low": 0.8101851851851851,
+     "ci_high": 0.9583333333333334
+    }
+   },
+   "rrf": {
+    "mrr": {
+     "mean": 0.4521164021164022,
+     "ci_low": 0.3035714285714286,
+     "ci_high": 0.5984193121693122
+    },
+    "ndcg@10": {
+     "mean": 0.4268990042035164,
+     "ci_low": 0.29545805010031223,
+     "ci_high": 0.5564553429975148
+    },
+    "recall@1": {
+     "mean": 0.274074074074074,
+     "ci_low": 0.1444444444444445,
+     "ci_high": 0.4097222222222222
+    },
+    "recall@5": {
+     "mean": 0.4393518518518518,
+     "ci_low": 0.2916666666666667,
+     "ci_high": 0.5865856481481481
+    },
+    "recall@10": {
+     "mean": 0.5259259259259259,
+     "ci_low": 0.37777777777777777,
+     "ci_high": 0.6675925925925925
+    }
+   },
+   "rrf_rerank": {
+    "mrr": {
+     "mean": 0.26904761904761904,
+     "ci_low": 0.1577323082010582,
+     "ci_high": 0.3947089947089947
+    },
+    "ndcg@10": {
+     "mean": 0.284654047350089,
+     "ci_low": 0.17936125288976248,
+     "ci_high": 0.39716256349108364
+    },
+    "recall@1": {
+     "mean": 0.0949074074074074,
+     "ci_low": 0.023148148148148147,
+     "ci_high": 0.18287037037037038
+    },
+    "recall@5": {
+     "mean": 0.3055555555555556,
+     "ci_low": 0.17129629629629628,
+     "ci_high": 0.4514467592592584
+    },
+    "recall@10": {
+     "mean": 0.4361111111111111,
+     "ci_low": 0.2875,
+     "ci_high": 0.586574074074074
+    }
+   }
+  }
+ },
+ "by_repo": {
+  "567-labs/instructor": {
+   "bm25": {
+    "mrr": {
+     "mean": 0.14901960784313725,
+     "ci_low": 0.041176470588235294,
+     "ci_high": 0.28627450980392155
+    },
+    "ndcg@10": {
+     "mean": 0.19522633190215574,
+     "ci_low": 0.07335943115355045,
+     "ci_high": 0.33792092662745404
+    },
+    "recall@1": {
+     "mean": 0.029411764705882353,
+     "ci_low": 0.0,
+     "ci_high": 0.08823529411764706
+    },
+    "recall@5": {
+     "mean": 0.35294117647058826,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5882352941176471
+    },
+    "recall@10": {
+     "mean": 0.35294117647058826,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5882352941176471
+    }
+   },
+   "bm25_nosplit": {
+    "mrr": {
+     "mean": 0.15441176470588233,
+     "ci_low": 0.024509803921568624,
+     "ci_high": 0.3211397058823521
+    },
+    "ndcg@10": {
+     "mean": 0.17216758270960839,
+     "ci_low": 0.04078978844807475,
+     "ci_high": 0.3349074355068983
+    },
+    "recall@1": {
+     "mean": 0.08823529411764706,
+     "ci_low": 0.0,
+     "ci_high": 0.23529411764705882
+    },
+    "recall@5": {
+     "mean": 0.17647058823529413,
+     "ci_low": 0.0,
+     "ci_high": 0.35294117647058826
+    },
+    "recall@10": {
+     "mean": 0.2647058823529412,
+     "ci_low": 0.08823529411764706,
+     "ci_high": 0.47058823529411764
+    }
+   },
+   "bge_small": {
+    "mrr": {
+     "mean": 0.6764705882352942,
+     "ci_low": 0.47058823529411764,
+     "ci_high": 0.8529411764705882
+    },
+    "ndcg@10": {
+     "mean": 0.6416396871660011,
+     "ci_low": 0.4471131735242117,
+     "ci_high": 0.8151308317119044
+    },
+    "recall@1": {
+     "mean": 0.47058823529411764,
+     "ci_low": 0.2647058823529412,
+     "ci_high": 0.6764705882352942
+    },
+    "recall@5": {
+     "mean": 0.6764705882352942,
+     "ci_low": 0.47058823529411764,
+     "ci_high": 0.8529411764705882
+    },
+    "recall@10": {
+     "mean": 0.7058823529411765,
+     "ci_low": 0.5,
+     "ci_high": 0.8823529411764706
+    }
+   },
+   "coderankembed": {
+    "mrr": {
+     "mean": 0.6563725490196078,
+     "ci_low": 0.47058823529411764,
+     "ci_high": 0.832843137254902
+    },
+    "ndcg@10": {
+     "mean": 0.7048399406350858,
+     "ci_low": 0.5374606931314938,
+     "ci_high": 0.8590876144002415
+    },
+    "recall@1": {
+     "mean": 0.47058823529411764,
+     "ci_low": 0.23529411764705882,
+     "ci_high": 0.7058823529411765
+    },
+    "recall@5": {
+     "mean": 0.7647058823529411,
+     "ci_low": 0.5588235294117647,
+     "ci_high": 0.9411764705882353
+    },
+    "recall@10": {
+     "mean": 0.8823529411764706,
+     "ci_low": 0.7352941176470589,
+     "ci_high": 1.0
+    }
+   },
+   "rrf": {
+    "mrr": {
+     "mean": 0.4574229691876751,
+     "ci_low": 0.2593837535014006,
+     "ci_high": 0.6599649859943975
+    },
+    "ndcg@10": {
+     "mean": 0.4880646601396885,
+     "ci_low": 0.3002868799788114,
+     "ci_high": 0.6804991501229453
+    },
+    "recall@1": {
+     "mean": 0.29411764705882354,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5
+    },
+    "recall@5": {
+     "mean": 0.5294117647058824,
+     "ci_low": 0.29411764705882354,
+     "ci_high": 0.7647058823529411
+    },
+    "recall@10": {
+     "mean": 0.6470588235294118,
+     "ci_low": 0.4411764705882353,
+     "ci_high": 0.8529411764705882
+    }
+   },
+   "rrf_rerank": {
+    "mrr": {
+     "mean": 0.3182773109243697,
+     "ci_low": 0.148109243697479,
+     "ci_high": 0.5
+    },
+    "ndcg@10": {
+     "mean": 0.3859691363984087,
+     "ci_low": 0.21054963384238537,
+     "ci_high": 0.564426077956532
+    },
+    "recall@1": {
+     "mean": 0.11764705882352941,
+     "ci_low": 0.0,
+     "ci_high": 0.2647058823529412
+    },
+    "recall@5": {
+     "mean": 0.4117647058823529,
+     "ci_low": 0.17647058823529413,
+     "ci_high": 0.6470588235294118
+    },
+    "recall@10": {
+     "mean": 0.5882352941176471,
+     "ci_low": 0.35294117647058826,
+     "ci_high": 0.8235294117647058
+    }
+   }
+  },
+  "PrefectHQ/fastmcp": {
+   "bm25": {
+    "mrr": {
+     "mean": 0.3284313725490196,
+     "ci_low": 0.16176470588235295,
+     "ci_high": 0.5098039215686274
+    },
+    "ndcg@10": {
+     "mean": 0.36790254121192717,
+     "ci_low": 0.18636044331006574,
+     "ci_high": 0.5612647985348135
+    },
+    "recall@1": {
+     "mean": 0.14705882352941177,
+     "ci_low": 0.0,
+     "ci_high": 0.3235294117647059
+    },
+    "recall@5": {
+     "mean": 0.4852941176470588,
+     "ci_low": 0.25,
+     "ci_high": 0.7205882352941176
+    },
+    "recall@10": {
+     "mean": 0.4852941176470588,
+     "ci_low": 0.25,
+     "ci_high": 0.7205882352941176
+    }
+   },
+   "bm25_nosplit": {
+    "mrr": {
+     "mean": 0.27941176470588236,
+     "ci_low": 0.10257352941176504,
+     "ci_high": 0.4852941176470588
+    },
+    "ndcg@10": {
+     "mean": 0.2977415477438147,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5113256508950769
+    },
+    "recall@1": {
+     "mean": 0.20588235294117646,
+     "ci_low": 0.058823529411764705,
+     "ci_high": 0.4117647058823529
+    },
+    "recall@5": {
+     "mean": 0.35294117647058826,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5882352941176471
+    },
+    "recall@10": {
+     "mean": 0.35294117647058826,
+     "ci_low": 0.11764705882352941,
+     "ci_high": 0.5882352941176471
+    }
+   },
+   "bge_small": {
+    "mrr": {
+     "mean": 0.6049019607843137,
+     "ci_low": 0.4137254901960784,
+     "ci_high": 0.7941176470588235
+    },
+    "ndcg@10": {
+     "mean": 0.6244884898291394,
+     "ci_low": 0.4434428080522844,
+     "ci_high": 0.8022235419338825
+    },
+    "recall@1": {
+     "mean": 0.4117647058823529,
+     "ci_low": 0.20588235294117646,
+     "ci_high": 0.6470588235294118
+    },
+    "recall@5": {
+     "mean": 0.7254901960784313,
+     "ci_low": 0.5294117647058824,
+     "ci_high": 0.9117647058823529
+    },
+    "recall@10": {
+     "mean": 0.7549019607843137,
+     "ci_low": 0.5588235294117647,
+     "ci_high": 0.9411764705882353
+    }
+   },
+   "coderankembed": {
+    "mrr": {
+     "mean": 0.6647759103641457,
+     "ci_low": 0.48550245098039213,
+     "ci_high": 0.8352941176470587
+    },
+    "ndcg@10": {
+     "mean": 0.7138387193174177,
+     "ci_low": 0.56616609477431,
+     "ci_high": 0.8545301359408545
+    },
+    "recall@1": {
+     "mean": 0.47058823529411764,
+     "ci_low": 0.2647058823529412,
+     "ci_high": 0.7058823529411765
+    },
+    "recall@5": {
+     "mean": 0.7843137254901961,
+     "ci_low": 0.5882352941176471,
+     "ci_high": 0.9607843137254901
+    },
+    "recall@10": {
+     "mean": 0.9215686274509803,
+     "ci_low": 0.8333333333333333,
+     "ci_high": 1.0
+    }
+   },
+   "rrf": {
+    "mrr": {
+     "mean": 0.5529411764705883,
+     "ci_low": 0.3470588235294118,
+     "ci_high": 0.7647058823529411
+    },
+    "ndcg@10": {
+     "mean": 0.5505700197892757,
+     "ci_low": 0.3499512413806142,
+     "ci_high": 0.7520770044289385
+    },
+    "recall@1": {
+     "mean": 0.36764705882352944,
+     "ci_low": 0.16176470588235295,
+     "ci_high": 0.5882352941176471
+    },
+    "recall@5": {
+     "mean": 0.622549019607843,
+     "ci_low": 0.40686274509803916,
+     "ci_high": 0.8382352941176471
+    },
+    "recall@10": {
+     "mean": 0.6372549019607843,
+     "ci_low": 0.42156862745098034,
+     "ci_high": 0.8431372549019607
+    }
+   },
+   "rrf_rerank": {
+    "mrr": {
+     "mean": 0.34215686274509804,
+     "ci_low": 0.1686029411764706,
+     "ci_high": 0.5441176470588235
+    },
+    "ndcg@10": {
+     "mean": 0.38479084030579447,
+     "ci_low": 0.21020636345266078,
+     "ci_high": 0.572915877780738
+    },
+    "recall@1": {
+     "mean": 0.17647058823529413,
+     "ci_low": 0.029411764705882353,
+     "ci_high": 0.35294117647058826
+    },
+    "recall@5": {
+     "mean": 0.4852941176470588,
+     "ci_low": 0.25,
+     "ci_high": 0.7205882352941176
+    },
+    "recall@10": {
+     "mean": 0.5735294117647058,
+     "ci_low": 0.3382352941176471,
+     "ci_high": 0.8088235294117647
+    }
+   }
+  },
+  "crewAIInc/crewAI": {
+   "bm25": {
+    "mrr": {
+     "mean": 0.3485994397759104,
+     "ci_low": 0.15406162464985995,
+     "ci_high": 0.5613585434173668
+    },
+    "ndcg@10": {
+     "mean": 0.31888560686194023,
+     "ci_low": 0.1468682640565405,
+     "ci_high": 0.5083083654217326
+    },
+    "recall@1": {
+     "mean": 0.20098039215686272,
+     "ci_low": 0.0392156862745098,
+     "ci_high": 0.3873774509803904
+    },
+    "recall@5": {
+     "mean": 0.29901960784313725,
+     "ci_low": 0.1323529411764706,
+     "ci_high": 0.4852941176470588
+    },
+    "recall@10": {
+     "mean": 0.38431372549019605,
+     "ci_low": 0.18529411764705883,
+     "ci_high": 0.6
+    }
+   },
+   "bm25_nosplit": {
+    "mrr": {
+     "mean": 0.16666666666666666,
+     "ci_low": 0.034313725490196074,
+     "ci_high": 0.3382352941176471
+    },
+    "ndcg@10": {
+     "mean": 0.18513730501085846,
+     "ci_low": 0.03807848148144668,
+     "ci_high": 0.3615334323436886
+    },
+    "recall@1": {
+     "mean": 0.11764705882352941,
+     "ci_low": 0.0,
+     "ci_high": 0.29411764705882354
+    },
+    "recall@5": {
+     "mean": 0.24705882352941178,
+     "ci_low": 0.07058823529411765,
+     "ci_high": 0.47058823529411764
+    },
+    "recall@10": {
+     "mean": 0.24705882352941178,
+     "ci_low": 0.07058823529411765,
+     "ci_high": 0.47058823529411764
+    }
+   },
+   "bge_small": {
+    "mrr": {
+     "mean": 0.5324929971988795,
+     "ci_low": 0.3310924369747899,
+     "ci_high": 0.7285714285714285
+    },
+    "ndcg@10": {
+     "mean": 0.5071763178008675,
+     "ci_low": 0.3490487058949914,
+     "ci_high": 0.6625211442674628
+    },
+    "recall@1": {
+     "mean": 0.15980392156862747,
+     "ci_low": 0.04901960784313725,
+     "ci_high": 0.3009803921568628
+    },
+    "recall@5": {
+     "mean": 0.41764705882352937,
+     "ci_low": 0.23529411764705882,
+     "ci_high": 0.6029411764705882
+    },
+    "recall@10": {
+     "mean": 0.6607843137254903,
+     "ci_low": 0.4872549019607843,
+     "ci_high": 0.8245098039215687
+    }
+   },
+   "coderankembed": {
+    "mrr": {
+     "mean": 0.8431372549019607,
+     "ci_low": 0.7156862745098039,
+     "ci_high": 0.9411764705882353
+    },
+    "ndcg@10": {
+     "mean": 0.807859709633015,
+     "ci_low": 0.7187981747559911,
+     "ci_high": 0.8881629711558167
+    },
+    "recall@1": {
+     "mean": 0.31176470588235294,
+     "ci_low": 0.1715686274509804,
+     "ci_high": 0.46764705882352936
+    },
+    "recall@5": {
+     "mean": 0.8313725490196078,
+     "ci_low": 0.7352941176470589,
+     "ci_high": 0.9215686274509803
+    },
+    "recall@10": {
+     "mean": 0.9205882352941177,
+     "ci_low": 0.8323529411764706,
+     "ci_high": 0.9882352941176471
+    }
+   },
+   "rrf": {
+    "mrr": {
+     "mean": 0.5740196078431372,
+     "ci_low": 0.35245098039215683,
+     "ci_high": 0.7897058823529413
+    },
+    "ndcg@10": {
+     "mean": 0.5049276835759644,
+     "ci_low": 0.322685769567779,
+     "ci_high": 0.6845864428864715
+    },
+    "recall@1": {
+     "mean": 0.2862745098039216,
+     "ci_low": 0.1264705882352941,
+     "ci_high": 0.47058823529411764
+    },
+    "recall@5": {
+     "mean": 0.446078431372549,
+     "ci_low": 0.2549019607843137,
+     "ci_high": 0.6460784313725491
+    },
+    "recall@10": {
+     "mean": 0.5911764705882353,
+     "ci_low": 0.3941176470588235,
+     "ci_high": 0.776470588235294
+    }
+   },
+   "rrf_rerank": {
+    "mrr": {
+     "mean": 0.5191176470588235,
+     "ci_low": 0.29606617647058825,
+     "ci_high": 0.7352941176470589
+    },
+    "ndcg@10": {
+     "mean": 0.4247325148647673,
+     "ci_low": 0.24701700728505946,
+     "ci_high": 0.6038430772995637
+    },
+    "recall@1": {
+     "mean": 0.22156862745098038,
+     "ci_low": 0.07647058823529411,
+     "ci_high": 0.392156862745098
+    },
+    "recall@5": {
+     "mean": 0.3588235294117647,
+     "ci_low": 0.17941176470588238,
+     "ci_high": 0.5441176470588235
+    },
+    "recall@10": {
+     "mean": 0.4882352941176471,
+     "ci_low": 0.3,
+     "ci_high": 0.6735294117647058
+    }
+   }
+  }
+ },
+ "all_systems_miss_at_10": [
+  {
+   "id": "instructor-015",
+   "query": "fill in placeholder variables inside prompt messages",
+   "relevant": [
+    "instructor.v2.core.templating.apply_template",
+    "instructor.v2.core.templating.process_message",
+    "instructor.v2.core.templating.handle_templating"
+   ]
+  }
+ ],
+ "per_query": [
+  {
+   "id": "instructor-001",
+   "repo": "567-labs/instructor",
+   "query": "get the JSON out of an LLM reply wrapped in markdown fences",
+   "kind": "easy",
+   "n_relevant": 2,
+   "relevant": [
+    "instructor.v2.core.json.extract_json_from_codeblock",
+    "instructor.v2.core.json.extract_json_from_stream"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6131471927654584,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.3065735963827292,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-002",
+   "repo": "567-labs/instructor",
+   "query": "work out the dollar cost of a request from token counts",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.cli.usage.calculate_cost"
+   ],
+   "bm25": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-003",
+   "repo": "567-labs/instructor",
+   "query": "list the links referenced in a markdown document",
+   "kind": "easy",
+   "n_relevant": 2,
+   "relevant": [
+    "scripts.check_links.extract_links",
+    "scripts.make_sitemap.extract_markdown_links"
+   ],
+   "bm25": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6509209298071326,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8772153153380493,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8065735963827293,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-004",
+   "repo": "567-labs/instructor",
+   "query": "check if a callable is async, even through decorators or partials",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.core.utils.is_async"
+   ],
+   "bm25": {
+    "mrr": 0.25,
+    "ndcg@10": 0.43067655807339306,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-005",
+   "repo": "567-labs/instructor",
+   "query": "convert a TypedDict class into a pydantic model",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.core.response_model._typed_dict_to_model"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-006",
+   "repo": "567-labs/instructor",
+   "query": "tell whether a partially streamed payload is finished and parseable",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.dsl.json_tracker.is_json_complete"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.125,
+    "ndcg@10": 0.31546487678572877,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-007",
+   "repo": "567-labs/instructor",
+   "query": "strip invisible characters that break parsing of streamed text",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "instructor.v2.dsl.partial.remove_control_chars",
+    "instructor.v2.dsl.partial._JsonControlCharSanitizer.__call__"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6131471927654584,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6240505200038379,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6131471927654584,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-008",
+   "repo": "567-labs/instructor",
+   "query": "join back-to-back chat turns from the same speaker",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.core.messages.merge_consecutive_messages"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-009",
+   "repo": "567-labs/instructor",
+   "query": "deterministic fingerprint for deduplicating identical LLM requests",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "instructor.cache.make_cache_key",
+    "instructor.cache.make_request_cache_key"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.41183384043543503,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.3889580943680543,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-010",
+   "repo": "567-labs/instructor",
+   "query": "download a remote file without allowing requests to internal hosts",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.core.remote.fetch_remote_content"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.1,
+    "ndcg@10": 0.2890648263178879,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-011",
+   "repo": "567-labs/instructor",
+   "query": "guess whether a path or link is a picture, audio, or document",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.core.multimodal.autodetect_media"
+   ],
+   "bm25": {
+    "mrr": 0.25,
+    "ndcg@10": 0.43067655807339306,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-012",
+   "repo": "567-labs/instructor",
+   "query": "disallow undeclared keys everywhere in a JSON schema",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "instructor.v2.providers.openai.schema.make_strict_schema",
+    "instructor.v2.core.schema.make_strict_schema"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.9197207891481876,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.2,
+    "ndcg@10": 0.23719771276929622,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-013",
+   "repo": "567-labs/instructor",
+   "query": "read the YAML header block at the top of a markdown page",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "scripts.validate_meta_tags.extract_frontmatter"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.125,
+    "ndcg@10": 0.31546487678572877,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-014",
+   "repo": "567-labs/instructor",
+   "query": "locate roughly where a quoted sentence appears in a passage",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.v2.dsl.citation.CitationMixin._get_span"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-015",
+   "repo": "567-labs/instructor",
+   "query": "fill in placeholder variables inside prompt messages",
+   "kind": "hard",
+   "n_relevant": 3,
+   "relevant": [
+    "instructor.v2.core.templating.apply_template",
+    "instructor.v2.core.templating.process_message",
+    "instructor.v2.core.templating.handle_templating"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "instructor-016",
+   "repo": "567-labs/instructor",
+   "query": "write output to a temporary file then swap it into place",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "instructor.batch.providers.base._atomic_result_file"
+   ],
+   "bm25": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.3562071871080222,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "instructor-017",
+   "repo": "567-labs/instructor",
+   "query": "running total of tokens consumed over repeated model calls",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "instructor.v2.core.usage.update_total_usage",
+    "instructor.v2.providers.anthropic.usage.update_total_usage"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 0.9197207891481876,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.125,
+    "ndcg@10": 0.19342640361727081,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6934264036172708,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.3065735963827292,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6934264036172708,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-001",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "find an unused network port on the local machine",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.http.find_available_port"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-002",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "compare two version strings",
+   "kind": "easy",
+   "n_relevant": 2,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.versions.compare_versions",
+    "fastmcp_slim.fastmcp.utilities.versions.is_version_greater"
+   ],
+   "bm25": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6934264036172708,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8772153153380493,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8503449055347546,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-003",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "decode a JWT payload without verifying the signature",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.auth.decode_jwt_payload"
+   ],
+   "bm25": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.3562071871080222,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-004",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "paginate a list of items using a cursor",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.pagination.paginate_sequence"
+   ],
+   "bm25": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-005",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "extract parameter descriptions from a function's docstring",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.docstring_parsing.parse_docstring"
+   ],
+   "bm25": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-006",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "build a validating Python type from a schema dictionary",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.json_schema_type.json_schema_to_type",
+    "fastmcp_slim.fastmcp.utilities.json_schema_type.json_schema_to_type_adapter"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.25,
+    "ndcg@10": 0.44130740935663865,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.125,
+    "ndcg@10": 0.19342640361727081,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-007",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "inline all references so a schema has no pointers left",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.json_schema.dereference_refs"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-008",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "block outgoing requests to private or internal network addresses",
+   "kind": "hard",
+   "n_relevant": 4,
+   "relevant": [
+    "fastmcp_slim.fastmcp.server.auth.ssrf.is_ip_allowed",
+    "fastmcp_slim.fastmcp.server.auth.ssrf.validate_url",
+    "fastmcp_slim.fastmcp.server.auth.ssrf.ssrf_safe_fetch",
+    "fastmcp_slim.fastmcp.server.auth.ssrf.ssrf_safe_fetch_response"
+   ],
+   "bm25": {
+    "mrr": 0.25,
+    "ndcg@10": 0.16812753627111746,
+    "recall@1": 0.0,
+    "recall@5": 0.25,
+    "recall@10": 0.25
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.4144299250118475,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.2532778777010656,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.5294362295028773,
+    "recall@1": 0.25,
+    "recall@5": 0.25,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 0.5,
+    "ndcg@10": 0.49958026644179554,
+    "recall@1": 0.0,
+    "recall@5": 0.25,
+    "recall@10": 0.75
+   }
+  },
+  {
+   "id": "fastmcp-009",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "run startup and shutdown hooks from several apps together",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.lifespan.combine_lifespans"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-010",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "call blocking code from async code without stalling the loop",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.async_utils.call_sync_fn_in_threadpool"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.3562071871080222,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-011",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "escape a command argument so the Windows shell treats it literally",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "fastmcp_slim.fastmcp.cli.install.shared.quote_windows_batch_argument",
+    "fastmcp_slim.fastmcp.cli.install.shared.windows_batch_command_line"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8772153153380493,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-012",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "read the YAML header block at the top of a markdown file",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.server.providers.skills._common.parse_frontmatter"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-013",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "fill placeholders in a resource address pattern with values",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.resources.template.expand_uri_template"
+   ],
+   "bm25": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.25,
+    "ndcg@10": 0.43067655807339306,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.25,
+    "ndcg@10": 0.43067655807339306,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "fastmcp-014",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "append extra key-value pairs to a link's query string",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.server.auth.redirect_validation.add_query_params"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-015",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "flatten nested exception groups into individual errors",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.utilities.exceptions.iter_exc"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.2,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-016",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "throttle how many calls a client can make per second",
+   "kind": "hard",
+   "n_relevant": 3,
+   "relevant": [
+    "fastmcp_slim.fastmcp.server.middleware.rate_limiting.TokenBucketRateLimiter.consume",
+    "fastmcp_slim.fastmcp.server.middleware.rate_limiting.SlidingWindowRateLimiter.is_allowed",
+    "fastmcp_slim.fastmcp.server.middleware.rate_limiting.RateLimitingMiddleware.on_request"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.23463936301137822,
+    "recall@1": 0.0,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.3333333333333333
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.43734888382569426,
+    "recall@1": 0.0,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.6666666666666666
+   },
+   "rrf": {
+    "mrr": 0.2,
+    "ndcg@10": 0.18154179253735267,
+    "recall@1": 0.0,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.3333333333333333
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "fastmcp-017",
+   "repo": "PrefectHQ/fastmcp",
+   "query": "save JSON to disk atomically with owner-only permissions",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "fastmcp_slim.fastmcp.cli.deploy.state.write_state"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-001",
+   "repo": "crewAIInc/crewAI",
+   "query": "convert text into a URL-safe slug",
+   "kind": "easy",
+   "n_relevant": 1,
+   "relevant": [
+    "lib.crewai.src.crewai.utilities.string_utils.slugify"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.125,
+    "ndcg@10": 0.31546487678572877,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "crewAI-002",
+   "repo": "crewAIInc/crewAI",
+   "query": "compute the SHA-256 hash of a string",
+   "kind": "easy",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai-tools.src.crewai_tools.rag.misc.compute_sha256",
+    "lib.crewai-tools.src.crewai_tools.rag.base_loader.BaseLoader.generate_doc_id"
+   ],
+   "bm25": {
+    "mrr": 0.2,
+    "ndcg@10": 0.430624116386567,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6131471927654584,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8503449055347546,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8315546295836225,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8175295903539445,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "crewAI-003",
+   "repo": "crewAIInc/crewAI",
+   "query": "split long text into overlapping chunks",
+   "kind": "easy",
+   "n_relevant": 10,
+   "relevant": [
+    "lib.crewai-tools.src.crewai_tools.rag.chunkers.base_chunker.RecursiveCharacterTextSplitter.split_text",
+    "lib.crewai-tools.src.crewai_tools.rag.chunkers.base_chunker.BaseChunker.chunk",
+    "lib.crewai-files.src.crewai_files.processing.transformers.chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.base_knowledge_source.BaseKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.json_knowledge_source.JSONKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.pdf_knowledge_source.PDFKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.csv_knowledge_source.CSVKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.text_file_knowledge_source.TextFileKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.string_knowledge_source.StringKnowledgeSource._chunk_text",
+    "lib.crewai.src.crewai.knowledge.source.excel_knowledge_source.ExcelKnowledgeSource._chunk_text"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8669479898642709,
+    "recall@1": 0.1,
+    "recall@5": 0.5,
+    "recall@10": 0.8
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.933745776545611,
+    "recall@1": 0.1,
+    "recall@5": 0.5,
+    "recall@10": 0.9
+   },
+   "rrf": {
+    "mrr": 0.2,
+    "ndcg@10": 0.15850703974098102,
+    "recall@1": 0.0,
+    "recall@5": 0.1,
+    "recall@10": 0.2
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.5711601909662335,
+    "recall@1": 0.1,
+    "recall@5": 0.1,
+    "recall@10": 0.6
+   }
+  },
+  {
+   "id": "crewAI-004",
+   "repo": "crewAIInc/crewAI",
+   "query": "extract the video id from a YouTube URL",
+   "kind": "easy",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai-tools.src.crewai_tools.rag.loaders.youtube_channel_loader.YoutubeChannelLoader._extract_video_id",
+    "lib.crewai-tools.src.crewai_tools.rag.loaders.youtube_video_loader.YoutubeVideoLoader._extract_video_id"
+   ],
+   "bm25": {
+    "mrr": 0.25,
+    "ndcg@10": 0.46845052016107697,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.25,
+    "ndcg@10": 0.5012658353418871,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "crewAI-005",
+   "repo": "crewAIInc/crewAI",
+   "query": "parse JSON that contains comments and trailing commas",
+   "kind": "easy",
+   "n_relevant": 4,
+   "relevant": [
+    "lib.crewai.src.crewai.project.json_loader.parse_jsonc",
+    "lib.crewai.src.crewai.project.json_loader.strip_jsonc_comments",
+    "lib.cli.src.crewai_cli.api_keys._load_jsonc",
+    "lib.crewai.src.crewai.project.json_loader.load_jsonc_file"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 0.7598336331031966,
+    "recall@1": 0.25,
+    "recall@5": 0.5,
+    "recall@10": 0.75
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.7365896932159578,
+    "recall@1": 0.25,
+    "recall@5": 0.75,
+    "recall@10": 0.75
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8048099750039491,
+    "recall@1": 0.25,
+    "recall@5": 0.75,
+    "recall@10": 0.75
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8048099750039491,
+    "recall@1": 0.25,
+    "recall@5": 0.75,
+    "recall@10": 0.75
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8318724637288826,
+    "recall@1": 0.25,
+    "recall@5": 0.75,
+    "recall@10": 0.75
+   }
+  },
+  {
+   "id": "crewAI-006",
+   "repo": "crewAIInc/crewAI",
+   "query": "keep outgoing calls under a fixed number per minute",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai.src.crewai.utilities.rpm_controller.RPMController.check_or_wait",
+    "lib.crewai-tools.src.crewai_tools.tools.brave_search_tool.base.BraveSearchToolBase._rate_limit"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6131471927654584,
+    "recall@1": 0.5,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5437713091520254,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.21840743681816419,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   }
+  },
+  {
+   "id": "crewAI-007",
+   "repo": "crewAIInc/crewAI",
+   "query": "tell whether a network address points to an internal host",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "lib.crewai-tools.src.crewai_tools.security.safe_path.is_blocked_ip"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.1,
+    "ndcg@10": 0.2890648263178879,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-008",
+   "repo": "crewAIInc/crewAI",
+   "query": "guess what kind of file some raw bytes are",
+   "kind": "hard",
+   "n_relevant": 4,
+   "relevant": [
+    "lib.crewai-files.src.crewai_files.core.sources.detect_content_type",
+    "lib.crewai-files.src.crewai_files.core.sources._detect_content_type_from_bytes",
+    "lib.crewai-tools.src.crewai_tools.tools.url_read_tool.url_read_tool.URLReadTool._sniff",
+    "lib.crewai-files.src.crewai_files.core.sources._fallback_content_type"
+   ],
+   "bm25": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.19519002499605084,
+    "recall@1": 0.0,
+    "recall@5": 0.25,
+    "recall@10": 0.25
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6096199500078984,
+    "recall@1": 0.0,
+    "recall@5": 0.75,
+    "recall@10": 0.75
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.961999147059583,
+    "recall@1": 0.25,
+    "recall@5": 0.75,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.5855700749881525,
+    "recall@1": 0.25,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.3903800499921017,
+    "recall@1": 0.25,
+    "recall@5": 0.25,
+    "recall@10": 0.25
+   }
+  },
+  {
+   "id": "crewAI-009",
+   "repo": "crewAIInc/crewAI",
+   "query": "shrink a picture so it fits within a maximum size",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai-files.src.crewai_files.processing.transformers.resize_image",
+    "lib.crewai-files.src.crewai_files.processing.transformers.optimize_image"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6934264036172708,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.9197207891481876,
+    "recall@1": 0.5,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.2,
+    "ndcg@10": 0.41443699955334395,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 1.0
+   }
+  },
+  {
+   "id": "crewAI-010",
+   "repo": "crewAIInc/crewAI",
+   "query": "convert a 1-based index into Excel-style letters like AA",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "lib.crewai-files.src.crewai_files.spreadsheets.answers._column_letters"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.3333333333333333,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-011",
+   "repo": "crewAIInc/crewAI",
+   "query": "fill in named placeholders in a template without breaking JSON braces",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai.src.crewai.utilities.string_utils.interpolate_only",
+    "lib.cli.src.crewai_cli.utils.render_template"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.20438239758848611,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.5706417189553201,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.1,
+    "ndcg@10": 0.17723928678404774,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-012",
+   "repo": "crewAIInc/crewAI",
+   "query": "recognise an error caused by the prompt being too long for the model",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai.src.crewai.utilities.exceptions.context_window_exceeding_exception.LLMContextLengthExceededError._is_context_length_exceeded_error",
+    "lib.crewai.src.crewai.utilities.agent_utils.is_context_length_exceeded"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.5,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.38685280723454163,
+    "recall@1": 0.0,
+    "recall@5": 0.5,
+    "recall@10": 0.5
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-013",
+   "repo": "crewAIInc/crewAI",
+   "query": "pull a JSON object out of chatty model output",
+   "kind": "hard",
+   "n_relevant": 2,
+   "relevant": [
+    "lib.crewai.src.crewai.experimental.evaluation.json_parser.extract_json_from_llm_response",
+    "lib.crewai.src.crewai.agents.agent_adapters.base_converter_adapter.BaseConverterAdapter._extract_json_from_text"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6934264036172708,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   }
+  },
+  {
+   "id": "crewAI-014",
+   "repo": "crewAIInc/crewAI",
+   "query": "make arbitrary Python objects safe to dump as JSON",
+   "kind": "hard",
+   "n_relevant": 6,
+   "relevant": [
+    "lib.crewai.src.crewai.utilities.serialization.to_serializable",
+    "lib.crewai.src.crewai.flow.persistence.sqlite._json_default",
+    "lib.crewai.src.crewai.flow.async_feedback.types.PendingFeedbackContext._make_json_safe",
+    "lib.crewai.src.crewai.utilities.serialization.to_string",
+    "lib.crewai.src.crewai.events.listeners.tracing.utils.safe_serialize_to_dict",
+    "lib.crewai.src.crewai.telemetry.tracing.handlers._serialize"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 0.45390362024822023,
+    "recall@1": 0.16666666666666666,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.3333333333333333
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8480740740411332,
+    "recall@1": 0.16666666666666666,
+    "recall@5": 0.5,
+    "recall@10": 0.8333333333333334
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.9372375429818208,
+    "recall@1": 0.16666666666666666,
+    "recall@5": 0.6666666666666666,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.5943907508440193,
+    "recall@1": 0.16666666666666666,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.5
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 0.43292617940918415,
+    "recall@1": 0.16666666666666666,
+    "recall@5": 0.3333333333333333,
+    "recall@10": 0.3333333333333333
+   }
+  },
+  {
+   "id": "crewAI-015",
+   "repo": "crewAIInc/crewAI",
+   "query": "how long to wait before the next attempt after being throttled",
+   "kind": "hard",
+   "n_relevant": 5,
+   "relevant": [
+    "lib.crewai.src.crewai.llms.retry.get_retry_delay_seconds",
+    "lib.crewai-tools.src.crewai_tools.tools.brave_search_tool.base._retry_delay",
+    "lib.cli.src.crewai_cli.experimental.eval_crew._retry_after",
+    "lib.crewai.src.crewai.llms.retry._retry_after_seconds",
+    "lib.crewai-files.src.crewai_files.uploaders.gemini._compute_backoff_delay"
+   ],
+   "bm25": {
+    "mrr": 0.14285714285714285,
+    "ndcg@10": 0.11305340175787204,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.2
+   },
+   "bm25_nosplit": {
+    "mrr": 0.25,
+    "ndcg@10": 0.14606834984270645,
+    "recall@1": 0.0,
+    "recall@5": 0.2,
+    "recall@10": 0.2
+   },
+   "bge_small": {
+    "mrr": 1.0,
+    "ndcg@10": 0.6843515475204855,
+    "recall@1": 0.2,
+    "recall@5": 0.6,
+    "recall@10": 0.6
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.9818483242455301,
+    "recall@1": 0.2,
+    "recall@5": 0.8,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 0.5724626779088695,
+    "recall@1": 0.2,
+    "recall@5": 0.4,
+    "recall@10": 0.6
+   },
+   "rrf_rerank": {
+    "mrr": 0.125,
+    "ndcg@10": 0.10699313236726378,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.2
+   }
+  },
+  {
+   "id": "crewAI-016",
+   "repo": "crewAIInc/crewAI",
+   "query": "check a signed login token against the identity provider's public keys",
+   "kind": "hard",
+   "n_relevant": 3,
+   "relevant": [
+    "lib.crewai-core.src.crewai_core.auth.utils.validate_jwt_token",
+    "lib.crewai.src.crewai.a2a.auth.server_schemes.OIDCAuth.authenticate",
+    "lib.crewai.src.crewai.a2a.auth.server_schemes.OAuth2ServerAuth.authenticate"
+   ],
+   "bm25": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bm25_nosplit": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "bge_small": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "coderankembed": {
+    "mrr": 1.0,
+    "ndcg@10": 0.8179809735263114,
+    "recall@1": 0.3333333333333333,
+    "recall@5": 0.6666666666666666,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 0.0,
+    "ndcg@10": 0.0,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 0.0
+   },
+   "rrf_rerank": {
+    "mrr": 0.3333333333333333,
+    "ndcg@10": 0.4367467095119258,
+    "recall@1": 0.0,
+    "recall@5": 0.6666666666666666,
+    "recall@10": 0.6666666666666666
+   }
+  },
+  {
+   "id": "crewAI-017",
+   "repo": "crewAIInc/crewAI",
+   "query": "turn strings like 7d or 24h into a time span",
+   "kind": "hard",
+   "n_relevant": 1,
+   "relevant": [
+    "lib.cli.src.crewai_cli.checkpoint_cli._parse_duration"
+   ],
+   "bm25": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bm25_nosplit": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "bge_small": {
+    "mrr": 0.16666666666666666,
+    "ndcg@10": 0.3562071871080222,
+    "recall@1": 0.0,
+    "recall@5": 0.0,
+    "recall@10": 1.0
+   },
+   "coderankembed": {
+    "mrr": 0.5,
+    "ndcg@10": 0.6309297535714575,
+    "recall@1": 0.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   },
+   "rrf_rerank": {
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "recall@1": 1.0,
+    "recall@5": 1.0,
+    "recall@10": 1.0
+   }
+  }
+ ]
+}

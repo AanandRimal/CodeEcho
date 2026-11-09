@@ -245,13 +245,13 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
   - The labelling pool is the union of these same six settings' top 10, so a relevant function that none of them ranked in the top 10 may be unlabelled; that is how 8 outside-pool labels were found, and more may exist. Recall is therefore a slightly optimistic estimate.
   - 51 queries over 3 repos; CIs are wide, so small differences (e.g. bge-small vs RRF) are not conclusive.
   - `git_commit` in the results file says "none" because no commit existed when this ran. Re-run after the first commit, and don't commit stale numbers.
+- **Re-run with a real commit hash (a26c21d, clean tree) on 2026-11-09:** the numbers are unchanged from the first run; `results/retrieval.json` is that run.
 - **Not tuned:** nothing was tuned on these queries; all settings were fixed beforehand, so there is no dev/test split to leak.
 
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".
 - Git identity for commits (blocks the first commit).
 - ⚑ items in related_work.md to check against the originals, especially Alam 2025's CodeBERT configuration, GPTCloneBench's licence, and the CLIONE paper.
-- Re-run `eval.retrieval_eval` after the first commit so results carry a real commit hash.
 - (Dropped in D26) human–LLM Cohen's κ.
 - Choose the RQ3 detector model after RQ2 (D18).
 
