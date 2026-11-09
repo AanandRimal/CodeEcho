@@ -1,0 +1,2416 @@
+[
+ {
+  "id": "t4-01",
+  "kind": "type4",
+  "source_a": "def slugify(text):\n    out = []\n    prev_dash = True\n    for ch in text.lower():\n        if ch.isascii() and ch.isalnum():\n            out.append(ch)\n            prev_dash = False\n        elif not prev_dash:\n            out.append(\"-\")\n            prev_dash = True\n    return \"\".join(out).rstrip(\"-\")",
+  "source_b": "def make_slug(title):\n    import re\n    lowered = title.lower()\n    if not lowered:\n        return \"\"\n    collapsed = re.sub(r\"[^a-z0-9]+\", \"-\", lowered)\n    trimmed = collapsed.strip(\"-\")\n    return trimmed",
+  "call_args": [
+   [
+    "Hello World"
+   ],
+   [
+    ""
+   ],
+   [
+    "  --a  "
+   ],
+   [
+    "A_b-c"
+   ],
+   [
+    "!!!"
+   ],
+   [
+    "Ünï x"
+   ],
+   [
+    "Already-slugged"
+   ],
+   [
+    "  Multiple   spaces here "
+   ],
+   [
+    "123 go"
+   ]
+  ],
+  "note": "loop with dash state vs regex substitution"
+ },
+ {
+  "id": "t4-02",
+  "kind": "type4",
+  "source_a": "def is_palindrome(text):\n    chars = [c.lower() for c in text if c.isalnum()]\n    left, right = 0, len(chars) - 1\n    while left < right:\n        if chars[left] != chars[right]:\n            return False\n        left += 1\n        right -= 1\n    return True",
+  "source_b": "def reads_same_backwards(s):\n    cleaned = \"\".join(ch for ch in s if ch.isalnum()).lower()\n    if len(cleaned) < 2:\n        return True\n    half = len(cleaned) // 2\n    return cleaned[:half] == cleaned[::-1][:half]",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "a"
+   ],
+   [
+    "A man, a plan, a canal: Panama"
+   ],
+   [
+    "hello"
+   ],
+   [
+    "ab"
+   ],
+   [
+    "aa"
+   ],
+   [
+    "No lemon, no melon"
+   ],
+   [
+    "12321"
+   ],
+   [
+    "12345"
+   ]
+  ],
+  "note": "two-pointer scan vs slice comparison with reversed string"
+ },
+ {
+  "id": "t4-03",
+  "kind": "type4",
+  "source_a": "def factorial(n):\n    if n < 0:\n        raise ValueError(\"negative\")\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result",
+  "source_b": "def fact_recursive(n):\n    if n < 0:\n        raise ValueError(\"n must be non-negative\")\n    if n <= 1:\n        return 1\n    return n * fact_recursive(n - 1)",
+  "call_args": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    2
+   ],
+   [
+    5
+   ],
+   [
+    10
+   ],
+   [
+    20
+   ],
+   [
+    -1
+   ],
+   [
+    -5
+   ],
+   [
+    15
+   ]
+  ],
+  "note": "iterative product vs recursion"
+ },
+ {
+  "id": "t4-04",
+  "kind": "type4",
+  "source_a": "def fibonacci(n):\n    if n < 0:\n        raise ValueError(\"negative index\")\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a",
+  "source_b": "def fib_memo(n, memo=None):\n    if n < 0:\n        raise ValueError(\"index must be >= 0\")\n    if memo is None:\n        memo = {0: 0, 1: 1}\n    if n not in memo:\n        memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)\n    return memo[n]",
+  "call_args": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    2
+   ],
+   [
+    3
+   ],
+   [
+    10
+   ],
+   [
+    30
+   ],
+   [
+    50
+   ],
+   [
+    -1
+   ],
+   [
+    -10
+   ]
+  ],
+  "note": "iterative pair update vs memoised recursion"
+ },
+ {
+  "id": "t4-05",
+  "kind": "type4",
+  "source_a": "def flatten(items):\n    flat = []\n    for item in items:\n        if isinstance(item, list):\n            flat.extend(flatten(item))\n        else:\n            flat.append(item)\n    return flat",
+  "source_b": "def flatten_iter(nested):\n    result = []\n    stack = [iter(nested)]\n    while stack:\n        for item in stack[-1]:\n            if isinstance(item, list):\n                stack.append(iter(item))\n                break\n            result.append(item)\n        else:\n            stack.pop()\n    return result",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     1,
+     [
+      2,
+      [
+       3,
+       [
+        4
+       ]
+      ]
+     ]
+    ]
+   ],
+   [
+    [
+     [],
+     [
+      []
+     ],
+     []
+    ]
+   ],
+   [
+    [
+     [
+      1
+     ],
+     2,
+     [
+      3,
+      [
+       4,
+       5
+      ],
+      6
+     ]
+    ]
+   ],
+   [
+    [
+     "a",
+     [
+      "b",
+      [
+       "c"
+      ]
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      [
+       [
+        0
+       ]
+      ]
+     ]
+    ]
+   ],
+   [
+    [
+     0,
+     [
+      null,
+      [
+       false
+      ]
+     ]
+    ]
+   ]
+  ],
+  "note": "recursion vs explicit stack of iterators"
+ },
+ {
+  "id": "t4-06",
+  "kind": "type4",
+  "source_a": "def dedupe(values):\n    seen = set()\n    unique = []\n    for value in values:\n        if value in seen:\n            continue\n        seen.add(value)\n        unique.append(value)\n    return unique",
+  "source_b": "def unique_in_order(items):\n    if not items:\n        return []\n    ordered = dict.fromkeys(items)\n    result = list(ordered)\n    return result",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     1,
+     2,
+     2,
+     3,
+     1
+    ]
+   ],
+   [
+    [
+     "a",
+     "b",
+     "a"
+    ]
+   ],
+   [
+    [
+     5
+    ]
+   ],
+   [
+    [
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   [
+    [
+     3,
+     2,
+     1
+    ]
+   ],
+   [
+    [
+     1,
+     "1",
+     1.5,
+     1
+    ]
+   ],
+   [
+    [
+     null,
+     null,
+     0
+    ]
+   ]
+  ],
+  "note": "seen-set loop vs dict.fromkeys ordering trick"
+ },
+ {
+  "id": "t4-07",
+  "kind": "type4",
+  "source_a": "def word_frequencies(text):\n    counts = {}\n    for word in text.lower().split():\n        word = word.strip(\".,!?;:\")\n        if not word:\n            continue\n        counts[word] = counts.get(word, 0) + 1\n    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))",
+  "source_b": "def count_words(s):\n    from collections import Counter\n    stripped = (w.strip(\".,!?;:\") for w in s.lower().split())\n    counter = Counter(w for w in stripped if w)\n    if not counter:\n        return []\n    return sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "the cat the dog"
+   ],
+   [
+    "Hello, hello! HELLO?"
+   ],
+   [
+    "..."
+   ],
+   [
+    "a b c a b a"
+   ],
+   [
+    "  spaced   out  "
+   ],
+   [
+    "one"
+   ],
+   [
+    "x, y; z: x."
+   ]
+  ],
+  "note": "manual dict counting vs collections.Counter"
+ },
+ {
+  "id": "t4-08",
+  "kind": "type4",
+  "source_a": "def parse_query(qs):\n    result = {}\n    for part in qs.lstrip(\"?\").split(\"&\"):\n        if not part:\n            continue\n        key, _, value = part.partition(\"=\")\n        result[key] = value\n    return result",
+  "source_b": "def query_to_dict(query):\n    trimmed = query.lstrip(\"?\")\n    if not trimmed:\n        return {}\n    pairs = (p.partition(\"=\") for p in trimmed.split(\"&\") if p)\n    return {k: v for k, _, v in pairs}",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "?"
+   ],
+   [
+    "a=1&b=2"
+   ],
+   [
+    "?x=1&x=2"
+   ],
+   [
+    "flag&k=v"
+   ],
+   [
+    "a=&b=2"
+   ],
+   [
+    "&&a=1&&"
+   ],
+   [
+    "k=v=w"
+   ],
+   [
+    "?q=hello"
+   ]
+  ],
+  "note": "explicit loop vs generator + dict comprehension"
+ },
+ {
+  "id": "t4-09",
+  "kind": "type4",
+  "source_a": "def chunk_list(items, size):\n    if size <= 0:\n        raise ValueError(\"size must be positive\")\n    chunks = []\n    current = []\n    for item in items:\n        current.append(item)\n        if len(current) == size:\n            chunks.append(current)\n            current = []\n    if current:\n        chunks.append(current)\n    return chunks",
+  "source_b": "def split_into_batches(seq, n):\n    if n < 1:\n        raise ValueError(\"batch size must be positive\")\n    batches = []\n    starts = range(0, len(seq), n)\n    batches = [list(seq[i:i + n]) for i in starts]\n    return batches",
+  "call_args": [
+   [
+    [],
+    3
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    3
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    5
+   ],
+   [
+    [
+     1
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    0
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    -1
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    3
+   ]
+  ],
+  "note": "accumulating loop vs range-stepped slice comprehension"
+ },
+ {
+  "id": "t4-10",
+  "kind": "type4",
+  "source_a": "def is_leap_year(year):\n    if year % 400 == 0:\n        return True\n    if year % 100 == 0:\n        return False\n    if year % 4 == 0:\n        return True\n    return False",
+  "source_b": "def leap_check(y):\n    import calendar\n    if not isinstance(y, int):\n        raise TypeError(\"year must be int\")\n    leap = calendar.isleap(y)\n    return leap",
+  "call_args": [
+   [
+    2000
+   ],
+   [
+    1900
+   ],
+   [
+    2024
+   ],
+   [
+    2023
+   ],
+   [
+    1600
+   ],
+   [
+    1800
+   ],
+   [
+    4
+   ],
+   [
+    0
+   ],
+   [
+    2100
+   ],
+   [
+    -4
+   ]
+  ],
+  "note": "early-return rule chain vs calendar.isleap"
+ },
+ {
+  "id": "t4-11",
+  "kind": "type4",
+  "source_a": "def days_in_month(year, month):\n    if month < 1 or month > 12:\n        raise ValueError(\"bad month\")\n    if month == 2:\n        leap = year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)\n        return 29 if leap else 28\n    if month in (4, 6, 9, 11):\n        return 30\n    return 31",
+  "source_b": "def month_length(y, m):\n    import calendar\n    if not 1 <= m <= 12:\n        raise ValueError(\"month out of range\")\n    _, last_day = calendar.monthrange(y, m)\n    return last_day",
+  "call_args": [
+   [
+    2024,
+    2
+   ],
+   [
+    2023,
+    2
+   ],
+   [
+    1900,
+    2
+   ],
+   [
+    2000,
+    2
+   ],
+   [
+    2023,
+    1
+   ],
+   [
+    2023,
+    4
+   ],
+   [
+    2023,
+    12
+   ],
+   [
+    2023,
+    0
+   ],
+   [
+    2023,
+    13
+   ],
+   [
+    2023,
+    11
+   ]
+  ],
+  "note": "branching rules vs calendar.monthrange"
+ },
+ {
+  "id": "t4-12",
+  "kind": "type4",
+  "source_a": "def format_bytes(n):\n    if n < 0:\n        raise ValueError(\"negative size\")\n    units = [\"B\", \"KB\", \"MB\", \"GB\", \"TB\"]\n    value = n\n    idx = 0\n    while value >= 1024 and idx < len(units) - 1:\n        value /= 1024\n        idx += 1\n    return f\"{value:.1f} {units[idx]}\"",
+  "source_b": "def human_size(num_bytes):\n    if num_bytes < 0:\n        raise ValueError(\"size cannot be negative\")\n    names = (\"B\", \"KB\", \"MB\", \"GB\", \"TB\")\n    if num_bytes == 0:\n        return \"0.0 B\"\n    power = min((num_bytes.bit_length() - 1) // 10, len(names) - 1)\n    return \"{:.1f} {}\".format(num_bytes / 1024 ** power, names[power])",
+  "call_args": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    1023
+   ],
+   [
+    1024
+   ],
+   [
+    1536
+   ],
+   [
+    1048576
+   ],
+   [
+    5368709120
+   ],
+   [
+    1099511627776
+   ],
+   [
+    1125899906842624
+   ],
+   [
+    -1
+   ]
+  ],
+  "note": "repeated division loop vs bit_length power computation"
+ },
+ {
+  "id": "t4-13",
+  "kind": "type4",
+  "source_a": "def roman_to_int(s):\n    values = {\"I\": 1, \"V\": 5, \"X\": 10, \"L\": 50, \"C\": 100, \"D\": 500, \"M\": 1000}\n    total = 0\n    for i, ch in enumerate(s):\n        v = values[ch]\n        if i + 1 < len(s) and v < values[s[i + 1]]:\n            total -= v\n        else:\n            total += v\n    return total",
+  "source_b": "def parse_roman(numeral):\n    table = dict(I=1, V=5, X=10, L=50, C=100, D=500, M=1000)\n    total = 0\n    highest = 0\n    for ch in reversed(numeral):\n        v = table[ch]\n        if v >= highest:\n            highest = v\n            total += v\n        else:\n            total -= v\n    return total",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "III"
+   ],
+   [
+    "IV"
+   ],
+   [
+    "IX"
+   ],
+   [
+    "LVIII"
+   ],
+   [
+    "MCMXCIV"
+   ],
+   [
+    "MMXXIV"
+   ],
+   [
+    "XL"
+   ],
+   [
+    "Q"
+   ],
+   [
+    "CDXLIV"
+   ]
+  ],
+  "note": "look-ahead subtraction vs reversed scan with running maximum"
+ },
+ {
+  "id": "t4-14",
+  "kind": "type4",
+  "source_a": "def int_to_roman(num):\n    if num < 1 or num > 3999:\n        raise ValueError(\"out of range\")\n    pairs = [(1000, \"M\"), (900, \"CM\"), (500, \"D\"), (400, \"CD\"), (100, \"C\"), (90, \"XC\"),\n             (50, \"L\"), (40, \"XL\"), (10, \"X\"), (9, \"IX\"), (5, \"V\"), (4, \"IV\"), (1, \"I\")]\n    out = \"\"\n    for value, symbol in pairs:\n        while num >= value:\n            out += symbol\n            num -= value\n    return out",
+  "source_b": "def to_roman(n):\n    if not 1 <= n <= 3999:\n        raise ValueError(\"unsupported number\")\n    ones = [\"\", \"I\", \"II\", \"III\", \"IV\", \"V\", \"VI\", \"VII\", \"VIII\", \"IX\"]\n    tens = [\"\", \"X\", \"XX\", \"XXX\", \"XL\", \"L\", \"LX\", \"LXX\", \"LXXX\", \"XC\"]\n    hundreds = [\"\", \"C\", \"CC\", \"CCC\", \"CD\", \"D\", \"DC\", \"DCC\", \"DCCC\", \"CM\"]\n    thousands = [\"\", \"M\", \"MM\", \"MMM\"]\n    return thousands[n // 1000] + hundreds[n // 100 % 10] + tens[n // 10 % 10] + ones[n % 10]",
+  "call_args": [
+   [
+    1
+   ],
+   [
+    4
+   ],
+   [
+    9
+   ],
+   [
+    14
+   ],
+   [
+    40
+   ],
+   [
+    90
+   ],
+   [
+    400
+   ],
+   [
+    1994
+   ],
+   [
+    3999
+   ],
+   [
+    0
+   ],
+   [
+    4000
+   ],
+   [
+    -3
+   ]
+  ],
+  "note": "greedy subtraction loop vs per-digit lookup tables"
+ },
+ {
+  "id": "t4-15",
+  "kind": "type4",
+  "source_a": "def gcd(a, b):\n    a, b = abs(a), abs(b)\n    while b:\n        remainder = a % b\n        a = b\n        b = remainder\n    return a",
+  "source_b": "def greatest_common_divisor(x, y):\n    if y == 0:\n        return abs(x)\n    if x == 0:\n        return abs(y)\n    return greatest_common_divisor(abs(y), abs(x) % abs(y))",
+  "call_args": [
+   [
+    0,
+    0
+   ],
+   [
+    12,
+    18
+   ],
+   [
+    18,
+    12
+   ],
+   [
+    7,
+    13
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    -12,
+    18
+   ],
+   [
+    12,
+    -18
+   ],
+   [
+    -4,
+    -6
+   ],
+   [
+    100,
+    10
+   ],
+   [
+    1,
+    1
+   ]
+  ],
+  "note": "iterative Euclid vs recursive Euclid with guards"
+ },
+ {
+  "id": "t4-16",
+  "kind": "type4",
+  "source_a": "def find_first(sorted_values, target):\n    low, high = 0, len(sorted_values)\n    while low < high:\n        mid = (low + high) // 2\n        if sorted_values[mid] < target:\n            low = mid + 1\n        else:\n            high = mid\n    if low < len(sorted_values) and sorted_values[low] == target:\n        return low\n    return -1",
+  "source_b": "def index_of(values, wanted):\n    import bisect\n    pos = bisect.bisect_left(values, wanted)\n    if pos == len(values):\n        return -1\n    return pos if values[pos] == wanted else -1",
+  "call_args": [
+   [
+    [],
+    1
+   ],
+   [
+    [
+     1
+    ],
+    1
+   ],
+   [
+    [
+     1
+    ],
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     2,
+     2,
+     3
+    ],
+    2
+   ],
+   [
+    [
+     1,
+     3,
+     5,
+     7
+    ],
+    4
+   ],
+   [
+    [
+     1,
+     3,
+     5,
+     7
+    ],
+    7
+   ],
+   [
+    [
+     1,
+     3,
+     5,
+     7
+    ],
+    0
+   ],
+   [
+    [
+     1,
+     3,
+     5,
+     7
+    ],
+    9
+   ],
+   [
+    [
+     2,
+     2,
+     2
+    ],
+    2
+   ]
+  ],
+  "note": "hand-written binary search vs bisect module"
+ },
+ {
+  "id": "t4-17",
+  "kind": "type4",
+  "source_a": "def deep_merge(base, override):\n    merged = dict(base)\n    for key, value in override.items():\n        if key in merged and isinstance(merged[key], dict) and isinstance(value, dict):\n            merged[key] = deep_merge(merged[key], value)\n        else:\n            merged[key] = value\n    return merged",
+  "source_b": "def merge_configs(left, right):\n    def both_dicts(k):\n        return isinstance(left.get(k), dict) and isinstance(right.get(k), dict)\n    keys = list(left) + [k for k in right if k not in left]\n    return {k: merge_configs(left[k], right[k]) if both_dicts(k)\n            else right[k] if k in right else left[k] for k in keys}",
+  "call_args": [
+   [
+    {},
+    {}
+   ],
+   [
+    {
+     "a": 1
+    },
+    {}
+   ],
+   [
+    {},
+    {
+     "a": 1
+    }
+   ],
+   [
+    {
+     "a": 1
+    },
+    {
+     "a": 2
+    }
+   ],
+   [
+    {
+     "a": {
+      "b": 1
+     }
+    },
+    {
+     "a": {
+      "c": 2
+     }
+    }
+   ],
+   [
+    {
+     "a": {
+      "b": 1
+     }
+    },
+    {
+     "a": 5
+    }
+   ],
+   [
+    {
+     "a": 5
+    },
+    {
+     "a": {
+      "b": 1
+     }
+    }
+   ],
+   [
+    {
+     "a": {
+      "b": {
+       "c": 1
+      }
+     }
+    },
+    {
+     "a": {
+      "b": {
+       "d": 2
+      }
+     },
+     "e": 3
+    }
+   ],
+   [
+    {
+     "x": null
+    },
+    {
+     "x": {
+      "y": 1
+     }
+    }
+   ]
+  ],
+  "note": "loop with copy and recursion vs single comprehension with inner predicate"
+ },
+ {
+  "id": "t4-18",
+  "kind": "type4",
+  "source_a": "def is_valid_email(address):\n    if address.count(\"@\") != 1:\n        return False\n    local, domain = address.split(\"@\")\n    if not local or any(c.isspace() for c in address):\n        return False\n    labels = domain.split(\".\")\n    if len(labels) < 2:\n        return False\n    return all(labels)",
+  "source_b": "def looks_like_email(value):\n    import re\n    pattern = r\"[^@\\s]+@[^@\\s.]+(?:\\.[^@\\s.]+)+\"\n    if \"@\" not in value:\n        return False\n    return re.fullmatch(pattern, value) is not None",
+  "call_args": [
+   [
+    "a@b.com"
+   ],
+   [
+    ""
+   ],
+   [
+    "@b.com"
+   ],
+   [
+    "a@"
+   ],
+   [
+    "a@b"
+   ],
+   [
+    "a@b..com"
+   ],
+   [
+    "a@.com"
+   ],
+   [
+    "a@b.com."
+   ],
+   [
+    "a b@c.com"
+   ],
+   [
+    "a@@b.com"
+   ],
+   [
+    "x.y@sub.example.org"
+   ],
+   [
+    "a@b c.com"
+   ]
+  ],
+  "note": "manual split/validation vs regex fullmatch"
+ },
+ {
+  "id": "t4-19",
+  "kind": "type4",
+  "source_a": "def is_valid_ipv4(text):\n    parts = text.split(\".\")\n    if len(parts) != 4:\n        return False\n    for part in parts:\n        if not (part.isascii() and part.isdigit()):\n            return False\n        if len(part) > 1 and part[0] == \"0\":\n            return False\n        if int(part) > 255:\n            return False\n    return True",
+  "source_b": "def valid_ip_address(s):\n    import ipaddress\n    try:\n        ipaddress.IPv4Address(s)\n    except ValueError:\n        return False\n    return True",
+  "call_args": [
+   [
+    "1.2.3.4"
+   ],
+   [
+    "255.255.255.255"
+   ],
+   [
+    "256.1.1.1"
+   ],
+   [
+    "1.2.3"
+   ],
+   [
+    "1.2.3.4.5"
+   ],
+   [
+    "01.2.3.4"
+   ],
+   [
+    "0.0.0.0"
+   ],
+   [
+    ""
+   ],
+   [
+    "a.b.c.d"
+   ],
+   [
+    "1..2.3"
+   ],
+   [
+    "1.2.3.-4"
+   ],
+   [
+    "192.168.0.1"
+   ]
+  ],
+  "note": "manual octet loop vs ipaddress module"
+ },
+ {
+  "id": "t4-20",
+  "kind": "type4",
+  "source_a": "def camel_to_snake(name):\n    out = []\n    for i, ch in enumerate(name):\n        if ch.isupper() and i > 0:\n            out.append(\"_\")\n        out.append(ch.lower())\n    return \"\".join(out)",
+  "source_b": "def to_snake_case(identifier):\n    import re\n    if not identifier:\n        return identifier\n    spaced = re.sub(r\"(?<!^)(?=[A-Z])\", \"_\", identifier)\n    return spaced.lower()",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "camelCase"
+   ],
+   [
+    "CamelCase"
+   ],
+   [
+    "already_snake"
+   ],
+   [
+    "HTTPServer"
+   ],
+   [
+    "a"
+   ],
+   [
+    "A"
+   ],
+   [
+    "getUserById"
+   ],
+   [
+    "x1Y2"
+   ],
+   [
+    "snake_Mixed"
+   ]
+  ],
+  "note": "character loop vs lookahead regex"
+ },
+ {
+  "id": "t4-21",
+  "kind": "type4",
+  "source_a": "def median(values):\n    if not values:\n        raise ValueError(\"empty\")\n    ordered = sorted(values)\n    n = len(ordered)\n    mid = n // 2\n    if n % 2 == 1:\n        return ordered[mid]\n    return (ordered[mid - 1] + ordered[mid]) / 2",
+  "source_b": "def middle_value(numbers):\n    import statistics\n    if len(numbers) == 0:\n        raise ValueError(\"no data\")\n    result = statistics.median(numbers)\n    return result",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     5
+    ]
+   ],
+   [
+    [
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     3,
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     4,
+     1,
+     3,
+     2
+    ]
+   ],
+   [
+    [
+     -5,
+     -1,
+     -3
+    ]
+   ],
+   [
+    [
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   [
+    [
+     10,
+     2
+    ]
+   ],
+   [
+    [
+     1.5,
+     2.5,
+     3.5
+    ]
+   ]
+  ],
+  "note": "manual sort/index vs statistics.median"
+ },
+ {
+  "id": "t4-22",
+  "kind": "type4",
+  "source_a": "def window_sums(values, k):\n    if k <= 0:\n        raise ValueError(\"window must be positive\")\n    sums = []\n    for start in range(len(values) - k + 1):\n        total = 0\n        for j in range(start, start + k):\n            total += values[j]\n        sums.append(total)\n    return sums",
+  "source_b": "def sliding_totals(nums, width):\n    if width < 1:\n        raise ValueError(\"width must be >= 1\")\n    if width > len(nums):\n        return []\n    running = sum(nums[:width])\n    totals = [running]\n    for i in range(width, len(nums)):\n        running += nums[i] - nums[i - width]\n        totals.append(running)\n    return totals",
+  "call_args": [
+   [
+    [],
+    1
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    3
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    4
+   ],
+   [
+    [
+     5
+    ],
+    1
+   ],
+   [
+    [
+     1,
+     -1,
+     1,
+     -1
+    ],
+    2
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    0
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    -2
+   ],
+   [
+    [
+     0,
+     0,
+     0
+    ],
+    2
+   ],
+   [
+    [
+     10,
+     20,
+     30,
+     40,
+     50
+    ],
+    3
+   ]
+  ],
+  "note": "nested recomputation vs incremental running sum"
+ },
+ {
+  "id": "t4-23",
+  "kind": "type4",
+  "source_a": "def transpose(matrix):\n    if not matrix:\n        return []\n    rows = len(matrix)\n    cols = len(matrix[0])\n    result = []\n    for j in range(cols):\n        column = []\n        for i in range(rows):\n            column.append(matrix[i][j])\n        result.append(column)\n    return result",
+  "source_b": "def flip_axes(grid):\n    if len(grid) == 0:\n        return []\n    columns = zip(*grid)\n    flipped = [list(col) for col in columns]\n    return flipped",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      1,
+      2,
+      3
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      1
+     ],
+     [
+      2
+     ],
+     [
+      3
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   ],
+   [
+    [
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      4,
+      5,
+      6
+     ]
+    ]
+   ],
+   [
+    [
+     []
+    ]
+   ],
+   [
+    [
+     [
+      "a",
+      "b"
+     ],
+     [
+      "c",
+      "d"
+     ],
+     [
+      "e",
+      "f"
+     ]
+    ]
+   ]
+  ],
+  "note": "nested index loops vs zip(*)"
+ },
+ {
+  "id": "t4-24",
+  "kind": "type4",
+  "source_a": "def truncate_words(text, limit):\n    if limit < 0:\n        raise ValueError(\"limit must be >= 0\")\n    words = text.split()\n    out = []\n    length = 0\n    for w in words:\n        extra = len(w) + (1 if out else 0)\n        if length + extra > limit:\n            return \" \".join(out) + \"...\"\n        out.append(w)\n        length += extra\n    return \" \".join(out)",
+  "source_b": "def shorten(s, max_len):\n    if max_len < 0:\n        raise ValueError(\"max_len must be >= 0\")\n    words = s.split()\n    total = len(words)\n    while words and len(\" \".join(words)) > max_len:\n        words.pop()\n    if len(words) < total:\n        return \" \".join(words) + \"...\"\n    return \" \".join(words)",
+  "call_args": [
+   [
+    "",
+    5
+   ],
+   [
+    "hello world",
+    20
+   ],
+   [
+    "hello world",
+    5
+   ],
+   [
+    "hello world",
+    11
+   ],
+   [
+    "hello world",
+    10
+   ],
+   [
+    "a b c d",
+    3
+   ],
+   [
+    "supercalifragilistic",
+    5
+   ],
+   [
+    "x",
+    0
+   ],
+   [
+    "x y",
+    -1
+   ],
+   [
+    "  lots   of   space  ",
+    9
+   ]
+  ],
+  "note": "greedy forward accumulation vs popping words from the end"
+ },
+ {
+  "id": "t4-25",
+  "kind": "type4",
+  "source_a": "def parse_duration(text):\n    units = {\"h\": 3600, \"m\": 60, \"s\": 1}\n    total = 0\n    digits = \"\"\n    for ch in text:\n        if ch in \"0123456789\":\n            digits += ch\n        elif ch in units and digits:\n            total += int(digits) * units[ch]\n            digits = \"\"\n        else:\n            raise ValueError(\"bad duration\")\n    if digits or not text:\n        raise ValueError(\"bad duration\")\n    return total",
+  "source_b": "def duration_seconds(spec):\n    import re\n    if not re.fullmatch(r\"(?:[0-9]+[hms])+\", spec):\n        raise ValueError(\"invalid duration: \" + spec)\n    scale = {\"h\": 3600, \"m\": 60, \"s\": 1}\n    return sum(int(n) * scale[u] for n, u in re.findall(r\"([0-9]+)([hms])\", spec))",
+  "call_args": [
+   [
+    "1h30m15s"
+   ],
+   [
+    "90s"
+   ],
+   [
+    "2h"
+   ],
+   [
+    ""
+   ],
+   [
+    "h"
+   ],
+   [
+    "10"
+   ],
+   [
+    "5x"
+   ],
+   [
+    "1h1h"
+   ],
+   [
+    "0s"
+   ],
+   [
+    "15m30"
+   ],
+   [
+    "1h 5m"
+   ]
+  ],
+  "note": "character state machine vs regex validate + findall"
+ },
+ {
+  "id": "sib-01",
+  "kind": "negative_sibling",
+  "source_a": "def is_valid_username(name):\n    if len(name) < 3 or len(name) > 20:\n        return False\n    if name[0].isdigit():\n        return False\n    for ch in name:\n        if not (ch.isalnum() or ch == \"_\"):\n            return False\n    return True",
+  "source_b": "def is_valid_hostname_label(label):\n    if len(label) < 1 or len(label) > 63:\n        return False\n    if label[0] == \"-\" or label[-1] == \"-\":\n        return False\n    for ch in label:\n        if not (ch.isalnum() or ch == \"-\"):\n            return False\n    return True",
+  "call_args": [
+   [
+    "ab"
+   ],
+   [
+    "abc"
+   ],
+   [
+    "1abc"
+   ],
+   [
+    "a_b"
+   ],
+   [
+    "a-b"
+   ],
+   [
+    "-ab"
+   ],
+   [
+    ""
+   ],
+   [
+    "aaaaaaaaaaaaaaaaaaaaa"
+   ],
+   [
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   ],
+   [
+    "ab-"
+   ]
+  ],
+  "note": "username rules (underscore, no leading digit, 3-20) vs hostname label rules (hyphen, 1-63)"
+ },
+ {
+  "id": "sib-02",
+  "kind": "negative_sibling",
+  "source_a": "def format_date_us(year, month, day):\n    if not (1 <= month <= 12 and 1 <= day <= 31):\n        raise ValueError(\"invalid date\")\n    if year < 0:\n        raise ValueError(\"invalid year\")\n    return \"{:02d}/{:02d}/{:04d}\".format(month, day, year)",
+  "source_b": "def format_date_eu(year, month, day):\n    if not (1 <= month <= 12 and 1 <= day <= 31):\n        raise ValueError(\"invalid date\")\n    if year < 0:\n        raise ValueError(\"invalid year\")\n    return \"{:02d}.{:02d}.{:04d}\".format(day, month, year)",
+  "call_args": [
+   [
+    2024,
+    3,
+    7
+   ],
+   [
+    1999,
+    12,
+    31
+   ],
+   [
+    2000,
+    1,
+    1
+   ],
+   [
+    2024,
+    0,
+    5
+   ],
+   [
+    2024,
+    13,
+    5
+   ],
+   [
+    2024,
+    5,
+    0
+   ],
+   [
+    2024,
+    5,
+    32
+   ],
+   [
+    5,
+    6,
+    7
+   ]
+  ],
+  "note": "US month/day/year with slashes vs EU day.month.year with dots"
+ },
+ {
+  "id": "sib-03",
+  "kind": "negative_sibling",
+  "source_a": "def split_csv_line(line):\n    if not line:\n        return []\n    parts = [p.strip() for p in line.split(\",\")]\n    while parts and parts[-1] == \"\":\n        parts.pop()\n    return parts",
+  "source_b": "def split_semicolon_line(line):\n    if not line:\n        return []\n    parts = [p.strip() for p in line.split(\";\")]\n    while parts and parts[-1] == \"\":\n        parts.pop()\n    return parts",
+  "call_args": [
+   [
+    "a,b,c"
+   ],
+   [
+    "a;b;c"
+   ],
+   [
+    ""
+   ],
+   [
+    "a, b ,c,,"
+   ],
+   [
+    "a; b ;c;;"
+   ],
+   [
+    ",,"
+   ],
+   [
+    "x,y;z"
+   ],
+   [
+    "one"
+   ]
+  ],
+  "note": "splits on comma vs on semicolon"
+ },
+ {
+  "id": "sib-04",
+  "kind": "negative_sibling",
+  "source_a": "def average_positive(values):\n    picked = [v for v in values if v > 0]\n    if not picked:\n        return 0.0\n    total = 0\n    for v in picked:\n        total += v\n    return total / len(picked)",
+  "source_b": "def average_negative(values):\n    picked = [v for v in values if v < 0]\n    if not picked:\n        return 0.0\n    total = 0\n    for v in picked:\n        total += v\n    return total / len(picked)",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     -1,
+     -2,
+     -3
+    ]
+   ],
+   [
+    [
+     1,
+     -1
+    ]
+   ],
+   [
+    [
+     0,
+     0
+    ]
+   ],
+   [
+    [
+     5,
+     -10,
+     15,
+     -20
+    ]
+   ],
+   [
+    [
+     -7
+    ]
+   ],
+   [
+    [
+     7
+    ]
+   ]
+  ],
+  "note": "averages the positive values vs the negative values"
+ },
+ {
+  "id": "sib-05",
+  "kind": "negative_sibling",
+  "source_a": "def celsius_to_fahrenheit(c):\n    if c < -273.15:\n        raise ValueError(\"below absolute zero\")\n    f = c * 9 / 5 + 32\n    result = round(f, 1)\n    return result",
+  "source_b": "def fahrenheit_to_celsius(f):\n    if f < -459.67:\n        raise ValueError(\"below absolute zero\")\n    c = (f - 32) * 5 / 9\n    result = round(c, 1)\n    return result",
+  "call_args": [
+   [
+    0
+   ],
+   [
+    100
+   ],
+   [
+    -40
+   ],
+   [
+    37
+   ],
+   [
+    -273.15
+   ],
+   [
+    -300
+   ],
+   [
+    -459.67
+   ],
+   [
+    -500
+   ],
+   [
+    32
+   ],
+   [
+    212
+   ]
+  ],
+  "note": "Celsius-to-Fahrenheit conversion vs the inverse conversion"
+ },
+ {
+  "id": "sib-06",
+  "kind": "negative_sibling",
+  "source_a": "def is_valid_us_zip(code):\n    if len(code) == 5:\n        return code.isdigit()\n    if len(code) == 10 and code[5] == \"-\":\n        return code[:5].isdigit() and code[6:].isdigit()\n    return False",
+  "source_b": "def is_valid_ca_postal(code):\n    if len(code) == 7 and code[3] == \" \":\n        left, right = code[:3], code[4:]\n        return (left[0].isalpha() and left[1].isdigit() and left[2].isalpha()\n                and right[0].isdigit() and right[1].isalpha() and right[2].isdigit())\n    return False",
+  "call_args": [
+   [
+    "12345"
+   ],
+   [
+    "12345-6789"
+   ],
+   [
+    "K1A 0B1"
+   ],
+   [
+    "k1a 0b1"
+   ],
+   [
+    ""
+   ],
+   [
+    "1234"
+   ],
+   [
+    "123456"
+   ],
+   [
+    "ABCDE"
+   ],
+   [
+    "K1A0B1"
+   ],
+   [
+    "12345 6789"
+   ]
+  ],
+  "note": "US ZIP / ZIP+4 check vs Canadian postal code check"
+ },
+ {
+  "id": "sib-07",
+  "kind": "negative_sibling",
+  "source_a": "def bytes_to_hex(data):\n    if not data:\n        return \"\"\n    parts = []\n    for b in data:\n        if b < 0 or b > 255:\n            raise ValueError(\"not a byte\")\n        parts.append(\"{:02x}\".format(b))\n    return \":\".join(parts)",
+  "source_b": "def bytes_to_bin(data):\n    if not data:\n        return \"\"\n    parts = []\n    for b in data:\n        if b < 0 or b > 255:\n            raise ValueError(\"not a byte\")\n        parts.append(\"{:08b}\".format(b))\n    return \" \".join(parts)",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     0
+    ]
+   ],
+   [
+    [
+     255
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     16,
+     32
+    ]
+   ],
+   [
+    [
+     256
+    ]
+   ],
+   [
+    [
+     -1
+    ]
+   ],
+   [
+    [
+     10,
+     200,
+     7
+    ]
+   ]
+  ],
+  "note": "hex octets joined with colons vs 8-bit binary groups joined with spaces"
+ },
+ {
+  "id": "sib-08",
+  "kind": "negative_sibling",
+  "source_a": "def min_max_normalize(values):\n    if not values:\n        return []\n    lo, hi = min(values), max(values)\n    if hi == lo:\n        return [0.0 for _ in values]\n    return [round((v - lo) / (hi - lo), 4) for v in values]",
+  "source_b": "def z_score_normalize(values):\n    if not values:\n        return []\n    mean = sum(values) / len(values)\n    var = sum((v - mean) ** 2 for v in values) / len(values)\n    if var == 0:\n        return [0.0 for _ in values]\n    return [round((v - mean) / var ** 0.5, 4) for v in values]",
+  "call_args": [
+   [
+    []
+   ],
+   [
+    [
+     5
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ]
+   ],
+   [
+    [
+     1,
+     1,
+     1
+    ]
+   ],
+   [
+    [
+     0,
+     10
+    ]
+   ],
+   [
+    [
+     -5,
+     0,
+     5
+    ]
+   ],
+   [
+    [
+     2,
+     4,
+     4,
+     4,
+     5,
+     5,
+     7,
+     9
+    ]
+   ],
+   [
+    [
+     100,
+     200
+    ]
+   ]
+  ],
+  "note": "scales values to [0,1] vs standardises to zero mean / unit variance"
+ },
+ {
+  "id": "ce-01",
+  "kind": "negative_client_endpoint",
+  "source_a": "def build_request_path(resource, item_id, params):\n    path = \"/api/\" + resource.strip(\"/\")\n    if item_id is not None:\n        path += \"/\" + str(item_id)\n    if params:\n        pairs = []\n        for key in sorted(params):\n            pairs.append(\"{}={}\".format(key, params[key]))\n        path += \"?\" + \"&\".join(pairs)\n    return path",
+  "source_b": "def parse_request_path(path, prefix, unused):\n    path, _, query = path.partition(\"?\")\n    segments = [s for s in path.split(\"/\") if s]\n    if not segments or segments[0] != \"api\":\n        raise ValueError(\"not an api path\")\n    resource = segments[1] if len(segments) > 1 else None\n    item_id = segments[2] if len(segments) > 2 else None\n    pairs = [p.partition(\"=\") for p in query.split(\"&\") if p]\n    return resource, item_id, {k: v for k, _, v in pairs}",
+  "call_args": [
+   [
+    "users",
+    5,
+    {
+     "a": 1
+    }
+   ],
+   [
+    "/users/",
+    null,
+    {}
+   ],
+   [
+    "orders",
+    0,
+    null
+   ],
+   [
+    "/api/users/5?x=1",
+    "api",
+    null
+   ],
+   [
+    "/api/users",
+    "api",
+    null
+   ],
+   [
+    "items",
+    null,
+    {
+     "b": 2,
+     "a": 1
+    }
+   ],
+   [
+    "",
+    1,
+    {}
+   ],
+   [
+    "/other/x",
+    "api",
+    null
+   ]
+  ],
+  "note": "client builds a path from parts; server parses a path back into parts"
+ },
+ {
+  "id": "ce-02",
+  "kind": "negative_client_endpoint",
+  "source_a": "def encode_pairs(mapping):\n    parts = []\n    for key in sorted(mapping):\n        value = str(mapping[key])\n        if \";\" in value or \"=\" in value:\n            raise ValueError(\"unsafe value\")\n        parts.append(key + \"=\" + value)\n    return \";\".join(parts)",
+  "source_b": "def decode_pairs(text):\n    result = {}\n    for chunk in text.split(\";\"):\n        if not chunk:\n            continue\n        key, sep, value = chunk.partition(\"=\")\n        if not sep:\n            raise ValueError(\"malformed pair\")\n        result[key] = value\n    return result",
+  "call_args": [
+   [
+    {}
+   ],
+   [
+    {
+     "a": 1,
+     "b": 2
+    }
+   ],
+   [
+    {
+     "k": "v"
+    }
+   ],
+   [
+    {
+     "a": "x;y"
+    }
+   ],
+   [
+    "a=1;b=2"
+   ],
+   [
+    ""
+   ],
+   [
+    "novalue"
+   ],
+   [
+    {
+     "z": 0,
+     "a": 9
+    }
+   ],
+   [
+    "a=1;;b=2"
+   ]
+  ],
+  "note": "serialiser dict to 'k=v;k=v' vs deserialiser of that format"
+ },
+ {
+  "id": "ce-03",
+  "kind": "negative_client_endpoint",
+  "source_a": "def make_basic_auth_header(user, password):\n    import base64\n    if \":\" in user:\n        raise ValueError(\"colon in user\")\n    token = base64.b64encode((user + \":\" + password).encode(\"utf-8\")).decode(\"ascii\")\n    return \"Basic \" + token",
+  "source_b": "def read_basic_auth_header(header, password):\n    import base64\n    scheme, _, token = header.partition(\" \")\n    if scheme != \"Basic\" or not token:\n        raise ValueError(\"not basic auth\")\n    decoded = base64.b64decode(token).decode(\"utf-8\")\n    user, sep, pw = decoded.partition(\":\")\n    if not sep:\n        raise ValueError(\"malformed credentials\")\n    return user, pw",
+  "call_args": [
+   [
+    "alice",
+    "secret"
+   ],
+   [
+    "bob",
+    ""
+   ],
+   [
+    "",
+    "x"
+   ],
+   [
+    "a:b",
+    "c"
+   ],
+   [
+    "Basic YWxpY2U6c2VjcmV0",
+    "x"
+   ],
+   [
+    "Bearer abc",
+    "x"
+   ],
+   [
+    "Basic ",
+    "x"
+   ],
+   [
+    "Basic Zm9v",
+    "x"
+   ]
+  ],
+  "note": "client builds the Authorization header; server decodes it to credentials"
+ },
+ {
+  "id": "ce-04",
+  "kind": "negative_client_endpoint",
+  "source_a": "def handle_response(status, body):\n    import json\n    if status < 200 or status >= 300:\n        raise RuntimeError(\"request failed: {}\".format(status))\n    if not body:\n        return None\n    return json.loads(body)",
+  "source_b": "def build_response(status, body):\n    import json\n    if status < 100 or status >= 600:\n        raise ValueError(\"bad status: {}\".format(status))\n    payload = json.dumps(body) if body else \"\"\n    return {\"status\": status, \"length\": len(payload), \"body\": payload}",
+  "call_args": [
+   [
+    200,
+    "{\"a\": 1}"
+   ],
+   [
+    204,
+    ""
+   ],
+   [
+    404,
+    "nope"
+   ],
+   [
+    500,
+    ""
+   ],
+   [
+    201,
+    "[1, 2]"
+   ],
+   [
+    99,
+    ""
+   ],
+   [
+    600,
+    ""
+   ],
+   [
+    200,
+    "not json"
+   ],
+   [
+    301,
+    ""
+   ]
+  ],
+  "note": "client interprets a response (parse or raise); server constructs a response dict"
+ },
+ {
+  "id": "ce-05",
+  "kind": "negative_client_endpoint",
+  "source_a": "def encode_cursor(offset, limit):\n    import base64\n    if offset < 0 or limit <= 0:\n        raise ValueError(\"invalid cursor values\")\n    raw = \"{}:{}\".format(offset, limit)\n    return base64.urlsafe_b64encode(raw.encode(\"ascii\")).decode(\"ascii\")",
+  "source_b": "def decode_cursor(token, default_limit):\n    import base64\n    try:\n        raw = base64.urlsafe_b64decode(token.encode(\"ascii\")).decode(\"ascii\")\n        offset_text, _, limit_text = raw.partition(\":\")\n        offset, limit = int(offset_text), int(limit_text)\n    except (ValueError, UnicodeError):\n        return 0, default_limit\n    return max(offset, 0), limit if limit > 0 else default_limit",
+  "call_args": [
+   [
+    0,
+    10
+   ],
+   [
+    20,
+    5
+   ],
+   [
+    -1,
+    10
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    "MDoxMA==",
+    10
+   ],
+   [
+    "garbage!",
+    25
+   ],
+   [
+    "",
+    25
+   ],
+   [
+    "MjA6NQ==",
+    1
+   ],
+   [
+    "LTU6MTA=",
+    7
+   ]
+  ],
+  "note": "client encodes a pagination cursor; server decodes it with fallbacks"
+ },
+ {
+  "id": "ce-06",
+  "kind": "negative_client_endpoint",
+  "source_a": "def pack_message(fields):\n    out = []\n    for field in fields:\n        text = str(field)\n        out.append(\"{}:{}\".format(len(text), text))\n    return \"\".join(out)",
+  "source_b": "def unpack_message(data):\n    fields = []\n    pos = 0\n    while pos < len(data):\n        colon = data.index(\":\", pos)\n        size = int(data[pos:colon])\n        start = colon + 1\n        fields.append(data[start:start + size])\n        pos = start + size\n    return fields",
+  "call_args": [
+   [
+    [
+     "ab",
+     "c"
+    ]
+   ],
+   [
+    []
+   ],
+   [
+    [
+     "",
+     "x"
+    ]
+   ],
+   [
+    [
+     1,
+     22
+    ]
+   ],
+   [
+    "2:ab1:c"
+   ],
+   [
+    ""
+   ],
+   [
+    "0:"
+   ],
+   [
+    "3:abc4:wxyz"
+   ],
+   [
+    "5:ab"
+   ]
+  ],
+  "note": "length-prefix packer vs unpacker"
+ },
+ {
+  "id": "oe-01",
+  "kind": "negative_one_edit",
+  "source_a": "def all_within_limit(values, limit):\n    if not values:\n        return True\n    for v in values:\n        if v > limit:\n            return False\n    return True",
+  "source_b": "def all_below_limit(values, limit):\n    if not values:\n        return True\n    for v in values:\n        if v >= limit:\n            return False\n    return True",
+  "call_args": [
+   [
+    [],
+    5
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    3
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    4
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    2
+   ],
+   [
+    [
+     5
+    ],
+    5
+   ],
+   [
+    [
+     0
+    ],
+    0
+   ],
+   [
+    [
+     -1,
+     -2
+    ],
+    -1
+   ],
+   [
+    [
+     10,
+     20
+    ],
+    100
+   ]
+  ],
+  "note": "'>' flipped to '>=' (boundary now exclusive)"
+ },
+ {
+  "id": "oe-02",
+  "kind": "negative_one_edit",
+  "source_a": "def clamp_to_range(x, lo, hi):\n    if lo > hi:\n        raise ValueError(\"empty range\")\n    upper = min(x, hi)\n    lower = max(lo, upper)\n    result = lower\n    return result",
+  "source_b": "def clamp_value(x, lo, hi):\n    if lo > hi:\n        raise ValueError(\"empty range\")\n    upper = min(x, hi)\n    lower = min(lo, upper)\n    result = lower\n    return result",
+  "call_args": [
+   [
+    5,
+    0,
+    10
+   ],
+   [
+    -5,
+    0,
+    10
+   ],
+   [
+    15,
+    0,
+    10
+   ],
+   [
+    0,
+    0,
+    10
+   ],
+   [
+    10,
+    0,
+    10
+   ],
+   [
+    3,
+    5,
+    1
+   ],
+   [
+    7,
+    7,
+    7
+   ],
+   [
+    -3,
+    -10,
+    -1
+   ]
+  ],
+  "note": "max(lo, ...) replaced by min(lo, ...)"
+ },
+ {
+  "id": "oe-03",
+  "kind": "negative_one_edit",
+  "source_a": "def page_slice(items, page, size):\n    if page < 1 or size < 1:\n        raise ValueError(\"page and size start at 1\")\n    start = (page - 1) * size\n    end = start + size\n    return items[start:end]",
+  "source_b": "def get_page(items, page, size):\n    if page < 1 or size < 1:\n        raise ValueError(\"page and size start at 1\")\n    start = page * size\n    end = start + size\n    return items[start:end]",
+  "call_args": [
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    1,
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    2,
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    3,
+    2
+   ],
+   [
+    [
+     1,
+     2,
+     3
+    ],
+    1,
+    10
+   ],
+   [
+    [],
+    1,
+    5
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    0,
+    1
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    1,
+    0
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    2,
+    1
+   ]
+  ],
+  "note": "start offset (page - 1) * size changed to page * size"
+ },
+ {
+  "id": "oe-04",
+  "kind": "negative_one_edit",
+  "source_a": "def should_retry(status, attempts, max_attempts):\n    if attempts >= max_attempts:\n        return False\n    retriable = status >= 500 or status == 429\n    result = retriable and attempts < max_attempts\n    return result",
+  "source_b": "def needs_retry(status, attempts, max_attempts):\n    if attempts >= max_attempts:\n        return False\n    retriable = status >= 500 or status == 429\n    result = retriable or attempts < max_attempts\n    return result",
+  "call_args": [
+   [
+    500,
+    0,
+    3
+   ],
+   [
+    429,
+    1,
+    3
+   ],
+   [
+    404,
+    0,
+    3
+   ],
+   [
+    200,
+    2,
+    3
+   ],
+   [
+    503,
+    3,
+    3
+   ],
+   [
+    404,
+    5,
+    3
+   ],
+   [
+    599,
+    2,
+    3
+   ],
+   [
+    301,
+    0,
+    1
+   ]
+  ],
+  "note": "'and' changed to 'or' in the final condition"
+ },
+ {
+  "id": "oe-05",
+  "kind": "negative_one_edit",
+  "source_a": "def get_timeout(config):\n    if not isinstance(config, dict):\n        raise TypeError(\"config must be a dict\")\n    network = config.get(\"network\", {})\n    value = network.get(\"timeout\", 30)\n    if value <= 0:\n        return 30\n    return value",
+  "source_b": "def read_timeout(config):\n    if not isinstance(config, dict):\n        raise TypeError(\"config must be a dict\")\n    network = config.get(\"network\", {})\n    value = network.get(\"timeout\", 60)\n    if value <= 0:\n        return 30\n    return value",
+  "call_args": [
+   [
+    {}
+   ],
+   [
+    {
+     "network": {}
+    }
+   ],
+   [
+    {
+     "network": {
+      "timeout": 5
+     }
+    }
+   ],
+   [
+    {
+     "network": {
+      "timeout": 0
+     }
+    }
+   ],
+   [
+    {
+     "network": {
+      "timeout": -1
+     }
+    }
+   ],
+   [
+    []
+   ],
+   [
+    {
+     "other": 1
+    }
+   ],
+   [
+    {
+     "network": {
+      "timeout": 100
+     }
+    }
+   ]
+  ],
+  "note": "default timeout 30 changed to 60"
+ },
+ {
+  "id": "oe-06",
+  "kind": "negative_one_edit",
+  "source_a": "def second_largest(values):\n    distinct = sorted(set(values))\n    if len(distinct) < 2:\n        raise ValueError(\"need two distinct values\")\n    largest = distinct[-2]\n    return largest",
+  "source_b": "def runner_up(values):\n    distinct = sorted(set(values))\n    if len(distinct) < 2:\n        raise ValueError(\"need two distinct values\")\n    largest = distinct[-1]\n    return largest",
+  "call_args": [
+   [
+    [
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     3,
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     5,
+     5,
+     4
+    ]
+   ],
+   [
+    [
+     1
+    ]
+   ],
+   [
+    []
+   ],
+   [
+    [
+     7,
+     7
+    ]
+   ],
+   [
+    [
+     -1,
+     -5,
+     -3
+    ]
+   ],
+   [
+    [
+     10,
+     20,
+     30,
+     40
+    ]
+   ]
+  ],
+  "note": "index -2 changed to -1"
+ },
+ {
+  "id": "oe-07",
+  "kind": "negative_one_edit",
+  "source_a": "def is_prime(n):\n    import math\n    if n < 2:\n        return False\n    for i in range(2, math.isqrt(n) + 1):\n        if n % i == 0:\n            return False\n    return True",
+  "source_b": "def check_prime(n):\n    import math\n    if n < 2:\n        return False\n    for i in range(2, math.isqrt(n)):\n        if n % i == 0:\n            return False\n    return True",
+  "call_args": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    2
+   ],
+   [
+    3
+   ],
+   [
+    4
+   ],
+   [
+    9
+   ],
+   [
+    25
+   ],
+   [
+    49
+   ],
+   [
+    97
+   ],
+   [
+    121
+   ],
+   [
+    -7
+   ]
+  ],
+  "note": "loop bound isqrt(n) + 1 changed to isqrt(n)"
+ },
+ {
+  "id": "oe-08",
+  "kind": "negative_one_edit",
+  "source_a": "def longest_word(text):\n    best = \"\"\n    for word in text.split():\n        if len(word) > len(best):\n            best = word\n    return best",
+  "source_b": "def widest_word(text):\n    best = \"\"\n    for word in text.split():\n        if len(word) >= len(best):\n            best = word\n    return best",
+  "call_args": [
+   [
+    ""
+   ],
+   [
+    "a bb ccc"
+   ],
+   [
+    "aa bb"
+   ],
+   [
+    "abc de fgh"
+   ],
+   [
+    "one"
+   ],
+   [
+    "x y z"
+   ],
+   [
+    "  spaced  out  words "
+   ],
+   [
+    "hello world"
+   ]
+  ],
+  "note": "'>' changed to '>=' so ties pick the last word instead of the first"
+ }
+]

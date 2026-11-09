@@ -55,6 +55,17 @@ def _category(score: float, hi: float, lo: float) -> tuple[str, str]:
     return (SIMILAR, "low") if score >= lo else (INSUFFICIENT, "low")
 
 
+def review_function(unit: FunctionUnit, retriever, top_k: int = 5,
+                    exclude: tuple[str, str] | None = None) -> list[Match]:
+    """Top-`top_k` retrieval candidates for `unit`, each structurally scored, best structural first.
+
+    `exclude` is a (file_path, qualname) never returned, used to skip a function's own previous version.
+    """
+    hits = [(u, s) for u, s in retriever.search(unit.source, top_k + 1)
+            if (u.file_path, u.qualname) != exclude][:top_k]
+    return sorted((Match(u, s, structural_similarity(unit, u)) for u, s in hits), key=lambda m: -m.structural_score)
+
+
 def review(repo: str | Path, base: str, head: str,
            make_retriever: Callable[[list[FunctionUnit]], object] = default_retriever,
            top_k: int = 5, hi: float = HI, lo: float = LO) -> Report:
@@ -72,10 +83,7 @@ def review(repo: str | Path, base: str, head: str,
             report.skipped_small += 1
             continue
         own = (cf.previous.file_path, cf.previous.qualname) if cf.previous else None
-        hits = [(u, s) for u, s in retriever.search(cf.unit.source, top_k + 1)
-                if (u.file_path, u.qualname) != own][:top_k]
-        matches = sorted((Match(u, s, structural_similarity(cf.unit, u)) for u, s in hits),
-                         key=lambda m: -m.structural_score)
+        matches = review_function(cf.unit, retriever, top_k, exclude=own)
         best = matches[0].structural_score if matches else 0.0
         category, confidence = _category(best, hi, lo)
         report.findings.append(Finding(cf.unit, cf.status, category, confidence, matches))
