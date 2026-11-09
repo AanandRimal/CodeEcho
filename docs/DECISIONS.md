@@ -10,8 +10,9 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
 | 1 Indexer | ✅ Done |
 | 2 Retrieval | ✅ Done |
 | 3 Retrieval evaluation | 🟡 60 LLM-drafted queries and labels saved (D25, D26); metrics + eval done (D27); error analysis and README pending |
-| 4 Duplication review | 🟡 Implemented and unit-tested; thresholds provisional, not yet evaluated (D28) |
-| 5–7 | Not started |
+| 4 Duplication review | ✅ Implemented and unit-tested (D28) |
+| 5 Duplication evaluation | ✅ Done; test split read once (D29-D31) |
+| 6–7 | Not started |
 
 ---
 
@@ -284,6 +285,25 @@ Every significant decision in DevTrust, in order: **what** was decided, **why**,
 - **Dev/test split changed from a plain hash split to a split stratified per case kind.** The first dev split held 18 of 25 type4 cases but only 5 of the 22 hand-written negatives (none of the client/endpoint kind), so thresholds would have been tuned mostly against the 26 unrelated negatives. The change was made after seeing that composition of the dev split; no test-split result had been computed or looked at, because `--final` had not been run. (Dev-only numbers from the first split are discarded.)
 - **jscpd harness bug fixed.** jscpd reports file names relative to each scanned root, so my first matching code (which looked for "/queries/" in the path) flagged nothing and every jscpd method scored zero. Found because exact Type-1 copies were also scored zero, which cannot be right. The harness now matches by the query files' names.
 - **Criterion for thresholds stays "maximise F1 on dev"** as written in D29. Observation on the first dev run (discarded split): the F1-optimal structural threshold was low (0.46), with a high false-positive rate, so F1 may not be the operating point a reviewer tool wants. If the final dev run shows the same, report both the F1 operating point and the provisional tool setting (0.9), and say that the choice of criterion is a judgment call.
+
+### D31. Phase 5 results (test split read once, commit cdd2c5e; all numbers in `results/duplication.json`)
+- **What was run:** `python -m eval.duplication_eval --jscpd --final`. 287 cases (143 test): the test split holds 30 originals x 3 mutation types, 12 type4, 30 unrelated, 4 sibling, 3 client/endpoint, 4 one-edit. Thresholds were chosen on dev (D29/D30).
+- **Findings (read the file for numbers and CIs):**
+  - **Structural verification did not reduce false positives at the dev-chosen (F1) thresholds.** Overall FPR was about the same for embedding-only and for retrieval + structural; the difference is within noise on this sample. So on this test the answer to RQ2's question is "no, not by the F1 criterion".
+  - **At the tool's untuned default (structural >= 0.9) the false-positive rate was much lower, but type4 recall was zero and type3 recall dropped.** This is a threshold trade-off, not a verified improvement: embedding-only was not given a matching strict operating point, so the two are not compared at equal footing.
+  - **Structure cannot see Type-4**, as expected (the AST node sequence of a differently written function differs). Embedding-only found more type4 than the structural rule at either threshold.
+  - **Every method flags the one-edit negatives and most siblings.** A one-token behaviour change leaves both the embedding and the AST sequence almost unchanged. This is the main limit of the approach on this test, and it is what a reviewer tool must tell users (candidates, never confirmed duplicates).
+  - **jscpd was very precise but missed most copies:** it caught Type-1, almost never Type-2/3 (it matches tokens), and `--semantic` recovered only a small share of Type-4 at its calibrated threshold. Lowering the minimum size helped recall at the cost of some false positives.
+  - **The retrieval stage rarely lost the original:** the true source was in the top 5 for nearly every positive (including type4), so errors come mostly from the scoring step, not from search.
+  - **No `unrelated` function reached structural 0.9**, so accidental duplicates among the unrelated negatives did not affect the strict-threshold numbers. At the lower F1 threshold some unrelated functions were flagged (not individually audited).
+- **Caveats:**
+  - Small test sets for the hand-written negatives (4, 3, 4): their per-kind rates have very wide uncertainty.
+  - Hand-written pairs are AI-written (D29). Positives are synthetic and easier than real duplicates.
+  - Types 1-3 reuse the same 30 originals, so those rows are correlated.
+  - jscpd was run as shipped plus one lowered-size variant; no other tuning.
+  - Single repo (instructor) and one embedder.
+- **Consequence for the tool:** the provisional thresholds in D28 are kept, now with the evidence above. Report categories honestly: `likely_duplicate` means "very similar structure, check it", and the report must not imply it catches reimplementations (type4).
+- **Not done:** no precision-recall curves or equal-operating-point comparison (future work); no real-PR data yet (Phase 6).
 
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".
