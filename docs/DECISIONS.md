@@ -1,6 +1,6 @@
 # Decision log
 
-Every significant decision in DevTrust, in order: **what** was decided, **why**, what was **rejected**, and the **evidence**. Updated as decisions are made. Section IDs like A1, B12, C6 refer to [related_work.md](related_work.md).
+Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he made himself; the others were proposed by the AI assistant (Claude) and went ahead with his go-ahead. Every significant decision in DevTrust, in order: **what** was decided, **why**, what was **rejected**, and the **evidence**. Updated as decisions are made. Section IDs like A1, B12, C6 refer to [related_work.md](related_work.md).
 
 **Status (2026-11-09):**
 

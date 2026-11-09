@@ -1,5 +1,7 @@
 # DevTrust
 
+By Aanand Rimal, built with AI assistance (Claude Code). The project is directed and owned by the author; see [Who made what](#who-made-what) for exactly which parts the AI drafted.
+
 A reuse checker for developers and AI coding agents. It finds functions that already exist in a Python repository from a plain-language description, flags newly added functions that closely resemble existing code, and measures how often AI coding agents' pull requests do that compared with human ones.
 
 This is a personal project with a measured evaluation, not a paper. Every number below is generated from `results/*.json` by scripts in `eval/`. Nothing here is estimated or typed by hand. Where something was not run, this README says so.
