@@ -11,7 +11,7 @@ duplicating something in the index.
              type4 = hand-written same-behaviour reimplementations (data/duplication/handwritten.json)
   negatives: unrelated = 60 real functions from fastmcp; sibling / client_endpoint / one_edit =
              hand-written similar-looking but behaviourally different functions
-Dev/test split is by group (all mutations of one original stay together). Thresholds are chosen on dev
+Dev/test split is by group, stratified per case kind (all mutations of one original stay together). Thresholds are chosen on dev
 only; the test split is read once, by --final.
 """
 
@@ -44,8 +44,18 @@ NEGATIVE = ("unrelated", "sibling", "client_endpoint", "one_edit")
 OUT = Path("results/duplication.json")
 
 
-def _split(group: str) -> str:
-    return "dev" if int(hashlib.sha256(f"{SEED}|{group}".encode()).hexdigest(), 16) % 2 == 0 else "test"
+def assign_splits(cases: list[dict]) -> None:
+    """Stratified dev/test split by group: within each case family, groups are ordered by a seeded hash
+    and alternate dev, test, dev, ... (all mutations of one original stay together; every kind is halved)."""
+    family = lambda c: "orig" if c["kind"] in ("type1", "type2", "type3") else c["kind"]
+    groups = {c["group"]: family(c) for c in cases}
+    split = {}
+    for fam in sorted(set(groups.values())):
+        members = sorted((g for g, f in groups.items() if f == fam),
+                         key=lambda g: hashlib.sha256(f"{SEED}|{g}".encode()).hexdigest())
+        split.update({g: ("dev" if i % 2 == 0 else "test") for i, g in enumerate(members)})
+    for c in cases:
+        c["split"] = split[c["group"]]
 
 
 def _sample(units: list[FunctionUnit], n: int, rng: random.Random) -> list[FunctionUnit]:
@@ -86,10 +96,10 @@ def build_cases() -> tuple[list[dict], list[FunctionUnit]]:
         cases.append({"id": f"{kind}|{p['id']}", "kind": kind, "group": f"hw:{p['id']}", "source": p["source_b"],
                       "truth": [f"{a.file_path}:{a.start_line}"] if kind == "type4" else []})
     for c in cases:
-        c["split"] = _split(c["group"])
         c["file"] = str(Path("queries") / (hashlib.sha1(c["id"].encode()).hexdigest()[:12] + ".py"))
         (WORK / c["file"]).parent.mkdir(parents=True, exist_ok=True)
         (WORK / c["file"]).write_text(c["source"] + "\n")
+    assign_splits(cases)
     return cases, index
 
 
@@ -162,12 +172,13 @@ def run_jscpd(mode: str, small: bool) -> set[str]:
     cmd += ["--min-tokens", "20", "--min-lines", "3"] if small else []
     subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=3 * 3600)
     data = json.loads((out_dir / "jscpd-report.json").read_text())
+    qnames = {p.name for p in (WORK / "queries").glob("*.py")}     # jscpd reports bare file names relative to each root
     linked: set[str] = set()
     for d in data.get("duplicates", []):
-        a, b = d["firstFile"]["name"], d["secondFile"]["name"]
+        a, b = Path(d["firstFile"]["name"]).name, Path(d["secondFile"]["name"]).name
         for q, other in ((a, b), (b, a)):
-            if "/queries/" in q.replace("\\", "/") and "/queries/" not in other.replace("\\", "/"):
-                linked.add(Path(q).name)
+            if q in qnames and other not in qnames:
+                linked.add(q)
     return linked
 
 
@@ -194,6 +205,7 @@ def main() -> None:
     print(f"cases: {len(cases)} (dev {len(dev)}, test {len(cases) - len(dev)}); "
           f"thresholds chosen on dev: embedding_only {t_emb:.4f}, structural {t_struct:.4f}")
     dev_report = report(dev, methods)
+    (WORK.parent / "dup_eval_dev_cases.json").write_text(json.dumps(dev, indent=1))   # dev only, for inspection
     for name, r in dev_report.items():
         o = r["overall"]
         print(f"DEV {name:26s} P {o['precision']:.2f} R {o['recall']:.2f} F1 {o['f1']:.2f} FPR {o['fpr']:.2f}")
