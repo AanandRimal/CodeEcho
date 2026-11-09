@@ -27,7 +27,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from devtrust.duplication.review import review_function
+from devtrust.duplication.review import HI, review_function
 from devtrust.duplication.structural import structure
 from devtrust.indexer import FunctionUnit, index_repo
 from devtrust.retrieval.dense import REVISION, DenseRetriever
@@ -193,7 +193,9 @@ def main() -> None:
     dev = [c for c in cases if c["split"] == "dev"]
     t_emb, t_struct = choose_threshold(dev, "top1_cosine"), choose_threshold(dev, "best_structural")
     methods = {"embedding_only": lambda c: c["top1_cosine"] >= t_emb,
-               "retrieval_plus_structural": lambda c: c["best_structural"] >= t_struct}
+               "retrieval_plus_structural": lambda c: c["best_structural"] >= t_struct,
+               # the tool's provisional setting from D28, never tuned (D30)
+               "structural_at_tool_default": lambda c: c["best_structural"] >= HI}
     if args.jscpd:
         for mode in ("token", "semantic"):
             for small in (False, True):
