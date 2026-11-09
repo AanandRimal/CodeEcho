@@ -79,7 +79,7 @@ def main() -> None:
         "meta": {
             "date": dt.date.today().isoformat(),
             "git_commit": _git("rev-parse", "HEAD") or "none (repo has no commits yet)",
-            "git_dirty": bool(_git("status", "--porcelain")),
+            "git_dirty": bool(_git("status", "--porcelain", "--", ".", ":!results")),  # results/ is our own output
             "seed": SEED,
             "dataset": "data/queries.json (LLM-drafted labels, claude-opus-5-5; see D25/D26)",
             "repos": {k: v["commit"] for k, v in load_repos().items()},
