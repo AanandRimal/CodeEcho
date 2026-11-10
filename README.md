@@ -6,6 +6,10 @@ By Aanand Rimal, built with AI assistance (Claude Code). The project is directed
 
 A reuse checker for developers and AI coding agents. It finds functions that already exist in a Python repository from a plain-language description, flags newly added functions that closely resemble existing code, and measures how often AI coding agents' pull requests do that compared with human ones.
 
+![CodeEcho demo: search finds an existing function, review flags a duplicate added under a new name](docs/demo.gif)
+
+*Demo on a tiny throwaway repo with one deliberately planted duplicate. It illustrates the output; it is not a result.*
+
 This is a personal project with a measured evaluation, not a paper. Every number below is generated from `results/*.json` by scripts in `eval/`. Nothing here is estimated or typed by hand. Where something was not run, this README says so.
 
 ## Why this exists
@@ -21,7 +25,7 @@ As a full-stack engineer on SaaS products, I kept seeing developers, and increas
 | Duplication review of a git diff (retrieval, then structural check, with side-by-side evidence) | Implemented, evaluated on synthetic and hand-written cases (RQ2) |
 | CLI: `index`, `search`, `review` | Implemented, tested |
 | Study of AI-agent vs human PRs on three real repos (RQ3) | Implemented and run; results below |
-| Demo GIF | Planned, not recorded |
+| Demo GIF | Done (`docs/demo.gif`; a toy repo with a planted duplicate, not a result) |
 | MCP server (`search_existing_functions`, `review_diff`) for AI coding agents | Implemented, tested; only a 16-run demo with an agent, not an evaluation (see "Use it with an AI agent") |
 | CoIR CosQA comparison, human-vs-AI label agreement check | Dropped, not run (see `docs/DECISIONS.md` D26) |
 

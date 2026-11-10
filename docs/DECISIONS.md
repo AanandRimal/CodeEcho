@@ -13,7 +13,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 | 4 Duplication review | ✅ Implemented and unit-tested (D28) |
 | 5 Duplication evaluation | ✅ Done; test split read once (D29-D31) |
 | 6 AI-agent study | ✅ Done (D32, D33) |
-| 7 CLI, README, write-up | ✅ CLI, README (numbers re-checked against results/*.json) and `docs/writeup.md` done; demo GIF not recorded (optional) |
+| 7 CLI, README, write-up | ✅ Done: CLI, README (numbers re-checked against results/*.json), `docs/writeup.md`, demo GIF |
 | MCP server (stretch) | ✅ Implemented and tested; 16-run demo only, not an evaluation (D34) |
 
 ---
