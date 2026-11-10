@@ -1,0 +1,942 @@
+{
+ "meta": {
+  "date": "2026-11-10",
+  "git_commit": "739ca173c97e4eff592d6d7e6ff29f6258606008",
+  "git_dirty": false,
+  "seed": 0,
+  "n_permutations": 10000,
+  "n_bootstrap": 10000,
+  "min_eligible_prs_to_analyse": 10,
+  "detector": {
+   "retrieval": "nomic-ai/CodeRankEmbed (top 5)",
+   "likely_duplicate_structural_threshold": 0.9,
+   "min_ast_nodes": 10,
+   "counted": "functions added by the PR only"
+  },
+  "pr_table": {
+   "date": "2026-11-09",
+   "seed": 0,
+   "n_human_per_repo_max": 150,
+   "source_agents": "hao-li/AIDev pull_request.parquet (merged PRs only)",
+   "source_humans": "GitHub REST API /pulls?state=closed",
+   "repos": {
+    "567-labs/instructor": {
+     "window": [
+      "2025-03-05T01:50:21Z",
+      "2026-02-06T17:15:29Z"
+     ],
+     "n_merged_agent": 91,
+     "n_human_eligible": 140,
+     "n_human_sampled": 140
+    },
+    "PrefectHQ/fastmcp": {
+     "window": [
+      "2025-05-17T15:48:26Z",
+      "2026-04-03T14:48:28Z"
+     ],
+     "n_merged_agent": 183,
+     "n_human_eligible": 1269,
+     "n_human_sampled": 150
+    },
+    "crewAIInc/crewAI": {
+     "window": [
+      "2024-12-27T21:16:02Z",
+      "2026-03-17T08:09:04Z"
+     ],
+     "n_merged_agent": 49,
+     "n_human_eligible": 914,
+     "n_human_sampled": 150
+    }
+   }
+  },
+  "groups_analysed": [
+   "Claude_Code",
+   "Devin",
+   "OpenAI_Codex"
+  ],
+  "groups_not_analysed": [
+   "Copilot",
+   "Cursor"
+  ],
+  "sensitivity": "match_removed_in_pr: findings whose matched function no longer exists at the PR head are not counted (a refactor, not new duplication). Added after inspecting the audit sample."
+ },
+ "primary": {
+  "groups": {
+   "Claude_Code": {
+    "n_prs": 203,
+    "n_errors": 1,
+    "n_eligible_prs": 60,
+    "n_added_reviewed": 482,
+    "n_likely_duplicate": 89,
+    "share_prs_with_likely_duplicate": 0.23333333333333334,
+    "share_ci": [
+     0.13333333333333333,
+     0.35
+    ],
+    "likely_duplicates_per_added_function": 0.18464730290456433,
+    "rate_ci": [
+     0.07795027911954415,
+     0.32558362291722354
+    ],
+    "mean_added_reviewed_per_pr": 8.033333333333333
+   },
+   "Copilot": {
+    "n_prs": 2,
+    "n_errors": 0,
+    "n_eligible_prs": 0,
+    "n_added_reviewed": 0,
+    "n_likely_duplicate": 0
+   },
+   "Cursor": {
+    "n_prs": 18,
+    "n_errors": 0,
+    "n_eligible_prs": 7,
+    "n_added_reviewed": 47,
+    "n_likely_duplicate": 3,
+    "share_prs_with_likely_duplicate": 0.2857142857142857,
+    "share_ci": [
+     0.0,
+     0.5714285714285714
+    ],
+    "likely_duplicates_per_added_function": 0.06382978723404255,
+    "rate_ci": [
+     0.0,
+     0.1111111111111111
+    ],
+    "mean_added_reviewed_per_pr": 6.714285714285714
+   },
+   "Devin": {
+    "n_prs": 52,
+    "n_errors": 0,
+    "n_eligible_prs": 19,
+    "n_added_reviewed": 57,
+    "n_likely_duplicate": 0,
+    "share_prs_with_likely_duplicate": 0.0,
+    "share_ci": [
+     0.0,
+     0.0
+    ],
+    "likely_duplicates_per_added_function": 0.0,
+    "rate_ci": [
+     0.0,
+     0.0
+    ],
+    "mean_added_reviewed_per_pr": 3.0
+   },
+   "OpenAI_Codex": {
+    "n_prs": 48,
+    "n_errors": 0,
+    "n_eligible_prs": 10,
+    "n_added_reviewed": 37,
+    "n_likely_duplicate": 4,
+    "share_prs_with_likely_duplicate": 0.3,
+    "share_ci": [
+     0.0,
+     0.6
+    ],
+    "likely_duplicates_per_added_function": 0.10810810810810811,
+    "rate_ci": [
+     0.0,
+     0.17142857142857143
+    ],
+    "mean_added_reviewed_per_pr": 3.7
+   },
+   "human": {
+    "n_prs": 440,
+    "n_errors": 0,
+    "n_eligible_prs": 108,
+    "n_added_reviewed": 1127,
+    "n_likely_duplicate": 127,
+    "share_prs_with_likely_duplicate": 0.35185185185185186,
+    "share_ci": [
+     0.25925925925925924,
+     0.4444444444444444
+    ],
+    "likely_duplicates_per_added_function": 0.1126885536823425,
+    "rate_ci": [
+     0.08086505318446222,
+     0.15047312174972108
+    ],
+    "mean_added_reviewed_per_pr": 10.435185185185185
+   },
+   "ALL_ANALYSED_AGENTS": {
+    "n_prs": 303,
+    "n_errors": 1,
+    "n_eligible_prs": 89,
+    "n_added_reviewed": 576,
+    "n_likely_duplicate": 93,
+    "share_prs_with_likely_duplicate": 0.19101123595505617,
+    "share_ci": [
+     0.11235955056179775,
+     0.2696629213483146
+    ],
+    "likely_duplicates_per_added_function": 0.16145833333333334,
+    "rate_ci": [
+     0.0720561430840899,
+     0.27692379182156135
+    ],
+    "mean_added_reviewed_per_pr": 6.47191011235955
+   }
+  },
+  "tests_vs_human": {
+   "Claude_Code": {
+    "diff_share": -0.11851851851851852,
+    "p_share": 0.2833716628337166,
+    "diff_rate": 0.07195874922222183,
+    "p_rate": 0.1227877212278772,
+    "p_share_holm_over_agents": 0.5667433256674332,
+    "p_rate_holm_over_agents": 0.2455754424557544
+   },
+   "Devin": {
+    "diff_share": -0.35185185185185186,
+    "p_share": 0.00029997000299970003,
+    "diff_rate": -0.1126885536823425,
+    "p_rate": 0.0064993500649935,
+    "p_share_holm_over_agents": 0.0008999100089991002,
+    "p_rate_holm_over_agents": 0.0194980501949805
+   },
+   "OpenAI_Codex": {
+    "diff_share": -0.05185185185185187,
+    "p_share": 1.0,
+    "diff_rate": -0.004580445574234385,
+    "p_rate": 0.9407059294070593,
+    "p_share_holm_over_agents": 1.0,
+    "p_rate_holm_over_agents": 0.9407059294070593
+   },
+   "ALL_ANALYSED_AGENTS": {
+    "diff_share": -0.16084061589679569,
+    "p_share": 0.016998300169983,
+    "diff_rate": 0.048769779650990844,
+    "p_rate": 0.27007299270072993
+   }
+  },
+  "by_size_bucket": {
+   "1": {
+    "agents": {
+     "n_prs": 35,
+     "n_errors": 0,
+     "n_eligible_prs": 35,
+     "n_added_reviewed": 35,
+     "n_likely_duplicate": 0,
+     "share_prs_with_likely_duplicate": 0.0,
+     "share_ci": [
+      0.0,
+      0.0
+     ],
+     "likely_duplicates_per_added_function": 0.0,
+     "rate_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_added_reviewed_per_pr": 1.0
+    },
+    "human": {
+     "n_prs": 25,
+     "n_errors": 0,
+     "n_eligible_prs": 25,
+     "n_added_reviewed": 25,
+     "n_likely_duplicate": 1,
+     "share_prs_with_likely_duplicate": 0.04,
+     "share_ci": [
+      0.0,
+      0.12
+     ],
+     "likely_duplicates_per_added_function": 0.04,
+     "rate_ci": [
+      0.0,
+      0.12
+     ],
+     "mean_added_reviewed_per_pr": 1.0
+    }
+   },
+   "2-3": {
+    "agents": {
+     "n_prs": 22,
+     "n_errors": 0,
+     "n_eligible_prs": 22,
+     "n_added_reviewed": 53,
+     "n_likely_duplicate": 2,
+     "share_prs_with_likely_duplicate": 0.045454545454545456,
+     "share_ci": [
+      0.0,
+      0.13636363636363635
+     ],
+     "likely_duplicates_per_added_function": 0.03773584905660377,
+     "rate_ci": [
+      0.0,
+      0.12
+     ],
+     "mean_added_reviewed_per_pr": 2.409090909090909
+    },
+    "human": {
+     "n_prs": 29,
+     "n_errors": 0,
+     "n_eligible_prs": 29,
+     "n_added_reviewed": 74,
+     "n_likely_duplicate": 9,
+     "share_prs_with_likely_duplicate": 0.2413793103448276,
+     "share_ci": [
+      0.10344827586206896,
+      0.41379310344827586
+     ],
+     "likely_duplicates_per_added_function": 0.12162162162162163,
+     "rate_ci": [
+      0.0410958904109589,
+      0.21621621621621623
+     ],
+     "mean_added_reviewed_per_pr": 2.5517241379310347
+    }
+   },
+   "4-9": {
+    "agents": {
+     "n_prs": 16,
+     "n_errors": 0,
+     "n_eligible_prs": 16,
+     "n_added_reviewed": 87,
+     "n_likely_duplicate": 17,
+     "share_prs_with_likely_duplicate": 0.4375,
+     "share_ci": [
+      0.1875,
+      0.6875
+     ],
+     "likely_duplicates_per_added_function": 0.19540229885057472,
+     "rate_ci": [
+      0.056818181818181816,
+      0.3700092592592591
+     ],
+     "mean_added_reviewed_per_pr": 5.4375
+    },
+    "human": {
+     "n_prs": 26,
+     "n_errors": 0,
+     "n_eligible_prs": 26,
+     "n_added_reviewed": 166,
+     "n_likely_duplicate": 25,
+     "share_prs_with_likely_duplicate": 0.38461538461538464,
+     "share_ci": [
+      0.19230769230769232,
+      0.5769230769230769
+     ],
+     "likely_duplicates_per_added_function": 0.15060240963855423,
+     "rate_ci": [
+      0.06289308176100629,
+      0.26250174581005586
+     ],
+     "mean_added_reviewed_per_pr": 6.384615384615385
+    }
+   },
+   "10+": {
+    "agents": {
+     "n_prs": 16,
+     "n_errors": 0,
+     "n_eligible_prs": 16,
+     "n_added_reviewed": 401,
+     "n_likely_duplicate": 74,
+     "share_prs_with_likely_duplicate": 0.5625,
+     "share_ci": [
+      0.3125,
+      0.8125
+     ],
+     "likely_duplicates_per_added_function": 0.18453865336658354,
+     "rate_ci": [
+      0.06461483253588517,
+      0.35083817190763245
+     ],
+     "mean_added_reviewed_per_pr": 25.0625
+    },
+    "human": {
+     "n_prs": 28,
+     "n_errors": 0,
+     "n_eligible_prs": 28,
+     "n_added_reviewed": 862,
+     "n_likely_duplicate": 92,
+     "share_prs_with_likely_duplicate": 0.7142857142857143,
+     "share_ci": [
+      0.5357142857142857,
+      0.8571428571428571
+     ],
+     "likely_duplicates_per_added_function": 0.10672853828306264,
+     "rate_ci": [
+      0.07024758837999945,
+      0.15111137347500983
+     ],
+     "mean_added_reviewed_per_pr": 30.785714285714285
+    }
+   }
+  },
+  "by_repo": {
+   "567-labs/instructor": {
+    "agents": {
+     "n_prs": 74,
+     "n_errors": 0,
+     "n_eligible_prs": 21,
+     "n_added_reviewed": 279,
+     "n_likely_duplicate": 71,
+     "share_prs_with_likely_duplicate": 0.38095238095238093,
+     "share_ci": [
+      0.19047619047619047,
+      0.5714285714285714
+     ],
+     "likely_duplicates_per_added_function": 0.25448028673835127,
+     "rate_ci": [
+      0.07906930784079419,
+      0.4931529988893002
+     ],
+     "mean_added_reviewed_per_pr": 13.285714285714286
+    },
+    "human": {
+     "n_prs": 140,
+     "n_errors": 0,
+     "n_eligible_prs": 33,
+     "n_added_reviewed": 189,
+     "n_likely_duplicate": 27,
+     "share_prs_with_likely_duplicate": 0.3333333333333333,
+     "share_ci": [
+      0.18181818181818182,
+      0.48484848484848486
+     ],
+     "likely_duplicates_per_added_function": 0.14285714285714285,
+     "rate_ci": [
+      0.0643753832004905,
+      0.25
+     ],
+     "mean_added_reviewed_per_pr": 5.7272727272727275
+    }
+   },
+   "PrefectHQ/fastmcp": {
+    "agents": {
+     "n_prs": 181,
+     "n_errors": 1,
+     "n_eligible_prs": 49,
+     "n_added_reviewed": 240,
+     "n_likely_duplicate": 22,
+     "share_prs_with_likely_duplicate": 0.1836734693877551,
+     "share_ci": [
+      0.08163265306122448,
+      0.2862244897959109
+     ],
+     "likely_duplicates_per_added_function": 0.09166666666666666,
+     "rate_ci": [
+      0.03816793893129771,
+      0.13966780801345582
+     ],
+     "mean_added_reviewed_per_pr": 4.8979591836734695
+    },
+    "human": {
+     "n_prs": 150,
+     "n_errors": 0,
+     "n_eligible_prs": 42,
+     "n_added_reviewed": 488,
+     "n_likely_duplicate": 55,
+     "share_prs_with_likely_duplicate": 0.2857142857142857,
+     "share_ci": [
+      0.16666666666666666,
+      0.42857142857142855
+     ],
+     "likely_duplicates_per_added_function": 0.11270491803278689,
+     "rate_ci": [
+      0.0670926517571885,
+      0.16554109987470914
+     ],
+     "mean_added_reviewed_per_pr": 11.619047619047619
+    }
+   },
+   "crewAIInc/crewAI": {
+    "agents": {
+     "n_prs": 48,
+     "n_errors": 0,
+     "n_eligible_prs": 19,
+     "n_added_reviewed": 57,
+     "n_likely_duplicate": 0,
+     "share_prs_with_likely_duplicate": 0.0,
+     "share_ci": [
+      0.0,
+      0.0
+     ],
+     "likely_duplicates_per_added_function": 0.0,
+     "rate_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_added_reviewed_per_pr": 3.0
+    },
+    "human": {
+     "n_prs": 150,
+     "n_errors": 0,
+     "n_eligible_prs": 33,
+     "n_added_reviewed": 450,
+     "n_likely_duplicate": 45,
+     "share_prs_with_likely_duplicate": 0.45454545454545453,
+     "share_ci": [
+      0.2727272727272727,
+      0.6060606060606061
+     ],
+     "likely_duplicates_per_added_function": 0.1,
+     "rate_ci": [
+      0.0518356885107728,
+      0.1724137931034483
+     ],
+     "mean_added_reviewed_per_pr": 13.636363636363637
+    }
+   }
+  },
+  "groups_analysed": [
+   "Claude_Code",
+   "Devin",
+   "OpenAI_Codex"
+  ],
+  "groups_not_analysed": [
+   "Copilot",
+   "Cursor"
+  ]
+ },
+ "sensitivity_match_survives": {
+  "groups": {
+   "Claude_Code": {
+    "n_prs": 203,
+    "n_errors": 1,
+    "n_eligible_prs": 60,
+    "n_added_reviewed": 482,
+    "n_likely_duplicate": 35,
+    "share_prs_with_likely_duplicate": 0.16666666666666666,
+    "share_ci": [
+     0.08333333333333333,
+     0.26666666666666666
+    ],
+    "likely_duplicates_per_added_function": 0.07261410788381743,
+    "rate_ci": [
+     0.03347259743682667,
+     0.1192984358945085
+    ],
+    "mean_added_reviewed_per_pr": 8.033333333333333
+   },
+   "Copilot": {
+    "n_prs": 2,
+    "n_errors": 0,
+    "n_eligible_prs": 0,
+    "n_added_reviewed": 0,
+    "n_likely_duplicate": 0
+   },
+   "Cursor": {
+    "n_prs": 18,
+    "n_errors": 0,
+    "n_eligible_prs": 7,
+    "n_added_reviewed": 47,
+    "n_likely_duplicate": 3,
+    "share_prs_with_likely_duplicate": 0.2857142857142857,
+    "share_ci": [
+     0.0,
+     0.5714285714285714
+    ],
+    "likely_duplicates_per_added_function": 0.06382978723404255,
+    "rate_ci": [
+     0.0,
+     0.1111111111111111
+    ],
+    "mean_added_reviewed_per_pr": 6.714285714285714
+   },
+   "Devin": {
+    "n_prs": 52,
+    "n_errors": 0,
+    "n_eligible_prs": 19,
+    "n_added_reviewed": 57,
+    "n_likely_duplicate": 0,
+    "share_prs_with_likely_duplicate": 0.0,
+    "share_ci": [
+     0.0,
+     0.0
+    ],
+    "likely_duplicates_per_added_function": 0.0,
+    "rate_ci": [
+     0.0,
+     0.0
+    ],
+    "mean_added_reviewed_per_pr": 3.0
+   },
+   "OpenAI_Codex": {
+    "n_prs": 48,
+    "n_errors": 0,
+    "n_eligible_prs": 10,
+    "n_added_reviewed": 37,
+    "n_likely_duplicate": 4,
+    "share_prs_with_likely_duplicate": 0.3,
+    "share_ci": [
+     0.0,
+     0.6
+    ],
+    "likely_duplicates_per_added_function": 0.10810810810810811,
+    "rate_ci": [
+     0.0,
+     0.17142857142857143
+    ],
+    "mean_added_reviewed_per_pr": 3.7
+   },
+   "human": {
+    "n_prs": 440,
+    "n_errors": 0,
+    "n_eligible_prs": 108,
+    "n_added_reviewed": 1127,
+    "n_likely_duplicate": 84,
+    "share_prs_with_likely_duplicate": 0.26851851851851855,
+    "share_ci": [
+     0.18518518518518517,
+     0.35185185185185186
+    ],
+    "likely_duplicates_per_added_function": 0.07453416149068323,
+    "rate_ci": [
+     0.05172413793103448,
+     0.10164318718750061
+    ],
+    "mean_added_reviewed_per_pr": 10.435185185185185
+   },
+   "ALL_ANALYSED_AGENTS": {
+    "n_prs": 303,
+    "n_errors": 1,
+    "n_eligible_prs": 89,
+    "n_added_reviewed": 576,
+    "n_likely_duplicate": 39,
+    "share_prs_with_likely_duplicate": 0.14606741573033707,
+    "share_ci": [
+     0.07865168539325842,
+     0.2247191011235955
+    ],
+    "likely_duplicates_per_added_function": 0.06770833333333333,
+    "rate_ci": [
+     0.034382198438114506,
+     0.10549512987012986
+    ],
+    "mean_added_reviewed_per_pr": 6.47191011235955
+   }
+  },
+  "tests_vs_human": {
+   "Claude_Code": {
+    "diff_share": -0.10185185185185189,
+    "p_share": 0.4530546945305469,
+    "diff_rate": -0.0019200536068657986,
+    "p_rate": 0.9294070592940706,
+    "p_share_holm_over_agents": 0.9061093890610938,
+    "p_rate_holm_over_agents": 0.9294070592940706
+   },
+   "Devin": {
+    "diff_share": -0.26851851851851855,
+    "p_share": 0.0072992700729927005,
+    "diff_rate": -0.07453416149068323,
+    "p_rate": 0.010298970102989701,
+    "p_share_holm_over_agents": 0.021897810218978103,
+    "p_rate_holm_over_agents": 0.030896910308969103
+   },
+   "OpenAI_Codex": {
+    "diff_share": 0.031481481481481444,
+    "p_share": 1.0,
+    "diff_rate": 0.03357394661742488,
+    "p_rate": 0.45855414458554145,
+    "p_share_holm_over_agents": 1.0,
+    "p_rate_holm_over_agents": 0.9171082891710829
+   },
+   "ALL_ANALYSED_AGENTS": {
+    "diff_share": -0.12245110278818147,
+    "p_share": 0.06259374062593741,
+    "diff_rate": -0.006825828157349903,
+    "p_rate": 0.7469253074692531
+   }
+  },
+  "by_size_bucket": {
+   "1": {
+    "agents": {
+     "n_prs": 35,
+     "n_errors": 0,
+     "n_eligible_prs": 35,
+     "n_added_reviewed": 35,
+     "n_likely_duplicate": 0,
+     "share_prs_with_likely_duplicate": 0.0,
+     "share_ci": [
+      0.0,
+      0.0
+     ],
+     "likely_duplicates_per_added_function": 0.0,
+     "rate_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_added_reviewed_per_pr": 1.0
+    },
+    "human": {
+     "n_prs": 25,
+     "n_errors": 0,
+     "n_eligible_prs": 25,
+     "n_added_reviewed": 25,
+     "n_likely_duplicate": 1,
+     "share_prs_with_likely_duplicate": 0.04,
+     "share_ci": [
+      0.0,
+      0.12
+     ],
+     "likely_duplicates_per_added_function": 0.04,
+     "rate_ci": [
+      0.0,
+      0.12
+     ],
+     "mean_added_reviewed_per_pr": 1.0
+    }
+   },
+   "2-3": {
+    "agents": {
+     "n_prs": 22,
+     "n_errors": 0,
+     "n_eligible_prs": 22,
+     "n_added_reviewed": 53,
+     "n_likely_duplicate": 0,
+     "share_prs_with_likely_duplicate": 0.0,
+     "share_ci": [
+      0.0,
+      0.0
+     ],
+     "likely_duplicates_per_added_function": 0.0,
+     "rate_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_added_reviewed_per_pr": 2.409090909090909
+    },
+    "human": {
+     "n_prs": 29,
+     "n_errors": 0,
+     "n_eligible_prs": 29,
+     "n_added_reviewed": 74,
+     "n_likely_duplicate": 6,
+     "share_prs_with_likely_duplicate": 0.1724137931034483,
+     "share_ci": [
+      0.034482758620689655,
+      0.3103448275862069
+     ],
+     "likely_duplicates_per_added_function": 0.08108108108108109,
+     "rate_ci": [
+      0.024992283950617294,
+      0.15492957746478872
+     ],
+     "mean_added_reviewed_per_pr": 2.5517241379310347
+    }
+   },
+   "4-9": {
+    "agents": {
+     "n_prs": 16,
+     "n_errors": 0,
+     "n_eligible_prs": 16,
+     "n_added_reviewed": 87,
+     "n_likely_duplicate": 15,
+     "share_prs_with_likely_duplicate": 0.375,
+     "share_ci": [
+      0.125,
+      0.625
+     ],
+     "likely_duplicates_per_added_function": 0.1724137931034483,
+     "rate_ci": [
+      0.034482758620689655,
+      0.35294117647058826
+     ],
+     "mean_added_reviewed_per_pr": 5.4375
+    },
+    "human": {
+     "n_prs": 26,
+     "n_errors": 0,
+     "n_eligible_prs": 26,
+     "n_added_reviewed": 166,
+     "n_likely_duplicate": 15,
+     "share_prs_with_likely_duplicate": 0.23076923076923078,
+     "share_ci": [
+      0.07692307692307693,
+      0.38461538461538464
+     ],
+     "likely_duplicates_per_added_function": 0.09036144578313253,
+     "rate_ci": [
+      0.0220964118754174,
+      0.1878461409676879
+     ],
+     "mean_added_reviewed_per_pr": 6.384615384615385
+    }
+   },
+   "10+": {
+    "agents": {
+     "n_prs": 16,
+     "n_errors": 0,
+     "n_eligible_prs": 16,
+     "n_added_reviewed": 401,
+     "n_likely_duplicate": 24,
+     "share_prs_with_likely_duplicate": 0.4375,
+     "share_ci": [
+      0.1875,
+      0.6875
+     ],
+     "likely_duplicates_per_added_function": 0.059850374064837904,
+     "rate_ci": [
+      0.025889270170739876,
+      0.09111659391586341
+     ],
+     "mean_added_reviewed_per_pr": 25.0625
+    },
+    "human": {
+     "n_prs": 28,
+     "n_errors": 0,
+     "n_eligible_prs": 28,
+     "n_added_reviewed": 862,
+     "n_likely_duplicate": 62,
+     "share_prs_with_likely_duplicate": 0.6071428571428571,
+     "share_ci": [
+      0.42857142857142855,
+      0.7857142857142857
+     ],
+     "likely_duplicates_per_added_function": 0.07192575406032482,
+     "rate_ci": [
+      0.04707372480756332,
+      0.10039153232297679
+     ],
+     "mean_added_reviewed_per_pr": 30.785714285714285
+    }
+   }
+  },
+  "by_repo": {
+   "567-labs/instructor": {
+    "agents": {
+     "n_prs": 74,
+     "n_errors": 0,
+     "n_eligible_prs": 21,
+     "n_added_reviewed": 279,
+     "n_likely_duplicate": 27,
+     "share_prs_with_likely_duplicate": 0.3333333333333333,
+     "share_ci": [
+      0.14285714285714285,
+      0.5238095238095238
+     ],
+     "likely_duplicates_per_added_function": 0.0967741935483871,
+     "rate_ci": [
+      0.03875968992248062,
+      0.17619747899159655
+     ],
+     "mean_added_reviewed_per_pr": 13.285714285714286
+    },
+    "human": {
+     "n_prs": 140,
+     "n_errors": 0,
+     "n_eligible_prs": 33,
+     "n_added_reviewed": 189,
+     "n_likely_duplicate": 26,
+     "share_prs_with_likely_duplicate": 0.30303030303030304,
+     "share_ci": [
+      0.15151515151515152,
+      0.45454545454545453
+     ],
+     "likely_duplicates_per_added_function": 0.13756613756613756,
+     "rate_ci": [
+      0.05881778492647059,
+      0.2459079445145018
+     ],
+     "mean_added_reviewed_per_pr": 5.7272727272727275
+    }
+   },
+   "PrefectHQ/fastmcp": {
+    "agents": {
+     "n_prs": 181,
+     "n_errors": 1,
+     "n_eligible_prs": 49,
+     "n_added_reviewed": 240,
+     "n_likely_duplicate": 12,
+     "share_prs_with_likely_duplicate": 0.12244897959183673,
+     "share_ci": [
+      0.04081632653061224,
+      0.22448979591836735
+     ],
+     "likely_duplicates_per_added_function": 0.05,
+     "rate_ci": [
+      0.01290253357330749,
+      0.09406086196854978
+     ],
+     "mean_added_reviewed_per_pr": 4.8979591836734695
+    },
+    "human": {
+     "n_prs": 150,
+     "n_errors": 0,
+     "n_eligible_prs": 42,
+     "n_added_reviewed": 488,
+     "n_likely_duplicate": 25,
+     "share_prs_with_likely_duplicate": 0.14285714285714285,
+     "share_ci": [
+      0.047619047619047616,
+      0.2619047619047619
+     ],
+     "likely_duplicates_per_added_function": 0.05122950819672131,
+     "rate_ci": [
+      0.01415052670178012,
+      0.07329861035678853
+     ],
+     "mean_added_reviewed_per_pr": 11.619047619047619
+    }
+   },
+   "crewAIInc/crewAI": {
+    "agents": {
+     "n_prs": 48,
+     "n_errors": 0,
+     "n_eligible_prs": 19,
+     "n_added_reviewed": 57,
+     "n_likely_duplicate": 0,
+     "share_prs_with_likely_duplicate": 0.0,
+     "share_ci": [
+      0.0,
+      0.0
+     ],
+     "likely_duplicates_per_added_function": 0.0,
+     "rate_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_added_reviewed_per_pr": 3.0
+    },
+    "human": {
+     "n_prs": 150,
+     "n_errors": 0,
+     "n_eligible_prs": 33,
+     "n_added_reviewed": 450,
+     "n_likely_duplicate": 33,
+     "share_prs_with_likely_duplicate": 0.3939393939393939,
+     "share_ci": [
+      0.24166666666666736,
+      0.5454545454545454
+     ],
+     "likely_duplicates_per_added_function": 0.07333333333333333,
+     "rate_ci": [
+      0.039473119978333485,
+      0.12091635041113218
+     ],
+     "mean_added_reviewed_per_pr": 13.636363636363637
+    }
+   }
+  },
+  "groups_analysed": [
+   "Claude_Code",
+   "Devin",
+   "OpenAI_Codex"
+  ],
+  "groups_not_analysed": [
+   "Copilot",
+   "Cursor"
+  ]
+ },
+ "audit": {
+  "n_judged": 40,
+  "n_judged_duplicate": 16,
+  "precision": 0.4,
+  "annotator": "claude-sonnet-5-5 (AI-judged; not blind: group and match-survival flag were visible; no human validation)",
+  "n_findings_total": 223,
+  "verdict_counts": {
+   "duplicate": 16,
+   "moved_refactor": 15,
+   "similar_not_duplicate": 9
+  },
+  "precision_ci": [
+   0.25,
+   0.55
+  ],
+  "n_match_survives": 25,
+  "precision_among_match_survives": 0.64,
+  "n_trivial_duplicates": 2
+ }
+}

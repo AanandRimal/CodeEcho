@@ -121,7 +121,45 @@ _Generated from `results/` on 2026-11-09, commit `cdd2c5e`._
 ### RQ3: do AI-agent pull requests duplicate existing code more often than human ones?
 
 <!-- BEGIN:agents -->
-_Not run yet: `results/agents.json` does not exist._
+**Primary analysis** (the design fixed before the run, `docs/DECISIONS.md` D32): every flagged function counts.
+
+| Group | PRs | PRs with new functions | New functions reviewed | Flagged | Share of PRs with a flagged function [95% CI] | Flagged per new function [95% CI] |
+|---|---|---|---|---|---|---|
+| Human | 440 | 108 | 1127 | 127 | 0.35 [0.26, 0.44] | 0.113 [0.081, 0.150] |
+| Claude_Code | 203 | 60 | 482 | 89 | 0.23 [0.13, 0.35] | 0.185 [0.078, 0.326] |
+| Devin | 52 | 19 | 57 | 0 | 0.00 [0.00, 0.00] | 0.000 [0.000, 0.000] |
+| OpenAI_Codex | 48 | 10 | 37 | 4 | 0.30 [0.00, 0.60] | 0.108 [0.000, 0.171] |
+| All analysed agents pooled | 303 | 89 | 576 | 93 | 0.19 [0.11, 0.27] | 0.161 [0.072, 0.277] |
+
+| Agent vs human | Diff in share | p | p (Holm) | Diff in rate | p | p (Holm) |
+|---|---|---|---|---|---|---|
+| Claude_Code | -0.119 | 0.283 | 0.567 | +0.0720 | 0.123 | 0.246 |
+| Devin | -0.352 | <0.001 | <0.001 | -0.1127 | 0.006 | 0.019 |
+| OpenAI_Codex | -0.052 | 1.000 | 1.000 | -0.0046 | 0.941 | 0.941 |
+| All analysed agents pooled | -0.161 | 0.017 | n/a | +0.0488 | 0.270 | n/a |
+
+**Sensitivity analysis** (added after reading the audit sample, D33): findings whose matched function no longer exists at the PR's head are not counted, because the PR moved or renamed that function (a move combined with edits slips past the exact-body move filter).
+
+| Group | PRs | PRs with new functions | New functions reviewed | Flagged | Share of PRs with a flagged function [95% CI] | Flagged per new function [95% CI] |
+|---|---|---|---|---|---|---|
+| Human | 440 | 108 | 1127 | 84 | 0.27 [0.19, 0.35] | 0.075 [0.052, 0.102] |
+| Claude_Code | 203 | 60 | 482 | 35 | 0.17 [0.08, 0.27] | 0.073 [0.033, 0.119] |
+| Devin | 52 | 19 | 57 | 0 | 0.00 [0.00, 0.00] | 0.000 [0.000, 0.000] |
+| OpenAI_Codex | 48 | 10 | 37 | 4 | 0.30 [0.00, 0.60] | 0.108 [0.000, 0.171] |
+| All analysed agents pooled | 303 | 89 | 576 | 39 | 0.15 [0.08, 0.22] | 0.068 [0.034, 0.105] |
+
+| Agent vs human | Diff in share | p | p (Holm) | Diff in rate | p | p (Holm) |
+|---|---|---|---|---|---|---|
+| Claude_Code | -0.102 | 0.453 | 0.906 | -0.0019 | 0.929 | 0.929 |
+| Devin | -0.269 | 0.007 | 0.022 | -0.0745 | 0.010 | 0.031 |
+| OpenAI_Codex | +0.031 | 1.000 | 1.000 | +0.0336 | 0.459 | 0.917 |
+| All analysed agents pooled | -0.122 | 0.063 | n/a | -0.0068 | 0.747 | n/a |
+
+Groups with too few PRs with new functions to analyse (under 10): Copilot, Cursor. Permutation tests shuffle agent/human labels within each repo; "Holm" adjusts across the agents tested; the pooled row is not part of that family. "Flagged" means a structural score of at least 0.9 against a retrieved function, counted for functions the PR adds (at least 10 AST nodes).
+
+**Manual audit** (40 random flagged findings out of 223, judged by an AI, not blind, no human check): 16 real duplicates, 15 where the PR itself removed or moved the matched function, 9 similar in shape but not duplicates. Precision 0.40 [0.25, 0.55] overall, and 0.64 among the 25 findings whose matched function still exists at the PR head.
+
+_Generated from `results/` on 2026-11-10, commit `739ca17`._
 <!-- END:agents -->
 
 ## Limitations

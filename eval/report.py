@@ -74,28 +74,47 @@ def duplication_tables() -> str:
             f"{_f(th['structural'], 3)}. Precision is over each row's positives against all negatives.\n\n{_meta(m)}")
 
 
-def agents_tables() -> str:
-    d = json.loads((RESULTS / "agents.json").read_text())
-    g, t, m = d["groups"], d["tests_vs_human"], d["meta"]
-    order = ["human", *m["groups_analysed"], "ALL_ANALYSED_AGENTS"]
+def _agents_section(d: dict, m: dict) -> str:
+    g, t = d["groups"], d["tests_vs_human"]
+    order = ["human", *d["groups_analysed"], "ALL_ANALYSED_AGENTS"]
     label = lambda k: {"ALL_ANALYSED_AGENTS": "All analysed agents pooled", "human": "Human"}.get(k, k)
-    rows = [[label(k), str(g[k]["n_prs"]), str(g[k]["n_eligible_prs"]), str(g[k]["n_added_reviewed"]),
+    rows = [[label(k), str(g[k]["n_prs"]), str(g[k]["n_eligible_prs"]), str(g[k]["n_added_reviewed"]), str(g[k]["n_likely_duplicate"]),
              f"{_f(g[k]['share_prs_with_likely_duplicate'])} [{_f(g[k]['share_ci'][0])}, {_f(g[k]['share_ci'][1])}]",
              f"{_f(g[k]['likely_duplicates_per_added_function'], 3)} [{_f(g[k]['rate_ci'][0], 3)}, {_f(g[k]['rate_ci'][1], 3)}]"]
             for k in order if g[k].get("n_eligible_prs")]
-    main = _table(["Group", "PRs", "PRs with new functions", "New functions reviewed", "Share of PRs with a likely duplicate [95% CI]",
-                   "Likely duplicates per new function [95% CI]"], rows)
-    trows = [[label(k), f"{v['diff_share']:+.3f}", f"{v['p_share']:.3f}", f"{v.get('p_share_holm_over_agents', float('nan')):.3f}",
-              f"{v['diff_rate']:+.4f}", f"{v['p_rate']:.3f}", f"{v.get('p_rate_holm_over_agents', float('nan')):.3f}"]
-             for k, v in t.items()]
+    main = _table(["Group", "PRs", "PRs with new functions", "New functions reviewed", "Flagged", "Share of PRs with a flagged function [95% CI]",
+                   "Flagged per new function [95% CI]"], rows)
+    pf = lambda x: "<0.001" if x < 0.001 else f"{x:.3f}"
+    holm = lambda v, k: pf(v[k]) if k in v else "n/a"
+    trows = [[label(k), f"{v['diff_share']:+.3f}", pf(v["p_share"]), holm(v, "p_share_holm_over_agents"),
+              f"{v['diff_rate']:+.4f}", pf(v["p_rate"]), holm(v, "p_rate_holm_over_agents")] for k, v in t.items()]
     tests = _table(["Agent vs human", "Diff in share", "p", "p (Holm)", "Diff in rate", "p", "p (Holm)"], trows)
+    return f"{main}\n\n{tests}"
+
+
+def agents_tables() -> str:
+    d = json.loads((RESULTS / "agents.json").read_text())
+    m = d["meta"]
     not_an = ", ".join(m["groups_not_analysed"]) or "none"
     a = d.get("audit")
-    audit = (f"Manual audit (AI-judged, {a['annotator']}): {a['n_judged_duplicate']} of {a['n_judged']} sampled findings were "
-             f"judged real duplicates, precision {_f(a['precision'])} [{_f(a['precision_ci'][0])}, {_f(a['precision_ci'][1])}]."
-             if a and a.get("n_judged") else "Manual audit of findings: not done yet.")
-    return (f"{main}\n\n{tests}\n\nGroups with too few PRs to analyse: {not_an}. Permutation tests shuffle agent/human labels "
-            f"within each repo; \"Holm\" adjusts across the agents tested. {audit}\n\n{_meta(m)}")
+    audit = ""
+    if a and a.get("n_judged"):
+        c = a["verdict_counts"]
+        audit = (f"**Manual audit** ({a['n_judged']} random flagged findings out of {a['n_findings_total']}, judged by an AI, not blind, "
+                 f"no human check): {c.get('duplicate', 0)} real duplicates, {c.get('moved_refactor', 0)} where the PR itself removed or moved "
+                 f"the matched function, {c.get('similar_not_duplicate', 0)} similar in shape but not duplicates. Precision "
+                 f"{_f(a['precision'])} [{_f(a['precision_ci'][0])}, {_f(a['precision_ci'][1])}] overall, and "
+                 f"{_f(a['precision_among_match_survives'])} among the {a['n_match_survives']} findings whose matched function still exists "
+                 f"at the PR head.")
+    return (f"**Primary analysis** (the design fixed before the run, `docs/DECISIONS.md` D32): every flagged function counts.\n\n"
+            f"{_agents_section(d['primary'], m)}\n\n"
+            f"**Sensitivity analysis** (added after reading the audit sample, D33): findings whose matched function no longer exists at the PR's "
+            f"head are not counted, because the PR moved or renamed that function (a move combined with edits slips past the exact-body "
+            f"move filter).\n\n{_agents_section(d['sensitivity_match_survives'], m)}\n\n"
+            f"Groups with too few PRs with new functions to analyse (under {m['min_eligible_prs_to_analyse']}): {not_an}. Permutation tests shuffle "
+            f"agent/human labels within each repo; \"Holm\" adjusts across the agents tested; the pooled row is not part of that family. "
+            f"\"Flagged\" means a structural score of at least {m['detector']['likely_duplicate_structural_threshold']} against a retrieved function, "
+            f"counted for functions the PR adds (at least {m['detector']['min_ast_nodes']} AST nodes).\n\n{audit}\n\n{_meta(m)}")
 
 
 def inject(text: str, name: str, body: str) -> str:
