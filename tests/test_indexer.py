@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from devtrust.indexer import index_repo
+from codeecho.indexer import index_repo
 
 FILES = {
     "pkg/__init__.py": "",

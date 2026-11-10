@@ -27,10 +27,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from devtrust.duplication.review import HI, review_function
-from devtrust.duplication.structural import structure
-from devtrust.indexer import FunctionUnit, index_repo
-from devtrust.retrieval.dense import REVISION, DenseRetriever
+from codeecho.duplication.review import HI, review_function
+from codeecho.duplication.structural import structure
+from codeecho.indexer import FunctionUnit, index_repo
+from codeecho.retrieval.dense import REVISION, DenseRetriever
 from eval.metrics import bootstrap_ci
 from eval.mutate import type1, type2, type3
 from eval.repos import checkout, load_repos

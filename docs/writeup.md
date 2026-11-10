@@ -1,8 +1,8 @@
-# DevTrust: finding and flagging duplicated code, and whether AI agents add more of it
+# CodeEcho: finding and flagging duplicated code, and whether AI agents add more of it
 
 Aanand Rimal. Built with AI assistance (Claude Code); see "Who made what" in the README. Every number below comes from `results/*.json`.
 
-**Problem.** Developers, and AI coding assistants, often reimplement a utility that already exists in the repository because text search cannot find it under a different name. DevTrust (1) finds an existing function from a plain-language description, (2) flags newly added functions that resemble existing code, and (3) measures whether AI-agent pull requests do this more than human ones. None of the components is new; the contribution is a reproducible comparison on real repositories plus a usable CLI and MCP tool.
+**Problem.** Developers, and AI coding assistants, often reimplement a utility that already exists in the repository because text search cannot find it under a different name. CodeEcho (1) finds an existing function from a plain-language description, (2) flags newly added functions that resemble existing code, and (3) measures whether AI-agent pull requests do this more than human ones. None of the components is new; the contribution is a reproducible comparison on real repositories plus a usable CLI and MCP tool.
 
 **RQ1: search.** 51 answerable queries over three Python repositories (instructor, fastmcp, crewAI), with relevance judged on candidates pooled from all systems, blind to which system found them. The code-specific embedder CodeRankEmbed was best (MRR 0.72, Recall@10 0.91), bge-small second (0.60, 0.71), BM25 well behind (0.28, 0.41). Identifier splitting helped BM25 (MRR 0.28 vs 0.20). Rank fusion (0.53) and cross-encoder reranking (0.39, about 20 times slower) scored below CodeRankEmbed alone. The explanations for those two are untested.
 

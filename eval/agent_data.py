@@ -38,7 +38,7 @@ def api(path: str, tok: str) -> object:
     """GET https://api.github.com{path}; one patient retry on rate-limit style 403s."""
     for attempt in (0, 1):
         req = urllib.request.Request("https://api.github.com" + path, headers={
-            "Authorization": f"Bearer {tok}", "Accept": "application/vnd.github+json", "User-Agent": "devtrust-eval"})
+            "Authorization": f"Bearer {tok}", "Accept": "application/vnd.github+json", "User-Agent": "codeecho-eval"})
         try:
             with urllib.request.urlopen(req, timeout=60) as f:
                 return json.load(f)

@@ -1,4 +1,4 @@
-# Positioning: what DevTrust adds, and what it does not
+# Positioning: what CodeEcho adds, and what it does not
 
 Status: **draft v2, 2026-11-08.** Based on [related_work.md](related_work.md), which covers about 50 papers and tools from more than 20 groups. Section IDs (A1, B12, C6, …) refer to that file.
 
@@ -59,11 +59,11 @@ This is a conservative reading. "Not found" means not found in what we read. It 
   - REPOEXEC (C9): LLMs "often reimplement dependencies".
   - "More Code, Less Reuse" (C6): higher embedding redundancy in agent PRs. One repository, unvalidated metric.
 - **Counter-evidence:** token-level duplication is *lower* in AI code (Mao et al., C7).
-- **Verdict:** the motivation is plausible but not established. That itself is something DevTrust can measure.
+- **Verdict:** the motivation is plausible but not established. That itself is something CodeEcho can measure.
 
-**Implication:** every component of DevTrust exists already, and so does the overall idea of embedding-based duplicate flagging on PRs, as a tool (C5) and as a study metric (C6). **We must not claim a new technique or a new idea.**
+**Implication:** every component of CodeEcho exists already, and so does the overall idea of embedding-based duplicate flagging on PRs, as a tool (C5) and as a study metric (C6). **We must not claim a new technique or a new idea.**
 
-## (b) What DevTrust plausibly adds
+## (b) What CodeEcho plausibly adds
 
 Ranked by how defensible each one is.
 
@@ -75,7 +75,7 @@ Ranked by how defensible each one is.
      - jscpd `--semantic` (C5)
      - NiCad or PMD/CPD (A1, C2)
      - RepoReuse's callee-overlap rule (C8)
-     - DevTrust's retrieval + normalised-structure verifier
+     - CodeEcho's retrieval + normalised-structure verifier
    - The specific, measurable question:
 
      > How much does structural verification reduce embedding false positives at fixed recall?

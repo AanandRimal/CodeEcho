@@ -15,12 +15,12 @@ import hashlib
 import json
 from pathlib import Path
 
-from devtrust.indexer import FunctionUnit, index_repo
-from devtrust.retrieval import tokenize
-from devtrust.retrieval.bm25 import BM25Retriever
-from devtrust.retrieval.dense import DenseRetriever
-from devtrust.retrieval.hybrid import RRFRetriever
-from devtrust.retrieval.rerank import CrossEncoderReranker
+from codeecho.indexer import FunctionUnit, index_repo
+from codeecho.retrieval import tokenize
+from codeecho.retrieval.bm25 import BM25Retriever
+from codeecho.retrieval.dense import DenseRetriever
+from codeecho.retrieval.hybrid import RRFRetriever
+from codeecho.retrieval.rerank import CrossEncoderReranker
 from eval.repos import checkout, load_repos
 
 QUERIES_FILE = Path("data/queries.json")

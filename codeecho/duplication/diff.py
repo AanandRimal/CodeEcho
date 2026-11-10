@@ -9,7 +9,7 @@ import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from devtrust.indexer import FunctionUnit, index_repo
+from codeecho.indexer import FunctionUnit, index_repo
 
 
 @dataclass

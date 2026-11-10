@@ -24,7 +24,7 @@ from pathlib import Path
 
 import numpy as np
 
-from devtrust.duplication.review import HI, LIKELY, MIN_NODES, review
+from codeecho.duplication.review import HI, LIKELY, MIN_NODES, review
 from eval.agent_data import FULL, OUT
 from eval.metrics import bootstrap_ci
 

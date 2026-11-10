@@ -1,4 +1,6 @@
-# DevTrust
+# CodeEcho
+
+**Reuse-aware code search and duplicate review for developers and AI coding agents.**
 
 By Aanand Rimal, built with AI assistance (Claude Code). The project is directed and owned by the author; see [Who made what](#who-made-what) for exactly which parts the AI drafted.
 
@@ -8,7 +10,7 @@ This is a personal project with a measured evaluation, not a paper. Every number
 
 ## Why this exists
 
-As a full-stack engineer on SaaS products, I kept seeing developers, and increasingly AI coding assistants, reimplement utilities that already existed in the repository, because text search cannot find them when they are named differently. I built DevTrust to solve that for myself, then measured how well it works.
+As a full-stack engineer on SaaS products, I kept seeing developers, and increasingly AI coding assistants, reimplement utilities that already existed in the repository, because text search cannot find them when they are named differently. I built CodeEcho to solve that for myself, then measured how well it works.
 
 ## What is implemented
 
@@ -28,19 +30,19 @@ As a full-stack engineer on SaaS products, I kept seeing developers, and increas
 ```bash
 uv venv --python 3.12 && uv pip install -r requirements.txt   # CPU only; Python 3.11+
 
-.venv/bin/python -m devtrust.cli index path/to/repo           # parse report, warm embedding cache
-.venv/bin/python -m devtrust.cli search "build a stable cache key from a request" --repo path/to/repo
-.venv/bin/python -m devtrust.cli review --diff main..my-branch --repo path/to/repo
+.venv/bin/python -m codeecho.cli index path/to/repo           # parse report, warm embedding cache
+.venv/bin/python -m codeecho.cli search "build a stable cache key from a request" --repo path/to/repo
+.venv/bin/python -m codeecho.cli review --diff main..my-branch --repo path/to/repo
 ```
 
 `review` reports candidates, each with the new function, the existing function it resembles (file and lines), a retrieval score, a structural score, a category (`likely_duplicate`, `similar_but_different`, `insufficient_evidence`) and the two functions side by side. Embedding similarity is not proof of duplication, so findings are candidates for a human to check. The tool never changes code.
 
 ### Use it with an AI agent (MCP)
 
-`devtrust/mcp_server.py` exposes the same search and review as two MCP tools, so an agent such as Claude Code can check for an existing function before writing a new one:
+`codeecho/mcp_server.py` exposes the same search and review as two MCP tools, so an agent such as Claude Code can check for an existing function before writing a new one:
 
 ```bash
-claude mcp add devtrust -- /abs/path/to/.venv/bin/python -m devtrust.mcp_server   # run from the repo you want checked
+claude mcp add codeecho -- /abs/path/to/.venv/bin/python -m codeecho.mcp_server   # run from the repo you want checked
 ```
 
 The agent decides itself whether to call the tools; a line in the project's CLAUDE.md ("search for existing functions before writing a helper") makes that more likely. The first call on a repo builds an index and can take minutes on CPU; later calls use the embedding cache.
@@ -195,12 +197,12 @@ What this shows, and what it does not:
 
 ## Related work
 
-None of DevTrust's components is new. Embedding-based flagging of duplicate code in pull requests already exists: "More Code, Less Reuse" (Huang et al., MSR 2026) ranks each PR by the maximum cosine similarity between new functions and base functions, using CodeSage embeddings. It reports the analysis for one repository and, as far as I could tell, does not validate the detector against labelled data. `jscpd` has an experimental `--semantic` mode that embeds functions with CodeRankEmbed, and CLIONE targets clone changes in pull-request workflows. Reciprocal rank fusion is from Cormack et al. (SIGIR 2009), the mutation-operator idea from Roy & Cordy (2009), and CodeRankEmbed from the CoRNStack work (Suresh et al., ICLR 2025). DevTrust's contribution is a reproducible comparison with the baselines run on the same cases, a usable tool, and a per-agent study across three repositories. The literature notes, including items I could not verify, are in `docs/related_work.md` and `docs/positioning.md`.
+None of CodeEcho's components is new. Embedding-based flagging of duplicate code in pull requests already exists: "More Code, Less Reuse" (Huang et al., MSR 2026) ranks each PR by the maximum cosine similarity between new functions and base functions, using CodeSage embeddings. It reports the analysis for one repository and, as far as I could tell, does not validate the detector against labelled data. `jscpd` has an experimental `--semantic` mode that embeds functions with CodeRankEmbed, and CLIONE targets clone changes in pull-request workflows. Reciprocal rank fusion is from Cormack et al. (SIGIR 2009), the mutation-operator idea from Roy & Cordy (2009), and CodeRankEmbed from the CoRNStack work (Suresh et al., ICLR 2025). CodeEcho's contribution is a reproducible comparison with the baselines run on the same cases, a usable tool, and a per-agent study across three repositories. The literature notes, including items I could not verify, are in `docs/related_work.md` and `docs/positioning.md`.
 
 ## Who made what
 
 - **Written by the author (Aanand Rimal):** the project idea, research questions, scope and the decisions recorded in `docs/DECISIONS.md`.
-- **Drafted by an AI model (Claude, via Claude Code):** almost all of the code in `devtrust/` and `eval/`, the 60 benchmark queries and their relevance labels (every label records `claude-opus-5-5` as annotator), the hand-written RQ2 pairs, the audit judgments in RQ3, and the first drafts of `docs/` and this README.
+- **Drafted by an AI model (Claude, via Claude Code):** almost all of the code in `codeecho/` and `eval/`, the 60 benchmark queries and their relevance labels (every label records `claude-opus-5-5` as annotator), the hand-written RQ2 pairs, the audit judgments in RQ3, and the first drafts of `docs/` and this README.
 - Two Claude models worked on this project at different times: Opus 5.5 (the benchmark labels, the first phases) and Sonnet 5.5 (later phases). Commit messages carry a Claude co-author line, but because it names the model active when each commit was made, it does not always match the model that wrote earlier-drafted work.
 
 ## Future work
@@ -214,7 +216,7 @@ uv venv --python 3.12 && uv pip install -r requirements.txt
 npm install --prefix .cache/tools jscpd@5.4.3
 .cache/tools/node_modules/.bin/jscpd --semantic-download      # 548 MB model for jscpd --semantic
 echo "GITHUB_TOKEN=<read-only token for public repos>" > .env  # for the RQ3 human PRs; .env is git-ignored
-make reproduce                                                 # tests, then every result file, then the README tables
+make reproduce                                                 # the full pipeline; see the note below
 ```
 
-`make reproduce` takes many hours on CPU (about 20 minutes for RQ1 and RQ2 once models are cached, the rest for RQ3). Individual steps: `python -m eval.retrieval_eval`, `python -m eval.duplication_eval --jscpd --final`, `python -m eval.agent_data`, `python -m eval.agent_eval run`, `python -m eval.agent_eval analyze`, `python -m eval.report`. Every results file records the git commit, configuration, seed, dataset and model revisions, and the date. Every decision, with its reasoning and what was rejected, is in `docs/DECISIONS.md`.
+**Not tested as one command.** Every result file was produced by running the steps below separately; `make reproduce` chains them but has not been run end to end from a clean checkout. Run the steps individually if it fails, and please report it. It takes many hours on CPU (about 20 minutes for RQ1 and RQ2 once models are cached, the rest for RQ3). Individual steps: `python -m eval.retrieval_eval`, `python -m eval.duplication_eval --jscpd --final`, `python -m eval.agent_data`, `python -m eval.agent_eval run`, `python -m eval.agent_eval analyze`, `python -m eval.report`. Every results file records the git commit, configuration, seed, dataset and model revisions, and the date. Every decision, with its reasoning and what was rejected, is in `docs/DECISIONS.md`.

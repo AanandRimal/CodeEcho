@@ -5,8 +5,8 @@ from __future__ import annotations
 import numpy as np
 from rank_bm25 import BM25Okapi
 
-from devtrust.indexer import FunctionUnit
-from devtrust.retrieval import doc_text, tokenize
+from codeecho.indexer import FunctionUnit
+from codeecho.retrieval import doc_text, tokenize
 
 
 class BM25Retriever:

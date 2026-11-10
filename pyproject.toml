@@ -1,11 +1,14 @@
 [project]
-name = "devtrust"
+name = "codeecho"
 version = "0.1.0"
-description = "Reuse search and duplication review for Python repositories"
+description = "Reuse-aware code search and duplicate review for developers and AI coding agents"
 requires-python = ">=3.11"
 
 [project.scripts]
-devtrust = "devtrust.cli:app"
+codeecho = "codeecho.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["codeecho*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -1,4 +1,4 @@
-"""RQ1: how well does DevTrust find the right function? Writes results/retrieval.json.
+"""RQ1: how well does CodeEcho find the right function? Writes results/retrieval.json.
 
 Usage:  .venv/bin/python -m eval.retrieval_eval
 
@@ -17,9 +17,9 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
-from devtrust.indexer import index_repo
-from devtrust.retrieval.dense import REVISION as DENSE_REVISION
-from devtrust.retrieval.rerank import REVISION as RERANK_REVISION
+from codeecho.indexer import index_repo
+from codeecho.retrieval.dense import REVISION as DENSE_REVISION
+from codeecho.retrieval.rerank import REVISION as RERANK_REVISION
 from eval.label import QUERIES_FILE, systems
 from eval.metrics import bootstrap_ci, ndcg_at_k, recall_at_k, reciprocal_rank
 from eval.repos import checkout, load_repos

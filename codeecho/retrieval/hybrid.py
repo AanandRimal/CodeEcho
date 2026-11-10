@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from devtrust.indexer import FunctionUnit
+from codeecho.indexer import FunctionUnit
 
 
 class RRFRetriever:

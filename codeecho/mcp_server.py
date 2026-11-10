@@ -1,6 +1,6 @@
 """MCP server: lets an AI coding agent search a repo for existing functions and review diffs.
 
-Run:  python -m devtrust.mcp_server          (stdio; register with `claude mcp add`, see README)
+Run:  python -m codeecho.mcp_server          (stdio; register with `claude mcp add`, see README)
 Status: implemented, NOT evaluated with agents (docs/DECISIONS.md D34).
 Both tools wrap the code evaluated in RQ1/RQ2. Review output is candidates with evidence, not proof.
 """
@@ -11,12 +11,12 @@ from pathlib import Path
 
 from mcp.server.mcpserver import MCPServer
 
-from devtrust.cli import _retriever
-from devtrust.duplication.review import render, review as run_review
-from devtrust.indexer import index_repo
+from codeecho.cli import _retriever
+from codeecho.duplication.review import render, review as run_review
+from codeecho.indexer import index_repo
 
 mcp = MCPServer(
-    "devtrust",
+    "codeecho",
     instructions="Before writing a new helper or utility, call search_existing_functions to check "
                  "whether the repo already has one. Call review_diff on your change to flag new functions "
                  "that resemble existing code. Results are candidates, not confirmed duplicates.",

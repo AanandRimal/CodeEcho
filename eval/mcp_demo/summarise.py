@@ -9,7 +9,7 @@ rows = [l.split("\t") for l in (D / "runs.tsv").read_text().splitlines()[1:] if 
 out, models = defaultdict(lambda: defaultdict(list)), set()
 for task, cond, rep, *_ in rows:
     src = (D / "raw" / f"{task}-{cond}-{rep}.py").read_text()
-    out[cond][task].append(bool(re.search(r"^from (eval|devtrust)\S* import", src, re.M)))
+    out[cond][task].append(bool(re.search(r"^from (eval|codeecho)\S* import", src, re.M)))
     models |= set(json.loads((D / "raw" / f"{task}-{cond}-{rep}.json").read_text()).get("modelUsage", {}))
 summary = {"meta": {"date": dt.date.today().isoformat(), "git_commit": subprocess.run(["git", "rev-parse", "HEAD"],
            capture_output=True, text=True).stdout.strip(), "models_used_by_agent": sorted(models),

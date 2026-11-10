@@ -2,7 +2,7 @@
 
 import asyncio
 
-from devtrust.mcp_server import mcp, review_diff
+from codeecho.mcp_server import mcp, review_diff
 from tests.test_duplication import repo  # noqa: F401  (pytest fixture)
 
 

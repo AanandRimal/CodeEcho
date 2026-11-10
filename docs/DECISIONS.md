@@ -1,6 +1,6 @@
 # Decision log
 
-Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he made himself; the others were proposed by the AI assistant (Claude) and went ahead with his go-ahead. Every significant decision in DevTrust, in order: **what** was decided, **why**, what was **rejected**, and the **evidence**. Updated as decisions are made. Section IDs like A1, B12, C6 refer to [related_work.md](related_work.md).
+Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he made himself; the others were proposed by the AI assistant (Claude) and went ahead with his go-ahead. Every significant decision in CodeEcho, in order: **what** was decided, **why**, what was **rejected**, and the **evidence**. Updated as decisions are made. Section IDs like A1, B12, C6 refer to [related_work.md](related_work.md).
 
 **Status (2026-11-09):**
 
@@ -94,7 +94,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
   - It covers six agents.
   - It needs no API budget.
   - It extends "More Code, Less Reuse" (C6): several repos instead of one, results per agent, and a validated detector instead of raw cosine.
-- **Rejected:** a controlled experiment (agent with vs. without a DevTrust tool). It needs API budget for each agent and roughly doubles the work.
+- **Rejected:** a controlled experiment (agent with vs. without a CodeEcho tool). It needs API budget for each agent and roughly doubles the work.
 - **MCP server:** kept as a final stretch add-on, as an integration demo only, not as evidence.
 
 ### D9. Comparisons are field-wide, not against one group
@@ -226,8 +226,8 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
   - An LLM judge may agree more with semantic (dense) rankers than a human would. The κ check is how we measure this.
   - Queries written by an LLM that has read the code may borrow its vocabulary. The query/answer-name word overlap is reported per method.
 
-### D26. Keep it a personal project: evaluate DevTrust itself, no external benchmark, no human κ check (2026-11-09)
-- **Decision (owner's call):** RQ1 is reported as "how well does DevTrust find functions", one results table over DevTrust's own search settings (BM25, BM25 without identifier splitting, bge-small, CodeRankEmbed, RRF, RRF + rerank) on the 60 queries. Dropped: the CoIR CosQA comparison and the human Cohen's κ check on the labels.
+### D26. Keep it a personal project: evaluate CodeEcho itself, no external benchmark, no human κ check (2026-11-09)
+- **Decision (owner's call):** RQ1 is reported as "how well does CodeEcho find functions", one results table over CodeEcho's own search settings (BM25, BM25 without identifier splitting, bge-small, CodeRankEmbed, RRF, RRF + rerank) on the 60 queries. Dropped: the CoIR CosQA comparison and the human Cohen's κ check on the labels.
 - **Why:** the owner wants a finished personal project to show professors, not a research paper. CLAUDE.md says "not a paper".
 - **Consequences to state in the README:**
   - Labels are AI-drafted (D25) and were NOT independently validated by a human. This is a limitation, not hidden.
@@ -255,7 +255,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 ## Phase 4: Duplication review (2026-11-09)
 
 ### D28. Phase 4 design: retrieve with the code embedder, verify with AST structure, thresholds provisional
-- **What it does:** `devtrust/duplication/` finds the functions a git change adds or modifies, searches the repo state BEFORE the change for similar functions, scores each candidate structurally, and prints a side-by-side report. Entry point: `review(repo, base, head)`.
+- **What it does:** `codeecho/duplication/` finds the functions a git change adds or modifies, searches the repo state BEFORE the change for similar functions, scores each candidate structurally, and prints a side-by-side report. Entry point: `review(repo, base, head)`.
 - **Design choices:**
   - **Retrieval:** CodeRankEmbed, the best RQ1 setting (D27). The query is the new function's full source, with the model's query prefix. Not validated for code-to-code search; Phase 5 measures it.
   - **Own previous version excluded** (same file and qualified name) for modified functions.
@@ -337,7 +337,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 - **Not done:** more repositories, a stricter move filter (a function relocated with edits), a human audit.
 
 ### D34. MCP server and a small with/without demo (2026-11-10; `results/mcp_demo/summary.json`)
-- **What:** `devtrust/mcp_server.py` exposes `search_existing_functions` and `review_diff` over MCP (stdio) by wrapping the existing search (CodeRankEmbed) and review. Added `mcp==2.3.0` and its dependencies to `requirements.txt`. In mcp 2.x the server class is `MCPServer`, not `FastMCP`.
+- **What:** `codeecho/mcp_server.py` exposes `search_existing_functions` and `review_diff` over MCP (stdio) by wrapping the existing search (CodeRankEmbed) and review. Added `mcp==2.3.0` and its dependencies to `requirements.txt`. In mcp 2.x the server class is `MCPServer`, not `FastMCP`.
 - **Why:** the plan's stretch goal, after RQ3. An agent could check for existing code before writing new code.
 - **Demo:** 4 tasks, each asking for a function that already exists under another name (`words`, `mean_ci`, `looks_like_test_file`, `first_hit_score`), 2 runs each, with and without the tool, in throwaway copies of the repo (`eval/mcp_demo/run.sh`). The agent (Claude Code, headless) had Read/Grep/Glob/Write/Edit in both conditions. Reuse = the saved file imports from the repo (`eval/mcp_demo/summarise.py`).
 - **Result:** reuse in 4/8 runs with the tool, 0/8 without. Reuse happened on `words` and `mean_ci`; on `looks_like_test_file` and `first_hit_score` the agent never called the tool (2 turns) and wrote its own.
@@ -345,6 +345,10 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 - **Mistake caught:** my first "reused" check grepped for helper names and misclassified `words` (the agent reused the `_CAMEL` regex, not `tokenize`); replaced by the import check.
 - **Limits (stated in the README):** tasks were written by Claude knowing the helpers exist; n is tiny; one agent; Grep was available; no statistics; agents skip the tool when a task looks easy. Not claimed: that the tool reduces duplication.
 - **Rejected:** an unreported "it works" claim; a larger agent study (future work).
+
+### D35. Renamed DevTrust to CodeEcho; reproduction claim softened (2026-11-10)
+- **What:** package, CLI, MCP server name and docs renamed from DevTrust to CodeEcho. "DevTrust" suggested security or trust scoring; the project does reuse search, duplicate review and an MCP tool. The recorded demo transcripts under `results/mcp_demo/` and CLAUDE.md still say `devtrust`, since they record what ran and what the project instructions said at the time. Old commit messages also say DevTrust.
+- **Reproduction:** each step was run separately; `make reproduce` was never run as one command from a clean checkout. The README now says so.
 
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".

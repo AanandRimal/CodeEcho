@@ -15,7 +15,7 @@ def test_blind_pool_is_union_and_independent_of_system_ranking():
 def test_llm_label_save_records_and_rejects_unknown_functions(tmp_path, monkeypatch):
     import json
     import pytest
-    from devtrust.indexer import IndexResult
+    from codeecho.indexer import IndexResult
     from eval import llm_label
 
     from dataclasses import replace

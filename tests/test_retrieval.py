@@ -1,8 +1,8 @@
 """Tests for Phase 2 retrievers."""
 
-from devtrust.indexer import FunctionUnit
-from devtrust.retrieval import doc_text, tokenize
-from devtrust.retrieval.bm25 import BM25Retriever
+from codeecho.indexer import FunctionUnit
+from codeecho.retrieval import doc_text, tokenize
+from codeecho.retrieval.bm25 import BM25Retriever
 
 
 def unit(name: str, body: str, doc: str | None = None) -> FunctionUnit:
@@ -48,7 +48,7 @@ def test_search_returns_k_sorted_and_deterministic():
 
 
 def test_dense_bge_small_and_cache(tmp_path):
-    from devtrust.retrieval.dense import DenseRetriever  # downloads BAAI/bge-small-en-v1.5 on first run
+    from codeecho.retrieval.dense import DenseRetriever  # downloads BAAI/bge-small-en-v1.5 on first run
 
     r = DenseRetriever(UNITS, cache_dir=tmp_path)
     assert r.search("validate an email address", k=1)[0][0].name == "isValidEmail"
@@ -68,7 +68,7 @@ class FixedRetriever:
 
 
 def test_rrf_fuses_rankings():
-    from devtrust.retrieval.hybrid import RRFRetriever
+    from codeecho.retrieval.hybrid import RRFRetriever
 
     a, b, c = UNITS
     fused = RRFRetriever([FixedRetriever([a, b, c]), FixedRetriever([b, c, a])], k_rrf=60).search("q", k=3)
@@ -78,7 +78,7 @@ def test_rrf_fuses_rankings():
 
 
 def test_rrf_counts_documents_missing_from_one_list():
-    from devtrust.retrieval.hybrid import RRFRetriever
+    from codeecho.retrieval.hybrid import RRFRetriever
 
     a, b, _ = UNITS
     fused = RRFRetriever([FixedRetriever([a]), FixedRetriever([b, a])]).search("q", k=2)
@@ -86,7 +86,7 @@ def test_rrf_counts_documents_missing_from_one_list():
 
 
 def test_cross_encoder_reranks_candidates():
-    from devtrust.retrieval.rerank import CrossEncoderReranker  # downloads the MiniLM cross-encoder
+    from codeecho.retrieval.rerank import CrossEncoderReranker  # downloads the MiniLM cross-encoder
 
     a, b, c = UNITS
     r = CrossEncoderReranker(FixedRetriever([c, b, a]), top_n=3)

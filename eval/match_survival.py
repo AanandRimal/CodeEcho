@@ -12,7 +12,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from devtrust.indexer import _functions
+from codeecho.indexer import _functions
 from eval.agent_eval import repo_dir, load_runs, LIKELY
 from eval.agent_data import OUT
 

@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from devtrust.duplication.diff import changed_functions
-from devtrust.duplication.review import INSUFFICIENT, LIKELY, render, review
-from devtrust.duplication.structural import structural_similarity
-from devtrust.indexer import index_repo
-from devtrust.retrieval.bm25 import BM25Retriever
+from codeecho.duplication.diff import changed_functions
+from codeecho.duplication.review import INSUFFICIENT, LIKELY, render, review
+from codeecho.duplication.structural import structural_similarity
+from codeecho.indexer import index_repo
+from codeecho.retrieval.bm25 import BM25Retriever
 
 NORMALIZE = '''
     def normalize_email(addr):

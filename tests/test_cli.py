@@ -2,7 +2,7 @@
 
 from typer.testing import CliRunner
 
-from devtrust.cli import app
+from codeecho.cli import app
 from tests.test_duplication import repo  # noqa: F401  (pytest fixture)
 
 runner = CliRunner()

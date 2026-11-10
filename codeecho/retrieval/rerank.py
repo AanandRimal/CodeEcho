@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from devtrust.indexer import FunctionUnit
-from devtrust.retrieval import doc_text
+from codeecho.indexer import FunctionUnit
+from codeecho.retrieval import doc_text
 
 DEFAULT_MODEL = "cross-encoder/ms-marco-MiniLM-L6-v2"  # formerly "ms-marco-MiniLM-L-6-v2"; Apache-2.0
 REVISION = {DEFAULT_MODEL: "233902d25c440f23af6f7d6e94d2946bac0bee0a"}

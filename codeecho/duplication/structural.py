@@ -5,7 +5,7 @@ from __future__ import annotations
 import ast
 import difflib
 
-from devtrust.indexer import FunctionUnit
+from codeecho.indexer import FunctionUnit
 
 
 def structure(unit: FunctionUnit) -> list[str]:

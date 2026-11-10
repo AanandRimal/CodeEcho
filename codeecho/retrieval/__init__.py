@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 
-from devtrust.indexer import FunctionUnit
+from codeecho.indexer import FunctionUnit
 
 _WORD = re.compile(r"[A-Za-z0-9_]+")
 _CAMEL = re.compile(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|[0-9]+")

@@ -63,7 +63,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - Results may vary on datasets with very different characteristics.
 - **Other:** the authors also report semi-structured interviews with 5 experts (Sec. II-C). They say transcripts are "available upon request".
 - **Data/code:** replication package at https://github.com/srlabUsask/classical-clone-detector-in-ai-era (stated in Sec. I).
-- **Relevance to DevTrust:**
+- **Relevance to CodeEcho:**
   - This is the closest work on the *detector* side.
   - It gives a Python-capable baseline set (PMD/CPD, CloneWorks) and an evaluation protocol (injection plus c-match recall, plus sampled precision).
   - It evaluates code-to-code clone detection. It does not evaluate natural-language retrieval or diff-time review.
@@ -107,7 +107,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - The paper links to a shortened URL (https://shorturl.at/jvxOV).
   - The current GitHub README (https://github.com/srlabUsask/GPTCloneBench) points to Zenodo DOI 10.5281/zenodo.10198952 for semantic clones (stand-alone plus injected). Cross-language zips are in the repo.
   - **⚑ VERIFY license:** the README states CC BY-NC-ND (non-commercial). The repo sidebar shows MIT.
-- **Relevance to DevTrust:**
+- **Relevance to CodeEcho:**
   - This is the only benchmark here with **Python Type-3/Type-4 pairs**, plus a Python injection target (Django). That makes it usable as a code-to-code positive set for RQ2.
   - It has **no natural-language queries**, so it cannot serve RQ1.
   - Its "false semantic" pairs are T1/T2 clones, not non-clones. They are positives for our purpose (a T1/T2 copy is still a duplicate), so they must not be used as negatives.
@@ -143,7 +143,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - SCB is small, which risks overfitting.
   - Single-language experiments are Java only.
 - **Data/code:** https://github.com/subrotonpi/clone_evaluation (Sec. IV-F).
-- **Relevance to DevTrust:**
+- **Relevance to CodeEcho:**
   - Shows that benchmark choice changes conclusions. That argues for using more than one evaluation set.
   - Its models are supervised pair classifiers. They are not the zero-shot retrieval setting we use.
   - No Python single-language results.
@@ -166,7 +166,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - 12 clone and similarity datasets. Only 50% of studies used one.
   - Meta-analysis means: precision 86.3, recall 88.4, F1 86.5, accuracy 82.5. The authors call these "only moderately reliable" because the datasets differ.
   - The performance of "emerging applications", e.g. code recommendation, is lower than older applications.
-- **Challenges directly relevant to DevTrust (Sec. 5):**
+- **Challenges directly relevant to CodeEcho (Sec. 5):**
   - **Challenge 5:** most work targets Java and C/C++. Multi-paradigm languages "such as Python and JavaScript" need support.
   - **Challenge 6:** clone tools "have been designed to be used in the software maintenance phase". The authors write that "real-time measurement and notification of code similarity during software development help programmers avoid repeating code and reuse the available software component". They name development-phase support as an open challenge.
   - Mentions **Pyclone** (Duncan et al., 2021), which "generates type I, II, and III code clones for Python" by the same mutation approach as Roy and Cordy.
@@ -198,7 +198,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
 - **Relevance:**
   - Supports the vocabulary-mismatch motivation, and BM25 as the standard lexical baseline.
   - Its practice recommendations apply to our hand-labelled benchmark: real developer-style queries, a public replication package, and reporting Hit@K and MRR.
-  - Query reformulation itself is out of scope for DevTrust's first slice.
+  - Query reformulation itself is out of scope for CodeEcho's first slice.
 
 ### A6. Roy and Cordy, "A Mutation/Injection-based Automatic Framework for Evaluating Code Clone Detection Tools" (2009)
 
@@ -255,7 +255,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
 - **Findings:** "highest mean average precision of 95% and 99% on two clone benchmarks". Results in under 8 s on 365 MLOC. Incremental index updates.
 - **Languages:** "The current implementation of Siamese supports Java." A new language needs a method extractor, tokeniser, and normaliser.
 - **Code:** https://github.com/UCL-CREST/Siamese
-- **Relevance:** the closest *architectural* analogue to DevTrust's code-to-code retrieval: lexical IR over normalised views, queried with new code. Uchoa et al. (C1) use it on diffs.
+- **Relevance:** the closest *architectural* analogue to CodeEcho's code-to-code retrieval: lexical IR over normalised views, queried with new code. Uchoa et al. (C1) use it on diffs.
 
 ### A10. Hummel, Juergens, Heinemann, Conradt, "Index-Based Code Clone Detection: Incremental, Distributed, Scalable" (2010)
 
@@ -292,7 +292,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
 - **Access:** full text (3 pages).
 - **Finding:** on held-out BigCloneBench functionalities, CodeBERT's F1 drops by about 27% and about 47%. On unseen functionalities F1 is 48.97.
 - **Language:** Java.
-- **Relevance:** fine-tuned pair classifiers overfit to the functionalities they were trained on. This argues against relying on a learned classifier in DevTrust.
+- **Relevance:** fine-tuned pair classifiers overfit to the functionalities they were trained on. This argues against relying on a learned classifier in CodeEcho.
 
 ### A14. LLM-era clone detection (three studies)
 
@@ -313,7 +313,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - o3-mini reached F1 0.943 on CodeNet but dropped sharply on BCB.
   - Advice: "existing clone detection technologies should be actively used to reduce the number of comparisons through LLM". That is a retrieve-then-verify design.
   - Data: https://zenodo.org/records/15019503
-- **Relevance:** LLM judges work on Python but are expensive per pair. At most a verifier on a small top-k, and out of scope for DevTrust's first slice.
+- **Relevance:** LLM judges work on Python but are expensive per pair. At most a verifier on a small top-k, and out of scope for CodeEcho's first slice.
 
 ### A15. Python-specific semantic-clone and retrieval work (2026 preprints)
 
@@ -323,7 +323,7 @@ _A1–A6 are from Roy's group or have Roy as a co-author. A7–A15 are from othe
   - The best system has "exec@10=1.00 but only exec@1=0.331". "rank-1 misses are paired buggy variants 91.5–99.4% of the time". BM25 exec@1 is 0.058.
   - The authors conclude that "Current code embeddings function as candidate-recall components".
   - Data: https://huggingface.co/datasets/AaryanK/ExecRetrieval
-  - Relevance: embeddings cannot tell "same logic" from "one edit away". Use them for recall, not as the verdict. This directly supports DevTrust's structural-verification stage.
+  - Relevance: embeddings cannot tell "same logic" from "one edit away". Use them for recall, not as the verdict. This directly supports CodeEcho's structural-verification stage.
 - **Marchezan, Delcourt, Syriani, Sahraoui, "Type-IV Code Clone Detection via Layer-Wise Non-Contrastive Representation Learning" (arXiv:2609.17338, under review)**
   - Group: Montréal. Access: full text.
   - Uses **Kamino**: 78,771 LLM-generated, test-validated Python Type-IV pairs from BigCodeBench, cited as ISSTA 2026 (**⚑ venue not checked**).
@@ -467,7 +467,7 @@ Access for all seven papers: full text (arXiv PDFs). These were read with target
 
 **Datasets**
 
-| Dataset | Real queries? | Python? | Pool | Fit for DevTrust RQ1 | Main caveat |
+| Dataset | Real queries? | Python? | Pool | Fit for CodeEcho RQ1 | Main caveat |
 |---|---|---|---|---|---|
 | CoSQA / CoIR-CosQA | yes (Bing) | yes | 6,267 (CoSQA) or ~21K (CoIR) | **good** | positives pre-filtered by a dense model; "python" in every query; code includes docs |
 | CSN Challenge (99 queries) | yes (Bing) | yes | annotated subset or full corpus | **good, small** | κ = 0.47; unannotated relevant hits; URL→function mapping unverified |
@@ -524,7 +524,7 @@ Access for all seven papers: full text (arXiv PDFs). These were read with target
 - **Access:** full text.
 - **Model:** CodeRankEmbed, a 137M bi-encoder trained on 21M filtered pairs. Evaluated zero-shot on CSN, AdvTest, and CoIR. Baselines: E5, Arctic, CodeSage, CodeT5+, Jina-code-v2. No BM25.
 - **Reranker:** CodeRankLLM, a 7B listwise LLM.
-- **Closest-to-DevTrust setup:** SWE-bench-Lite function localisation. "The GitHub issue serves as the text query, while all functions within the files in the repository are considered as candidates."
+- **Closest-to-CodeEcho setup:** SWE-bench-Lite function localisation. "The GitHub issue serves as the text query, while all functions within the files in the repository are considered as candidates."
 - **⚑ caveat:** queries are issue reports, not short descriptions, and the target is the function to edit, not one to reuse.
 - **Code:** https://github.com/gangiswag/cornstack
 
@@ -561,7 +561,7 @@ Access for all seven papers: full text (arXiv PDFs). These were read with target
   - Reranking over 200–800-token chunks "greatly degrades the results, showing limited utility of current rerankers".
 - **Relevance:**
   - On small Python corpora with docstring-like queries, BM25 is within about 1 point of small code embedders.
-  - An off-the-shelf small cross-encoder may hurt. Treat DevTrust's rerank arm as exploratory; a null result is plausible.
+  - An off-the-shelf small cross-encoder may hurt. Treat CodeEcho's rerank arm as exploratory; a null result is plausible.
 
 ### B14. Zhang et al. (CityU/Microsoft), "RepoCoder" (arXiv:2303.12570; **⚑ EMNLP 2023 unverified**)
 
@@ -583,7 +583,7 @@ Access for all seven papers: full text (arXiv PDFs). These were read with target
   - No BM25, no open models, no reranker.
 - **Retrieval evaluated directly on only 47 cases:** "FunDes method retrieved 41.5% of global functions, while the FunDes+FunCode method retrieved 60.6%".
 - **Limitations:** subjective labelling; Python only.
-- **Relevance:** **the closest prior work to DevTrust RQ1** (in-repo reuse retrieval from NL descriptions). Its retrieval evaluation is small and uses a single proprietary embedder.
+- **Relevance:** **the closest prior work to CodeEcho RQ1** (in-repo reuse retrieval from NL descriptions). Its retrieval evaluation is small and uses a single proprietary embedder.
 
 ### B16. Gu et al. (TUM/SYSU/Huawei), "What to Retrieve for Effective Retrieval-Augmented Code Generation?" (AllianceCoder; arXiv:2503.20589)
 
@@ -644,7 +644,7 @@ _None of these are from Roy's group._
   - Type-I 46.7%, Type-II 7.9%, Type-III 45.3%.
   - Clones "are often introduced early and frequently persist through the review process".
 - **Data:** https://zenodo.org/records/16746835
-- **Overlap with DevTrust:** **the same before-snapshot query protocol**. Differences: Java, a code-to-code token detector, and an empirical study rather than a reviewer tool.
+- **Overlap with CodeEcho:** **the same before-snapshot query protocol**. Differences: Java, a code-to-code token detector, and an empirical study rather than a reviewer tool.
 
 ### C2. Nakagawa, Higo, Kusumoto, "CLIONE: Clone Modification Support for Pull Request Based Development" (APSEC 2020)
 
@@ -654,7 +654,7 @@ _None of these are from Roy's group._
 - **Detectors:** NiCad (Java, Python, C++) or SourcererCC.
 - **Status:** README: "CLIONE is currently unavailable as a GitHub bot". You have to self-host it.
 - **⚑ Evaluation figures** come from an abstract snippet only.
-- **Overlap with DevTrust:** **a Python-capable PR bot that flags newly added clones already exists.** It is token-based and has no retrieval, embeddings, or confidence evidence.
+- **Overlap with CodeEcho:** **a Python-capable PR bot that flags newly added clones already exists.** It is token-based and has no retrieval, embeddings, or confidence evidence.
 
 ### C3. Development-time and incremental detection (classic)
 
@@ -669,7 +669,7 @@ _None of these are from Roy's group._
 - **What it does:** an IntelliJ plug-in for **Java** that fires on paste. It compares the pasted code against "all methods inside the same file" (intra-file only) with token bag-of-words, then a CNN decides whether to recommend Extract Method (F-measure 0.82).
 - **Code:** https://github.com/refactorings/anti-copy-paster
 - **⚑ "AntiCopyPaster 3.0":** I found no full source.
-- **Overlap with DevTrust:** low. IDE-time, intra-file, Java.
+- **Overlap with CodeEcho:** low. IDE-time, intra-file, Java.
 
 ### C5. jscpd `--semantic` (open-source tool, MIT licence; not peer-reviewed)
 
@@ -679,7 +679,7 @@ _None of these are from Roy's group._
   - `jscpd --changed .` matches the files `git status` lists against the whole project.
 - **The README warns:** "Besides real duplicates it reports related code, such as a client function and the server endpoint it calls".
 - **Evaluation:** no published evaluation found.
-- **Overlap with DevTrust:** **very high in mechanics** (embeddings plus token clones on changed files, Python). Missing: evidence and confidence output, and validation.
+- **Overlap with CodeEcho:** **very high in mechanics** (embeddings plus token clones on changed files, Python). Missing: evidence and confidence output, and validation.
 
 ### C6. Huang, Jaisri, Shimizu, Chen, Nakashima, Rodríguez-Pérez, "More Code, Less Reuse: Investigating Code Quality and Reviewer Sentiment towards AI-generated Pull Requests" (MSR 2026; arXiv:2601.21276)
 
@@ -696,7 +696,7 @@ _None of these are from Roy's group._
   - Python only.
 - **Observation (mine):** cosine similarity is used as redundancy with no precision or recall validation of the detector, and there is no structural check.
 - **Data/code:** no link found in the paper.
-- **Overlap with DevTrust:** **the closest prior work to RQ2.** It uses nearly the same retrieval step, but as an unvalidated study metric, not a validated reviewer.
+- **Overlap with CodeEcho:** **the closest prior work to RQ2.** It uses nearly the same retrieval step, but as an unvalidated study metric, not a validated reviewer.
 
 ### C7. Mao, Zhao, Tang, Wang, Zhang, "A Large-Scale Comprehensive Measurement of AI-Generated Code in Real-World Repositories" (arXiv:2603.27130 v3)
 
@@ -716,7 +716,7 @@ _None of these are from Roy's group._
   - Agents "leave duplicated logic in 50.8% of task chains by turn 5—all while pass rates barely move".
   - Repository code read falls from 83.6% (turn 1) to 35.4% (turn 5).
 - **Limitations:** synthetic tasks; generalisation open.
-- **Relevance:** controlled evidence for the motivation. Its callee-overlap rule is a cheap structural baseline DevTrust should compare against.
+- **Relevance:** controlled evidence for the motivation. Its callee-overlap rule is a cheap structural baseline CodeEcho should compare against.
 
 ### C9. Le Hai, Nguyen, Bui (FPT AI), "REPOEXEC" (arXiv:2406.11927)
 

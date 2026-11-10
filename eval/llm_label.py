@@ -18,7 +18,7 @@ import datetime as dt
 import json
 from pathlib import Path
 
-from devtrust.indexer import index_repo
+from codeecho.indexer import index_repo
 from eval.label import QUERIES_FILE, blind_pool, ref, systems
 from eval.repos import checkout, load_repos
 

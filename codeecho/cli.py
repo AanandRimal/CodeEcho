@@ -1,4 +1,4 @@
-"""Command line: `devtrust index <repo>`, `devtrust search "<query>"`, `devtrust review --diff <range>`."""
+"""Command line: `codeecho index <repo>`, `codeecho search "<query>"`, `codeecho review --diff <range>`."""
 
 from __future__ import annotations
 
@@ -14,10 +14,10 @@ METHODS = ("code", "general", "bm25", "hybrid", "rerank")
 
 def _retriever(units, method: str):
     """Build one of the search settings evaluated in RQ1 (results/retrieval.json)."""
-    from devtrust.retrieval.bm25 import BM25Retriever
-    from devtrust.retrieval.dense import DenseRetriever
-    from devtrust.retrieval.hybrid import RRFRetriever
-    from devtrust.retrieval.rerank import CrossEncoderReranker
+    from codeecho.retrieval.bm25 import BM25Retriever
+    from codeecho.retrieval.dense import DenseRetriever
+    from codeecho.retrieval.hybrid import RRFRetriever
+    from codeecho.retrieval.rerank import CrossEncoderReranker
 
     if method == "bm25":
         return BM25Retriever(units)
@@ -33,7 +33,7 @@ def _retriever(units, method: str):
 @app.command()
 def index(repo: Path = typer.Argument(Path("."), help="Repository root")) -> None:
     """Parse the repo, report what was indexed and what failed, and warm the embedding cache."""
-    from devtrust.indexer import index_repo
+    from codeecho.indexer import index_repo
 
     result = index_repo(repo)
     typer.echo(f"{len(result.functions)} functions from {result.files_parsed} files "
@@ -51,7 +51,7 @@ def search(query: str = typer.Argument(..., help="What you need, in plain words"
            method: str = typer.Option("code", help=f"One of {', '.join(METHODS)}. 'code' scored best in RQ1; "
                                                     "see results/retrieval.json")) -> None:
     """Find existing functions that match a description."""
-    from devtrust.indexer import index_repo
+    from codeecho.indexer import index_repo
 
     if method not in METHODS:
         raise typer.BadParameter(f"method must be one of {METHODS}")
@@ -67,7 +67,7 @@ def review(diff: str = typer.Option(..., "--diff", help="Commit range 'base..hea
            top_k: int = typer.Option(5, help="Candidates searched per new function"),
            show_all: bool = typer.Option(False, "--all", help="Also show functions with insufficient evidence")) -> None:
     """Flag new or changed functions that closely resemble code already in the repo (candidates, not proof)."""
-    from devtrust.duplication.review import render, review as run_review
+    from codeecho.duplication.review import render, review as run_review
 
     base, _, head = diff.partition("..")
     if not head:                                  # a single commit means "that commit's own change"

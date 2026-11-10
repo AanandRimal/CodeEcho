@@ -7,8 +7,8 @@ from pathlib import Path
 
 import numpy as np
 
-from devtrust.indexer import FunctionUnit
-from devtrust.retrieval import doc_text
+from codeecho.indexer import FunctionUnit
+from codeecho.retrieval import doc_text
 
 # Query prefixes required or recommended by each model card (code side needs none for either):
 # - BGE v1.5: "Represent this sentence for searching relevant passages: " (optional; helps short queries)

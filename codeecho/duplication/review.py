@@ -11,10 +11,10 @@ from itertools import zip_longest
 from pathlib import Path
 from typing import Callable
 
-from devtrust.duplication.diff import ChangedFunction, changed_functions
-from devtrust.duplication.structural import structural_similarity, structure
-from devtrust.indexer import FunctionUnit
-from devtrust.retrieval.dense import DenseRetriever
+from codeecho.duplication.diff import ChangedFunction, changed_functions
+from codeecho.duplication.structural import structural_similarity, structure
+from codeecho.indexer import FunctionUnit
+from codeecho.retrieval.dense import DenseRetriever
 
 HI, LO, MIN_NODES = 0.9, 0.6, 10   # provisional: likely_duplicate >= HI, similar_but_different >= LO
 LIKELY, SIMILAR, INSUFFICIENT = "likely_duplicate", "similar_but_different", "insufficient_evidence"
