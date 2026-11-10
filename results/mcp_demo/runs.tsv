@@ -1,0 +1,18 @@
+task	condition	rep	reused	called_tool	turns
+words	without	1	no	no	4
+words	with	1	no	no	9
+mean_ci	without	1	no	no	3
+mean_ci	with	1	yes	no	7
+is_test	without	1	no	no	2
+is_test	with	1	no	no	2
+rr	without	1	no	no	2
+rr	with	1	no	no	2
+words	without	2	no	no	3
+words	with	2	no	no	9
+mean_ci	without	2	no	no	3
+mean_ci	with	2	yes	no	9
+is_test	without	2	no	no	2
+is_test	with	2	no	no	2
+rr	without	2	no	no	2
+rr	with	2	no	no	2
+DONE

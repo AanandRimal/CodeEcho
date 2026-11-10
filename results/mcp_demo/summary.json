@@ -1,0 +1,30 @@
+{
+ "meta": {
+  "date": "2026-11-10",
+  "git_commit": "b2c1771fd21e252b43893eeae7d5abcc10ff96b4",
+  "models_used_by_agent": [
+   "claude-opus-4-8[1m]"
+  ],
+  "tasks": 4,
+  "reps": 2,
+  "note": "demo only; tasks written by Claude, who knew the helpers exist; agent also had Grep/Read in both conditions; reuse judged by an import check on the saved file"
+ },
+ "reused_runs": {
+  "without": {
+   "words": "0/2",
+   "mean_ci": "0/2",
+   "is_test": "0/2",
+   "rr": "0/2"
+  },
+  "with": {
+   "words": "2/2",
+   "mean_ci": "2/2",
+   "is_test": "0/2",
+   "rr": "0/2"
+  }
+ },
+ "reused_total": {
+  "without": "0/8",
+  "with": "4/8"
+ }
+}

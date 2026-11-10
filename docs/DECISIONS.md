@@ -14,6 +14,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 | 5 Duplication evaluation | ✅ Done; test split read once (D29-D31) |
 | 6 AI-agent study | ✅ Done (D32, D33) |
 | 7 CLI, README, write-up | 🟡 CLI and README done; one-page write-up and demo GIF pending |
+| MCP server (stretch) | ✅ Implemented and tested; 16-run demo only, not an evaluation (D34) |
 
 ---
 
@@ -335,6 +336,16 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 - **Caveats (also in the README):** agents are partly confounded with repository (Devin mostly crewAI, Claude Code mostly fastmcp and instructor); humans may use unlabelled AI; the detector's thresholds came from synthetic data; no human validation of the audit; compare with MSR 2026 only qualitatively.
 - **Not done:** more repositories, a stricter move filter (a function relocated with edits), a human audit.
 
+### D34. MCP server and a small with/without demo (2026-11-10; `results/mcp_demo/summary.json`)
+- **What:** `devtrust/mcp_server.py` exposes `search_existing_functions` and `review_diff` over MCP (stdio) by wrapping the existing search (CodeRankEmbed) and review. Added `mcp==2.3.0` and its dependencies to `requirements.txt`. In mcp 2.x the server class is `MCPServer`, not `FastMCP`.
+- **Why:** the plan's stretch goal, after RQ3. An agent could check for existing code before writing new code.
+- **Demo:** 4 tasks, each asking for a function that already exists under another name (`words`, `mean_ci`, `looks_like_test_file`, `first_hit_score`), 2 runs each, with and without the tool, in throwaway copies of the repo (`eval/mcp_demo/run.sh`). The agent (Claude Code, headless) had Read/Grep/Glob/Write/Edit in both conditions. Reuse = the saved file imports from the repo (`eval/mcp_demo/summarise.py`).
+- **Result:** reuse in 4/8 runs with the tool, 0/8 without. Reuse happened on `words` and `mean_ci`; on `looks_like_test_file` and `first_hit_score` the agent never called the tool (2 turns) and wrote its own.
+- **Verified:** an event-log re-run of `words` and `mean_ci` showed the agent wrote its own version first, then called `search_existing_functions`, found the helper and replaced its file. The original 16 runs saved only the final result, not tool calls, so the tool use in them is inferred from turn counts (2 vs 7-9).
+- **Mistake caught:** my first "reused" check grepped for helper names and misclassified `words` (the agent reused the `_CAMEL` regex, not `tokenize`); replaced by the import check.
+- **Limits (stated in the README):** tasks were written by Claude knowing the helpers exist; n is tiny; one agent; Grep was available; no statistics; agents skip the tool when a task looks easy. Not claimed: that the tool reduces duplication.
+- **Rejected:** an unreported "it works" claim; a larger agent study (future work).
+
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".
 - Git identity for commits (blocks the first commit).
@@ -355,6 +366,7 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 | "Why these repos?" | D19 |
 | "How do you know AI agents duplicate code?" | D8; the RQ3 results will answer it |
 | "What would you do with more time?" | D5 (dropped list), D8 (MCP / controlled experiment) |
+| "Does the MCP server actually help agents?" | D34 (small demo only; not evaluated) |
 | "What are the limitations?" | D13, D17, D19, D21, D22, D23 |
 | "Why not index example code?" | D23 |
 | "How big was the labelling effort?" | D24 |

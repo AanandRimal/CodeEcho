@@ -20,7 +20,7 @@ As a full-stack engineer on SaaS products, I kept seeing developers, and increas
 | CLI: `index`, `search`, `review` | Implemented, tested |
 | Study of AI-agent vs human PRs on three real repos (RQ3) | Implemented and run; results below |
 | Demo GIF | Planned, not recorded |
-| MCP server (`search_existing_functions`, `review_diff`) | Planned (stretch goal), not started |
+| MCP server (`search_existing_functions`, `review_diff`) for AI coding agents | Implemented, tested; only a 16-run demo with an agent, not an evaluation (see "Use it with an AI agent") |
 | CoIR CosQA comparison, human-vs-AI label agreement check | Dropped, not run (see `docs/DECISIONS.md` D26) |
 
 ## Use it
@@ -34,6 +34,18 @@ uv venv --python 3.12 && uv pip install -r requirements.txt   # CPU only; Python
 ```
 
 `review` reports candidates, each with the new function, the existing function it resembles (file and lines), a retrieval score, a structural score, a category (`likely_duplicate`, `similar_but_different`, `insufficient_evidence`) and the two functions side by side. Embedding similarity is not proof of duplication, so findings are candidates for a human to check. The tool never changes code.
+
+### Use it with an AI agent (MCP)
+
+`devtrust/mcp_server.py` exposes the same search and review as two MCP tools, so an agent such as Claude Code can check for an existing function before writing a new one:
+
+```bash
+claude mcp add devtrust -- /abs/path/to/.venv/bin/python -m devtrust.mcp_server   # run from the repo you want checked
+```
+
+The agent decides itself whether to call the tools; a line in the project's CLAUDE.md ("search for existing functions before writing a helper") makes that more likely. The first call on a repo builds an index and can take minutes on CPU; later calls use the embedding cache.
+
+**Status: implemented, not evaluated.** A small demo (`eval/mcp_demo/`, `results/mcp_demo/`) gave Claude Code four tasks, each asking for a function the repo already had under another name, twice per task, with and without the tool. It reused the existing code in 4 of 8 runs with the tool and 0 of 8 without. The tool was used on the two tasks where it reused (checked in an event log of one re-run each), and on the other two the agent never called it. This is a demo, not a result: 4 tasks that I chose knowing the answers, 8 runs per condition, one agent, and the agent could also use Grep in both conditions.
 
 ## Method
 
@@ -192,7 +204,7 @@ None of DevTrust's components is new. Embedding-based flagging of duplicate code
 
 ## Future work
 
-Not done, and not claimed: JavaScript/TypeScript support; the MCP server; an independent human label check for RQ1; a CoIR CosQA run for comparison with published numbers; precision-recall curves and equal-operating-point comparisons for RQ2; more repositories and per-agent power for RQ3; a controlled experiment where agents are given the repo with and without DevTrust.
+Not done, and not claimed: JavaScript/TypeScript support; an evaluation of the MCP server on real agent tasks (only the 16-run demo exists); an independent human label check for RQ1; a CoIR CosQA run for comparison with published numbers; precision-recall curves and equal-operating-point comparisons for RQ2; more repositories and per-agent power for RQ3; a controlled experiment with many tasks, several agents, and tasks not chosen by the author.
 
 ## How to reproduce
 
