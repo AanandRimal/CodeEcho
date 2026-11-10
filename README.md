@@ -124,11 +124,12 @@ Test split only (143 cases). Thresholds chosen on the dev split (144 cases): emb
 _Generated from `results/` on 2026-11-09, commit `cdd2c5e`._
 <!-- END:duplication -->
 
+- The test split is small: 102 positives (12 of them Type-4) and 41 negatives (4 siblings, 3 client/endpoint, 4 one-edit, 30 unrelated), so per-group rates have wide intervals.
 - At the thresholds that maximise F1 on the dev split, adding the structural check did not reduce the overall false-positive rate compared with embedding-only; the difference is within noise.
 - At the tool's untuned default (structural score at least 0.9) the false-positive rate is much lower, but Type-4 recall is zero and Type-3 recall drops. This is a threshold trade-off. Embedding-only was not given an equally strict setting, so the two are not compared on equal footing.
 - Every method flags functions that differ by a single behaviour-changing token, and most look-alike siblings. This is the main limit on this test.
 - jscpd was precise but missed most renamed and modified copies (it matches tokens), and `--semantic` recovered only a small share of Type-4 at its calibrated threshold.
-- The search step rarely lost the original: the true source was in the top 5 for nearly every positive, so errors come mostly from the scoring step.
+- The search step rarely lost the original: the true source was in the top 5 for 96 of the 102 test positives, so errors come mostly from the scoring step.
 
 ### RQ3: do AI-agent pull requests duplicate existing code more often than human ones?
 
