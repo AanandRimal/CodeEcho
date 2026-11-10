@@ -1,5 +1,0 @@
-Metadata-Version: 2.4
-Name: codeecho
-Version: 0.1.0
-Summary: Reuse-aware code search and duplicate review for developers and AI coding agents
-Requires-Python: >=3.11
