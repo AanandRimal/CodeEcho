@@ -153,15 +153,33 @@ def holm(ps: list[float]) -> list[float]:
 
 def audit_sample() -> None:
     """Seeded random sample of likely_duplicate findings (all groups pooled) for manual judging."""
-    findings = [{"repo": r["repo"], "number": r["number"], "group": r["group"], **a}
+    from eval.match_survival import CACHE, key_of, survival
+
+    surv = json.loads(CACHE.read_text()) if CACHE.exists() else survival()
+    findings = [{"repo": r["repo"], "number": r["number"], "group": r["group"], "match_survives_at_pr_head": surv[key_of(r, a)], **a}
                 for r in load_runs() for a in r.get("added_reviewed", []) if a["category"] == LIKELY]
     sample = random.Random(SEED).sample(findings, min(N_AUDIT, len(findings)))
     AUDIT_SAMPLE.write_text(json.dumps({"n_findings_total": len(findings), "sample": sample}, indent=1))
     print(f"{len(findings)} likely_duplicate findings; sampled {len(sample)} -> {AUDIT_SAMPLE}")
 
 
-def analyze() -> None:
-    recs = load_runs()
+def adjusted_runs(recs: list[dict]) -> list[dict]:
+    """Copy of the runs where a finding whose matched function no longer exists at the PR head (so the PR
+    removed or moved it: a refactor, not new duplicated code) is relabelled `match_removed_in_pr`.
+    Sensitivity analysis only, added after inspecting the audit sample (docs/DECISIONS.md D33)."""
+    from eval.match_survival import CACHE, key_of, survival
+
+    surv = json.loads(CACHE.read_text()) if CACHE.exists() else survival()
+    out = []
+    for r in recs:
+        added = [dict(a, category="match_removed_in_pr") if a["category"] == LIKELY and not surv[key_of(r, a)] else a
+                 for a in r.get("added_reviewed", [])]
+        out.append({**r, "added_reviewed": added})
+    return out
+
+
+def analyse_set(recs: list[dict]) -> dict:
+    """Groups, tests against humans, size buckets and per-repo numbers for one set of PR records."""
     groups = defaultdict(list)
     for r in recs:
         groups[r["group"]].append(r)
@@ -176,21 +194,32 @@ def analyze() -> None:
         for g, adj in zip(keys, holm([tests[g][kind] for g in keys])):
             tests[g][kind + "_holm_over_agents"] = adj
     buckets = {"1": (1, 1), "2-3": (2, 3), "4-9": (4, 9), "10+": (10, 10**9)}
-    by_size = {}
-    for name, (lo, hi) in buckets.items():
-        by_size[name] = {lab: summarise([r for r in rs if "error" not in r and lo <= pr_stats(r)[1] <= hi])
-                         for lab, rs in (("agents", agents_all), ("human", human))}
+    by_size = {name: {lab: summarise([r for r in rs if "error" not in r and lo <= pr_stats(r)[1] <= hi])
+                      for lab, rs in (("agents", agents_all), ("human", human))} for name, (lo, hi) in buckets.items()}
     by_repo = {repo: {lab: summarise([r for r in rs if r["repo"] == repo]) for lab, rs in
                       (("agents", agents_all), ("human", human))} for repo in sorted({r["repo"] for r in recs})}
+    return {"groups": table, "tests_vs_human": tests, "by_size_bucket": by_size, "by_repo": by_repo,
+            "groups_analysed": analysed, "groups_not_analysed": [g for g in sorted(groups) if g not in analysed and g != "human"]}
+
+
+def analyze() -> None:
+    recs = load_runs()
+    main = analyse_set(recs)
+    sensitivity = analyse_set(adjusted_runs(recs))
     audit = None
     if AUDIT_LABELS.exists():
         lab = json.loads(AUDIT_LABELS.read_text())
         j = lab["judgments"]
         k = sum(x["verdict"] == "duplicate" for x in j)
         audit = {"n_judged": len(j), "n_judged_duplicate": k, "precision": k / len(j) if j else None,
-                 "annotator": lab.get("annotator"), "n_findings_total": lab.get("n_findings_total")}
+                 "annotator": lab.get("annotator"), "n_findings_total": lab.get("n_findings_total"),
+                 "verdict_counts": {v: sum(x["verdict"] == v for x in j) for v in sorted({x["verdict"] for x in j})}}
         if j:
             audit["precision_ci"] = bootstrap_ci([float(x["verdict"] == "duplicate") for x in j], SEED)[1:]
+            surv = [x for x in j if x["match_survives_at_pr_head"]]
+            audit["n_match_survives"] = len(surv)
+            audit["precision_among_match_survives"] = sum(x["verdict"] == "duplicate" for x in surv) / len(surv) if surv else None
+            audit["n_trivial_duplicates"] = sum(x["verdict"] == "duplicate" and x.get("trivial_one_or_two_lines") for x in j)
     git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True).stdout.strip()
     RESULTS.parent.mkdir(exist_ok=True)
     RESULTS.write_text(json.dumps({
@@ -199,10 +228,11 @@ def analyze() -> None:
                  "n_permutations": N_PERM, "n_bootstrap": N_BOOT, "min_eligible_prs_to_analyse": MIN_PRS,
                  "detector": {"retrieval": "nomic-ai/CodeRankEmbed (top 5)", "likely_duplicate_structural_threshold": HI,
                               "min_ast_nodes": MIN_NODES, "counted": "functions added by the PR only"},
-                 "pr_table": json.loads(OUT.read_text())["meta"], "groups_analysed": analysed,
-                 "groups_not_analysed": [g for g in sorted(groups) if g not in analysed and g != "human"]},
-        "groups": table, "tests_vs_human": tests, "by_size_bucket": by_size, "by_repo": by_repo,
-        "audit": audit}, indent=1) + "\n")
+                 "pr_table": json.loads(OUT.read_text())["meta"],
+                 "groups_analysed": main["groups_analysed"], "groups_not_analysed": main["groups_not_analysed"],
+                 "sensitivity": "match_removed_in_pr: findings whose matched function no longer exists at the PR head "
+                                "are not counted (a refactor, not new duplication). Added after inspecting the audit sample."},
+        "primary": main, "sensitivity_match_survives": sensitivity, "audit": audit}, indent=1) + "\n")
     print(f"Wrote {RESULTS}")
 
 
