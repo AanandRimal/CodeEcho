@@ -12,7 +12,8 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 | 3 Retrieval evaluation | 🟡 60 LLM-drafted queries and labels saved (D25, D26); metrics + eval done (D27); error analysis and README pending |
 | 4 Duplication review | ✅ Implemented and unit-tested (D28) |
 | 5 Duplication evaluation | ✅ Done; test split read once (D29-D31) |
-| 6–7 | Not started |
+| 6 AI-agent study | ✅ Done (D32, D33) |
+| 7 CLI, README, write-up | 🟡 CLI and README done; one-page write-up and demo GIF pending |
 
 ---
 
@@ -323,6 +324,16 @@ Project owner: Aanand Rimal. Entries marked "owner's call" record a decision he 
 - **Audit:** a random sample of flagged findings is read and judged to give the precision of `likely_duplicate` on real code. The judging is done by an AI (Claude), disclosed as such, like D25. No human validation (D26).
 - **Known limits to state:** humans may use AI assistants without labelling it, and AIDev's agent labelling has its own errors; agent and human PRs differ in size and type; thresholds were set on synthetic data (D31) and the detector misses reimplementations written differently (Type-4); exact-body move filter; only 3 repos; the human sample is capped; a null result is still a result. Compare with "More Code, Less Reuse" (MSR 2026) only qualitatively and say it used a different, unvalidated metric.
 - **Cost note:** reviewing ~800 PRs on CPU takes hours. The embedding cache makes later PRs cheaper.
+
+### D33. Phase 6 results and the refactor finding (2026-11-10; numbers in `results/agents.json`, audit in `data/agent_audit.json`)
+- **What was run:** 763 merged PRs (440 human sample, 323 agent); 1 PR errored (a base commit missing from the repository after a force-push). `python -m eval.agent_eval run`, then `analyze`.
+- **Primary analysis (D32, unchanged):** no evidence that agent PRs flag more often than human PRs. The pooled agent share of PRs with a flagged function is lower than the human share (unadjusted p about 0.02); Claude Code's per-function rate is higher than the human rate but not significant (p about 0.12); Devin is lower (significant after Holm); Codex has 10 eligible PRs, inconclusive; Copilot and Cursor are under the 10-PR minimum; Jules has no merged PRs here.
+- **Surprise found by the audit:** many "likely duplicates" point at a function the same PR removed or moved. The exact-body move filter (D28) misses moves combined with edits. In the raw counts this was far more common for Claude Code findings (54 of 89) than for human ones (43 of 127).
+- **Sensitivity analysis, added after reading the audit sample, so exploratory:** findings whose matched function no longer exists at the PR head are not counted (`eval/match_survival.py`). Under it Claude Code's per-function rate is about equal to the human rate. The primary analysis is NOT replaced; both are reported side by side.
+- **Audit (AI-judged, not blind, 40 random findings of 223):** 16 real duplicates (2 of them one- or two-line bodies), 15 moved/refactored, 9 similar but different. Precision 0.40 [0.25, 0.55]; 0.64 among findings whose match survives (25). The criteria for `duplicate` and `similar_not_duplicate` were fixed before reading; `moved_refactor` was added after reading the first 14 items. Every item whose match was removed was judged `moved_refactor` after looking at its code.
+- **PR size matters:** agent PRs add fewer new functions per PR, and the chance of a flag grows with the number of new functions, so the PR-level share is confounded by size; per-function rates and size buckets are reported.
+- **Caveats (also in the README):** agents are partly confounded with repository (Devin mostly crewAI, Claude Code mostly fastmcp and instructor); humans may use unlabelled AI; the detector's thresholds came from synthetic data; no human validation of the audit; compare with MSR 2026 only qualitatively.
+- **Not done:** more repositories, a stricter move filter (a function relocated with edits), a human audit.
 
 ## Open items
 - README must contain a "Who made what" disclosure (AI-drafted queries/labels/code vs. author's own work, plus human-LLM κ). Draft wording was agreed in chat on 2026-11-09; write it when the README is created (Phase 7). Human labels go in their own file under annotator "Aanand Rimal".

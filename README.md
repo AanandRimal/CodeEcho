@@ -18,7 +18,7 @@ As a full-stack engineer on SaaS products, I kept seeing developers, and increas
 | Search: BM25, dense retrieval (bge-small, CodeRankEmbed), RRF fusion, cross-encoder rerank | Implemented, evaluated (RQ1) |
 | Duplication review of a git diff (retrieval, then structural check, with side-by-side evidence) | Implemented, evaluated on synthetic and hand-written cases (RQ2) |
 | CLI: `index`, `search`, `review` | Implemented, tested |
-| Study of AI-agent vs human PRs on three real repos (RQ3) | Pipeline implemented; see the RQ3 section for whether results exist |
+| Study of AI-agent vs human PRs on three real repos (RQ3) | Implemented and run; results below |
 | Demo GIF | Planned, not recorded |
 | MCP server (`search_existing_functions`, `review_diff`) | Planned (stretch goal), not started |
 | CoIR CosQA comparison, human-vs-AI label agreement check | Dropped, not run (see `docs/DECISIONS.md` D26) |
@@ -162,6 +162,14 @@ Groups with too few PRs with new functions to analyse (under 10): Copilot, Curso
 _Generated from `results/` on 2026-11-10, commit `739ca17`._
 <!-- END:agents -->
 
+What this shows, and what it does not:
+
+- **No evidence that agent PRs duplicate existing code more than human PRs on these three repositories.** Pooled, the share of agent PRs with a flagged function is lower than for humans, but part of that is PR size: agent PRs add fewer new functions each, and the chance of a flag grows with the number of new functions. Within size buckets the two groups show no consistent difference, with small counts per bucket (`results/agents.json`, `by_size_bucket`).
+- **Per function, Claude Code's rate is higher than the human rate in the primary analysis, but the difference is not significant and the intervals are wide.** When findings whose matched function the same PR removed or moved are left out, the two rates are about equal. Devin's rate is significantly lower, from few and small PRs, mostly in one repository. OpenAI Codex has too few PRs for a conclusion. Copilot and Cursor are too small to analyse, and Google Jules has no merged PRs in these repositories.
+- **A large share of raw findings are refactors, not new copies.** The audit found that many flagged pairs are a function the PR itself relocated with edits; in the raw counts this affected Claude Code findings more than human ones. That is why the sensitivity analysis exists. It was added after reading the audit sample, so treat it as exploratory; the primary analysis is the one fixed beforehand.
+- **Precision on real code is modest.** About 4 in 10 sampled findings were real duplicates, about 6 in 10 among those whose match survives. Findings are candidates for a human, as the tool says. The audit was judged by an AI, not blind to group, and has only 40 items.
+- This result is not directly comparable with "More Code, Less Reuse" (MSR 2026), which used a different embedding, no structural check and a different PR sample.
+
 ## Limitations
 
 - **Labels and test data are AI-written.** The RQ1 queries and relevance labels, and the hand-written RQ2 pairs, were produced by Claude. There was no independent human check of the labels (the planned agreement check was dropped). The RQ1 candidate pool came from the same search settings that were evaluated, so recall may be slightly optimistic.
@@ -169,7 +177,7 @@ _Generated from `results/` on 2026-11-10, commit `739ca17`._
 - **Synthetic positives are easier than real duplicates.** Types 1 to 3 come from the same 30 test originals, so those rows are correlated. Thresholds were set on synthetic data.
 - **The structural score cannot see semantics.** Differing in one constant, operator or called function barely changes it, and a reimplementation written differently scores low.
 - **Move/rename filter** matches exact bodies only.
-- **RQ3.** Humans may use AI assistants without labelling it, and AIDev's agent labels have their own error. Agent and human PRs differ in size and kind. Only three repositories are covered, so most agents have few PRs and Google Jules and Copilot are essentially absent. Findings are candidates; precision on real code comes only from the audit in the RQ3 section.
+- **RQ3.** Humans may use AI assistants without labelling it, and AIDev's agent labels have their own error. Agent and human PRs differ in size and kind. Only three repositories are covered, so most agents have few PRs and Google Jules and Copilot are essentially absent. Findings are candidates; precision on real code comes only from the 40-item audit in the RQ3 section, which was AI-judged and not blind. The sensitivity analysis was added after inspecting that audit. Most agents' counts come from one or two repositories, so agent and repository are partly confounded (the permutation tests hold the repository mix fixed, but this cannot remove the effect). The human PRs are a seeded sample of at most 150 per repository.
 - Python only, function level only, CPU only.
 
 ## Related work
